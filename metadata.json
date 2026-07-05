@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Sandi Riady Portfolio CV",
+  "description": "An interactive and modern bilingual portfolio CV website for Sandi Riady (Management Information System / IT Infrastructure Support) with automated PDF resume download, instant search, and a messaging inbox simulator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
