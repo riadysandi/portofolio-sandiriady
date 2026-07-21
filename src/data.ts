@@ -3,9 +3,9 @@ import { Project, Skill, Experience, Education, Organization, Translation } from
 export const PERSONAL_INFO = {
   name: 'Sandi Riady',
   title: 'Management Information System',
-  profileImage: 'https://picsum.photos/seed/sandiriady/400/400', // backup placeholder
+  profileImage: new URL('../assets/sandiriady.jpg', import.meta.url).href, // user uploaded profile photo
   contacts: {
-    whatsapp: '085884926880',
+    whatsapp: '+6285884926880',
     email: 'riadysandi@gmail.com',
     instagram: '@sandiriady',
     twitter: '@sandi_riady',

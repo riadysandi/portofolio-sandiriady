@@ -2,12 +2,13 @@ version: '3.8'
 
 services:
   portfolio:
+    image: sandi-portfolio:latest
     build:
       context: .
       dockerfile: Dockerfile
     container_name: sandi-portfolio-app
     ports:
-      - "3000:3000"
+      - "3001:3000"
     restart: unless-stopped
     logging:
       driver: "json-file"

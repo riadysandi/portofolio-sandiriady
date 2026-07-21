@@ -26,13 +26,20 @@ export default function PrintableCV({ currentLang }: PrintableCVProps) {
             {/* Header / Brand */}
             <div className="mb-6 text-center">
               <div className="h-20 w-20 rounded-full flex items-center justify-center overflow-hidden mx-auto mb-3" style={{ backgroundColor: '#f1f5f9', border: '2px solid #cbd5e1' }}>
-                {/* SVG profile matching original style */}
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <circle cx="50" cy="50" r="50" fill="#f1f5f9" />
-                  <path d="M50 30c8.28 0 15 6.72 15 15s-6.72 15-15 15-15-6.72-15-15 6.72-15 15-15z" fill="#94a3b8" />
-                  <path d="M15 85c0-15 15-22 35-22s35 7 35 22H15z" fill="#64748b" />
-                  <path d="M35 40c3-5 8-8 15-8s12 3 15 8c0 0-5-10-15-10s-15 10-15 10z" fill="#1e293b" />
-                </svg>
+                {PERSONAL_INFO.profileImage ? (
+                  <img 
+                    src={PERSONAL_INFO.profileImage} 
+                    alt={PERSONAL_INFO.name} 
+                    className="w-full h-full object-cover" 
+                  />
+                ) : (
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <circle cx="50" cy="50" r="50" fill="#f1f5f9" />
+                    <path d="M50 30c8.28 0 15 6.72 15 15s-6.72 15-15 15-15-6.72-15-15 6.72-15 15-15z" fill="#94a3b8" />
+                    <path d="M15 85c0-15 15-22 35-22s35 7 35 22H15z" fill="#64748b" />
+                    <path d="M35 40c3-5 8-8 15-8s12 3 15 8c0 0-5-10-15-10s-15 10-15 10z" fill="#1e293b" />
+                  </svg>
+                )}
               </div>
               <h2 className="font-sans font-black text-xl leading-tight uppercase tracking-tight" style={{ color: '#0f172a' }}>
                 {PERSONAL_INFO.name}

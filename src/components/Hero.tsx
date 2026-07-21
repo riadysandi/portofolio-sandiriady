@@ -117,6 +117,7 @@ const PORTAL_STATES = [
 
 export default function Hero({ currentLang, translations, onScrollToContact }: HeroProps) {
   const [activePortalIndex, setActivePortalIndex] = useState(0);
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
 
   // Mouse Move Parallax coordinates for the central portal
   const mouseX = useMotionValue(0);
@@ -364,21 +365,29 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
             
             <div className="flex flex-col items-center text-center pt-2">
               {/* Profile Avatar with dynamic hover framing */}
-              <div className="relative mb-6 cursor-pointer">
+              <div className="relative mb-6 cursor-pointer" onClick={() => setIsAvatarModalOpen(true)}>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 blur-md opacity-25 group-hover:opacity-40 animate-pulse transition-opacity" />
                 <div className="h-32 w-32 rounded-full border-4 border-slate-800 bg-slate-950 flex items-center justify-center overflow-hidden relative shadow-inner group-hover:border-emerald-500/40 transition-all duration-300">
-                  <svg viewBox="0 0 100 100" className="w-full h-full text-slate-400 group-hover:scale-105 transition-transform duration-500">
-                    <defs>
-                      <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#064e3b" />
-                        <stop offset="100%" stopColor="#022c22" />
-                      </linearGradient>
-                    </defs>
-                    <circle cx="50" cy="50" r="50" fill="url(#avatarGrad)" />
-                    <path d="M50 30c8.28 0 15 6.72 15 15s-6.72 15-15 15-15-6.72-15-15 6.72-15 15-15z" fill="#94a3b8" />
-                    <path d="M15 85c0-15 15-22 35-22s35 7 35 22H15z" fill="#64748b" />
-                    <path d="M35 40c3-5 8-8 15-8s12 3 15 8c0 0-5-10-15-10s-15 10-15 10z" fill="#0f172a" />
-                  </svg>
+                  {PERSONAL_INFO.profileImage ? (
+                    <img 
+                      src={PERSONAL_INFO.profileImage} 
+                      alt={PERSONAL_INFO.name} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    />
+                  ) : (
+                    <svg viewBox="0 0 100 100" className="w-full h-full text-slate-400 group-hover:scale-105 transition-transform duration-500">
+                      <defs>
+                        <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#064e3b" />
+                          <stop offset="100%" stopColor="#022c22" />
+                        </linearGradient>
+                      </defs>
+                      <circle cx="50" cy="50" r="50" fill="url(#avatarGrad)" />
+                      <path d="M50 30c8.28 0 15 6.72 15 15s-6.72 15-15 15-15-6.72-15-15 6.72-15 15-15z" fill="#94a3b8" />
+                      <path d="M15 85c0-15 15-22 35-22s35 7 35 22H15z" fill="#64748b" />
+                      <path d="M35 40c3-5 8-8 15-8s12 3 15 8c0 0-5-10-15-10s-15 10-15 10z" fill="#0f172a" />
+                    </svg>
+                  )}
                   {/* Glowing live indicator node */}
                   <span className="absolute bottom-1 right-2 h-3.5 w-3.5 rounded-full bg-emerald-400 border-2 border-slate-900 flex items-center justify-center animate-ping" />
                   <span className="absolute bottom-1 right-2 h-3.5 w-3.5 rounded-full bg-emerald-400 border-2 border-slate-900" />
@@ -586,6 +595,31 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
           </div>
         </motion.div>
       </div>
+      
+      {/* Profile Avatar Modal */}
+      {isAvatarModalOpen && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 cursor-zoom-out"
+          onClick={() => setIsAvatarModalOpen(false)}
+        >
+          <div className="relative max-w-xl max-h-[85vh] overflow-hidden rounded-3xl border-2 border-slate-800 bg-slate-950 p-2 shadow-2xl animate-in fade-in zoom-in duration-300">
+            {PERSONAL_INFO.profileImage && (
+              <img 
+                src={PERSONAL_INFO.profileImage} 
+                alt={PERSONAL_INFO.name} 
+                className="w-full h-auto max-h-[80vh] rounded-2xl object-contain"
+              />
+            )}
+            {/* Close button */}
+            <button 
+              onClick={() => setIsAvatarModalOpen(false)}
+              className="absolute top-4 right-4 h-9 w-9 rounded-full bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center cursor-pointer transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
 
     </section>
   );
