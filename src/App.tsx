@@ -122,9 +122,9 @@ export default function App() {
       
       {/* Dynamic Cursor Light Source (Interactive Hover Glow Background) */}
       <div 
-        className="pointer-events-none fixed inset-0 z-0 opacity-40 transition-opacity duration-300 hidden md:block"
+        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300 hidden md:block"
         style={{
-          background: `radial-gradient(750px at ${mousePos.x}px ${mousePos.y}px, rgba(16, 185, 129, 0.05), transparent 80%)`
+          background: `radial-gradient(800px at ${mousePos.x}px ${mousePos.y}px, rgba(16, 185, 129, 0.15), transparent 80%)`
         }}
       />
 
