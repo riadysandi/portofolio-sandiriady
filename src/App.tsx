@@ -14,6 +14,7 @@ import AdminDashboard from './components/AdminDashboard';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Sparkles, Heart, Mail, ExternalLink, Copyright, Terminal } from 'lucide-react';
+import { trackPageView } from './lib/analytics';
 
 export default function App() {
   const [currentLang, setCurrentLang] = useState<Language>('id');
@@ -22,9 +23,16 @@ export default function App() {
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const [route, setRoute] = useState(window.location.hash);
 
-  // Hash-based routing
+  // Hash-based routing & tracking
   useEffect(() => {
-    const onHashChange = () => setRoute(window.location.hash);
+    const onHashChange = () => {
+      setRoute(window.location.hash);
+      trackPageView();
+    };
+    
+    // Track initial load
+    trackPageView();
+    
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);

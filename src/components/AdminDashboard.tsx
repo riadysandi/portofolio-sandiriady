@@ -2,10 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   LayoutDashboard, User, Wrench, Briefcase, GraduationCap, Building2,
   FolderOpen, MessageSquare, Save, LogOut, ArrowLeft, Plus, Trash2,
-  ChevronRight, Check, AlertCircle, Menu, X, Loader2
+  ChevronRight, Check, AlertCircle, Menu, X, Loader2, Users, Activity, Globe, MousePointerClick
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
+import { fetchAnalytics, AnalyticsData } from '../lib/analytics';
 
 // ─── Types ───────────────────────────────────────────────────
 interface PersonalInfo {
@@ -85,6 +86,7 @@ export default function AdminDashboard() {
   const [personality, setPersonality] = useState<{ en: string[]; id: string[] }>({ en: [], id: [] });
   const [hobbies, setHobbies] = useState<{ en: { name: string; icon: string }[]; id: { name: string; icon: string }[] }>({ en: [], id: [] });
   const [languages, setLanguages] = useState<{ en: { name: string; level: string }[]; id: { name: string; level: string }[] }>({ en: [], id: [] });
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
 
   // UI states
   const [dataLoading, setDataLoading] = useState(true);
@@ -106,9 +108,10 @@ export default function AdminDashboard() {
   // Fetch data
   const fetchData = useCallback(async () => {
     setDataLoading(true);
-    const [siteRes, msgRes] = await Promise.all([
+    const [siteRes, msgRes, analyticsData] = await Promise.all([
       supabase.from('site_data').select('*').eq('id', 'main').single(),
       supabase.from('contact_messages').select('*').order('created_at', { ascending: false }),
+      fetchAnalytics()
     ]);
     if (siteRes.data) {
       const d = siteRes.data;
@@ -123,6 +126,7 @@ export default function AdminDashboard() {
       setLanguages(d.languages as { en: { name: string; level: string }[]; id: { name: string; level: string }[] });
     }
     if (msgRes.data) setMessages(msgRes.data as ContactMsg[]);
+    setAnalytics(analyticsData);
     setDataLoading(false);
     setHasChanges(false);
   }, []);
@@ -168,14 +172,67 @@ export default function AdminDashboard() {
 
   // ── Tab Renderers ────────────────────────────────────────────
   const renderOverview = () => (
-    <div>
-      <h2 className="text-xl font-black text-slate-100 mb-6">Dashboard Overview</h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <StatCard label="Skills" value={skills.length} icon={Wrench} />
-        <StatCard label="Experience" value={experiences.length} icon={Briefcase} />
-        <StatCard label="Projects" value={projects.length} icon={FolderOpen} />
-        <StatCard label="Messages" value={messages.length} icon={MessageSquare} />
+    <div className="space-y-8">
+      <div>
+        <h2 className="text-xl font-black text-slate-100 mb-6 flex items-center gap-2"><LayoutDashboard className="h-5 w-5 text-emerald-500" /> Portfolio Content</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <StatCard label="Skills" value={skills.length} icon={Wrench} />
+          <StatCard label="Experience" value={experiences.length} icon={Briefcase} />
+          <StatCard label="Projects" value={projects.length} icon={FolderOpen} />
+          <StatCard label="Messages" value={messages.length} icon={MessageSquare} />
+        </div>
       </div>
+
+      {analytics && (
+        <div>
+          <h2 className="text-xl font-black text-slate-100 mb-6 flex items-center gap-2"><Activity className="h-5 w-5 text-emerald-500" /> Web Analytics</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <StatCard label="Total Views" value={analytics.totalViews} icon={Globe} />
+            <StatCard label="Unique Visitors" value={analytics.uniqueVisitors} icon={Users} />
+            <StatCard label="Views Today" value={analytics.viewsToday} icon={Activity} />
+            <StatCard label="Views This Month" value={analytics.viewsThisMonth} icon={MousePointerClick} />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Top Referrers */}
+            <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+              <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider mb-4">Top Sources (Referrers)</h3>
+              {analytics.topReferrers.length === 0 ? (
+                <p className="text-slate-500 text-sm">No referrer data yet.</p>
+              ) : (
+                <div className="space-y-3">
+                  {analytics.topReferrers.map((ref, idx) => (
+                    <div key={idx} className="flex justify-between items-center bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
+                      <span className="text-sm text-slate-300 font-medium truncate pr-4">{ref.referrer}</span>
+                      <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-md">{ref.count} views</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Recent Activity */}
+            <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+              <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-wider mb-4">Recent Visits</h3>
+              {analytics.recentVisitors.length === 0 ? (
+                <p className="text-slate-500 text-sm">No recent visits.</p>
+              ) : (
+                <div className="space-y-3">
+                  {analytics.recentVisitors.slice(0, 5).map((visit, idx) => (
+                    <div key={idx} className="flex flex-col bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-xs text-slate-300 font-mono truncate max-w-[150px]">{visit.visitor_id}</span>
+                        <span className="text-[10px] text-slate-500">{new Date(visit.created_at).toLocaleString('id-ID')}</span>
+                      </div>
+                      <span className="text-xs text-emerald-400 font-medium truncate">{visit.path}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 
