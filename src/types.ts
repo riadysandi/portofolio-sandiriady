@@ -10,6 +10,14 @@ export interface Project {
   icon: string;
 }
 
+export interface LiveSite {
+  id: string;
+  name: string;
+  url: string;
+  description: { en: string; id: string };
+  status: 'active' | 'maintenance' | 'development';
+}
+
 export interface Skill {
   name: string;
   category: 'core' | 'automation' | 'infra' | 'tools';
@@ -51,11 +59,13 @@ export interface Translation {
   navSkills: string;
   navExperience: string;
   navProjects: string;
+  navLiveSites: string;
   navContact: string;
   aboutTitle: string;
   skillsTitle: string;
   experienceTitle: string;
   projectsTitle: string;
+  liveSitesTitle: string;
   contactTitle: string;
   downloadButton: string;
   downloading: string;
@@ -75,6 +85,7 @@ export interface Translation {
   contactSubtitle: string;
   experienceSubtitle: string;
   projectsSubtitle: string;
+  liveSitesSubtitle: string;
   messageHistory: string;
   noMessages: string;
   noResults: string;

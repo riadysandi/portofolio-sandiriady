@@ -1,4 +1,4 @@
-import { Project, Skill, Experience, Education, Organization, Translation } from './types';
+import { Project, Skill, Experience, Education, Organization, Translation, LiveSite } from './types';
 
 export const PERSONAL_INFO = {
   name: 'Sandi Riady',
@@ -23,11 +23,13 @@ export const TRANSLATIONS: Record<'en' | 'id', Translation> = {
     navSkills: 'Skills',
     navExperience: 'Experience',
     navProjects: 'Projects',
+    navLiveSites: 'Live Sites',
     navContact: 'Contact',
     aboutTitle: 'About Me',
     skillsTitle: 'Core Capabilities',
     experienceTitle: 'Professional Experience',
     projectsTitle: 'Featured Projects',
+    liveSitesTitle: 'Live Web Projects',
     contactTitle: 'Get in Touch',
     downloadButton: 'Download CV PDF',
     downloading: 'Generating PDF...',
@@ -47,6 +49,7 @@ export const TRANSLATIONS: Record<'en' | 'id', Translation> = {
     contactSubtitle: 'Have a project or job opportunity? Send me a direct message or connect on social media.',
     experienceSubtitle: 'Chronology of my professional career, technical operations, and achievements.',
     projectsSubtitle: 'Implementation gallery showcasing technical workflows, scripts, and automation engines.',
+    liveSitesSubtitle: 'Active domains and web applications currently running in production.',
     messageHistory: 'Message Inbox (Simulation)',
     noMessages: 'No messages sent yet. Use the contact form to write something!',
     noResults: 'No results found matching your search query.',
@@ -56,11 +59,13 @@ export const TRANSLATIONS: Record<'en' | 'id', Translation> = {
     navSkills: 'Keahlian',
     navExperience: 'Pengalaman',
     navProjects: 'Proyek',
+    navLiveSites: 'Web Aktif',
     navContact: 'Kontak',
     aboutTitle: 'Tentang Saya',
     skillsTitle: 'Keahlian Utama',
     experienceTitle: 'Pengalaman Profesional',
     projectsTitle: 'Galeri Proyek',
+    liveSitesTitle: 'Proyek Web Aktif',
     contactTitle: 'Hubungi Saya',
     downloadButton: 'Unduh CV PDF',
     downloading: 'Membuat PDF...',
@@ -80,6 +85,7 @@ export const TRANSLATIONS: Record<'en' | 'id', Translation> = {
     contactSubtitle: 'Punya proyek atau peluang kerja? Kirim pesan langsung atau hubungi via media sosial.',
     experienceSubtitle: 'Kronologi perjalanan karier profesional, operasional teknis, dan pencapaian saya.',
     projectsSubtitle: 'Galeri implementasi yang menampilkan alur kerja teknis, skrip, dan sistem otomatisasi.',
+    liveSitesSubtitle: 'Domain aktif dan aplikasi web yang saat ini berjalan di tahap produksi.',
     messageHistory: 'Kotak Masuk Pesan (Simulasi)',
     noMessages: 'Belum ada pesan yang dikirim. Gunakan formulir di atas untuk menulis sesuatu!',
     noResults: 'Tidak ada hasil yang cocok dengan pencarian Anda.',
@@ -281,3 +287,16 @@ export const LANGUAGES: Record<'en' | 'id', { name: string; level: string }[]> =
     { name: 'Inggris', level: 'Konversasional / Pasif' },
   ],
 };
+
+export const LIVE_SITES: LiveSite[] = [
+  {
+    id: 'site1',
+    name: 'Portfolio Sandbox',
+    url: 'https://riadysandi.github.io/portofolio-sandiriady/',
+    description: {
+      en: 'My personal portfolio and sandbox environment for experimenting with React, Vite, and modern web technologies.',
+      id: 'Portofolio pribadi dan lingkungan sandbox saya untuk bereksperimen dengan React, Vite, dan teknologi web modern.'
+    },
+    status: 'active'
+  }
+];

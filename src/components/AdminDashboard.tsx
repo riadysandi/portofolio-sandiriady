@@ -19,9 +19,10 @@ interface ExpItem { id: string; period: string; title: { en: string; id: string 
 interface EduItem { id: string; period: string; field: { en: string; id: string }; institution: string }
 interface OrgItem { id: string; period: string; role: { en: string; id: string }; organization: string }
 interface ProjItem { id: string; title: { en: string; id: string }; description: { en: string; id: string }; tags: string[]; icon: string }
+interface LiveSiteItem { id: string; name: string; url: string; description: { en: string; id: string }; status: 'active' | 'maintenance' | 'development' }
 interface ContactMsg { id: string; name: string; email: string; message: string; created_at: string }
 
-type TabKey = 'overview' | 'personal' | 'skills' | 'experience' | 'education' | 'organizations' | 'projects' | 'messages';
+type TabKey = 'overview' | 'personal' | 'skills' | 'experience' | 'education' | 'organizations' | 'projects' | 'liveSites' | 'messages';
 
 const TABS: { key: TabKey; label: string; icon: React.ElementType }[] = [
   { key: 'overview', label: 'Overview', icon: LayoutDashboard },
@@ -31,6 +32,7 @@ const TABS: { key: TabKey; label: string; icon: React.ElementType }[] = [
   { key: 'education', label: 'Education', icon: GraduationCap },
   { key: 'organizations', label: 'Organizations', icon: Building2 },
   { key: 'projects', label: 'Projects', icon: FolderOpen },
+  { key: 'liveSites', label: 'Live Sites', icon: Globe },
   { key: 'messages', label: 'Messages', icon: MessageSquare },
 ];
 
@@ -82,6 +84,7 @@ export default function AdminDashboard() {
   const [education, setEducation] = useState<EduItem[]>([]);
   const [organizations, setOrganizations] = useState<OrgItem[]>([]);
   const [projects, setProjects] = useState<ProjItem[]>([]);
+  const [liveProjects, setLiveProjects] = useState<LiveSiteItem[]>([]);
   const [messages, setMessages] = useState<ContactMsg[]>([]);
   const [personality, setPersonality] = useState<{ en: string[]; id: string[] }>({ en: [], id: [] });
   const [hobbies, setHobbies] = useState<{ en: { name: string; icon: string }[]; id: { name: string; icon: string }[] }>({ en: [], id: [] });
@@ -121,6 +124,7 @@ export default function AdminDashboard() {
       setEducation(d.education as EduItem[]);
       setOrganizations(d.organizations as OrgItem[]);
       setProjects(d.projects as ProjItem[]);
+      setLiveProjects(d.live_projects || []);
       setPersonality(d.personality as { en: string[]; id: string[] });
       setHobbies(d.hobbies as { en: { name: string; icon: string }[]; id: { name: string; icon: string }[] });
       setLanguages(d.languages as { en: { name: string; level: string }[]; id: { name: string; level: string }[] });
@@ -146,6 +150,7 @@ export default function AdminDashboard() {
       education,
       organizations,
       projects,
+      live_projects: liveProjects,
       personality,
       hobbies,
       languages,
@@ -235,6 +240,50 @@ export default function AdminDashboard() {
       )}
     </div>
   );
+
+  const renderLiveSites = () => {
+    const addSite = () => { setLiveProjects(prev => [...prev, { id: `site${Date.now()}`, name: '', url: '', description: { en: '', id: '' }, status: 'active' }]); markChanged(); };
+    const updateSite = (i: number, fn: (s: LiveSiteItem) => LiveSiteItem) => { setLiveProjects(prev => prev.map((s, idx) => idx === i ? fn(s) : s)); markChanged(); };
+    const removeSite = (i: number) => { setLiveProjects(prev => prev.filter((_, idx) => idx !== i)); markChanged(); };
+    
+    return (
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-black text-slate-100">Live Web Projects ({liveProjects.length})</h2>
+          <button onClick={addSite} className="flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors cursor-pointer">
+            <Plus className="h-3.5 w-3.5" /> Tambah
+          </button>
+        </div>
+        <div className="space-y-4">
+          {liveProjects.map((site, i) => (
+            <div key={site.id} className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 space-y-4">
+              <div className="flex justify-between items-start">
+                <h3 className="text-sm font-bold text-emerald-400">{site.name || 'New Live Site'}</h3>
+                <button onClick={() => removeSite(i)} className="text-red-400 hover:text-red-300 cursor-pointer"><Trash2 className="h-4 w-4" /></button>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <Input label="Name" value={site.name} onChange={v => updateSite(i, s => ({ ...s, name: v }))} />
+                <Input label="URL" value={site.url} onChange={v => updateSite(i, s => ({ ...s, url: v }))} placeholder="https://..." />
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Status</label>
+                  <select value={site.status} onChange={e => updateSite(i, s => ({ ...s, status: e.target.value as any }))}
+                    className="w-full bg-slate-800 border border-slate-700 text-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 cursor-pointer">
+                    <option value="active">Active</option>
+                    <option value="maintenance">Maintenance</option>
+                    <option value="development">Development</option>
+                  </select>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <TextArea label="Description (EN)" value={site.description.en} onChange={v => updateSite(i, s => ({ ...s, description: { ...s.description, en: v } }))} />
+                <TextArea label="Description (ID)" value={site.description.id} onChange={v => updateSite(i, s => ({ ...s, description: { ...s.description, id: v } }))} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   const renderPersonalInfo = () => {
     if (!personalInfo) return null;
@@ -516,6 +565,7 @@ export default function AdminDashboard() {
       case 'education': return renderEducation();
       case 'organizations': return renderOrganizations();
       case 'projects': return renderProjects();
+      case 'liveSites': return renderLiveSites();
       case 'messages': return renderMessages();
     }
   };

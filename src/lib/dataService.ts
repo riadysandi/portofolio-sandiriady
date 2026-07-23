@@ -1,4 +1,4 @@
-import { supabase } from './lib/supabase';
+import { supabase } from './supabase';
 
 // Types matching the JSONB structure in Supabase
 interface SiteData {
@@ -46,6 +46,13 @@ interface SiteData {
   personality: { en: string[]; id: string[] };
   hobbies: { en: { name: string; icon: string }[]; id: { name: string; icon: string }[] };
   languages: { en: { name: string; level: string }[]; id: { name: string; level: string }[] };
+  live_projects?: {
+    id: string;
+    name: string;
+    url: string;
+    description: { en: string; id: string };
+    status: 'active' | 'maintenance' | 'development';
+  }[];
 }
 
 // Fetch all site data from Supabase

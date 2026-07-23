@@ -30,6 +30,7 @@ export default function Navbar({
     { id: 'skills', label: translations.navSkills },
     { id: 'experience', label: translations.navExperience },
     { id: 'projects', label: translations.navProjects },
+    { id: 'live-sites', label: translations.navLiveSites },
     { id: 'contact', label: translations.navContact },
   ];
 

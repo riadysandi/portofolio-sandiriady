@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { TRANSLATIONS } from './data';
-import { Language } from './types';
+import { TRANSLATIONS, LIVE_SITES } from './data';
+import { Language, LiveSite } from './types';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import SkillsGrid from './components/SkillsGrid';
 import EducationExperience from './components/EducationExperience';
 import ProjectsGallery from './components/ProjectsGallery';
+import LiveProjects from './components/LiveProjects';
 import ContactForm from './components/ContactForm';
 import PrintableCV from './components/PrintableCV';
 import Login from './components/Login';
@@ -15,6 +16,7 @@ import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Sparkles, Heart, Mail, ExternalLink, Copyright, Terminal } from 'lucide-react';
 import { trackPageView } from './lib/analytics';
+import { fetchSiteData } from './lib/dataService';
 
 export default function App() {
   const [currentLang, setCurrentLang] = useState<Language>('id');
@@ -22,6 +24,16 @@ export default function App() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const [route, setRoute] = useState(window.location.hash);
+  const [liveProjectsData, setLiveProjectsData] = useState<LiveSite[]>(LIVE_SITES);
+
+  // Fetch dynamic live projects from Supabase
+  useEffect(() => {
+    fetchSiteData().then(data => {
+      if (data && data.live_projects && data.live_projects.length > 0) {
+        setLiveProjectsData(data.live_projects as LiveSite[]);
+      }
+    });
+  }, []);
 
   // Hash-based routing & tracking
   useEffect(() => {
@@ -158,6 +170,13 @@ export default function App() {
           searchQuery={searchQuery}
         />
 
+        {/* Live Web Projects Section */}
+        <LiveProjects
+          currentLang={currentLang}
+          translations={translations}
+          liveProjects={liveProjectsData}
+        />
+
         {/* Contact Input Form & Live Inbox Database */}
         <ContactForm
           currentLang={currentLang}
@@ -191,6 +210,9 @@ export default function App() {
             </button>
             <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer font-display py-1.5 leading-relaxed">
               {translations.navProjects}
+            </button>
+            <button onClick={() => document.getElementById('live-sites')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer font-display py-1.5 leading-relaxed">
+              {translations.navLiveSites}
             </button>
           </div>
 
