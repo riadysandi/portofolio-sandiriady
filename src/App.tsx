@@ -9,15 +9,25 @@ import EducationExperience from './components/EducationExperience';
 import ProjectsGallery from './components/ProjectsGallery';
 import ContactForm from './components/ContactForm';
 import PrintableCV from './components/PrintableCV';
+import Login from './components/Login';
+import AdminDashboard from './components/AdminDashboard';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Sparkles, Heart, Mail, ExternalLink, Copyright, Terminal } from 'lucide-react';
 
 export default function App() {
-  const [currentLang, setCurrentLang] = useState<Language>('id'); // Default to Indonesian based on user query
+  const [currentLang, setCurrentLang] = useState<Language>('id');
   const [searchQuery, setSearchQuery] = useState('');
   const [isDownloading, setIsDownloading] = useState(false);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const [route, setRoute] = useState(window.location.hash);
+
+  // Hash-based routing
+  useEffect(() => {
+    const onHashChange = () => setRoute(window.location.hash);
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -26,6 +36,10 @@ export default function App() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Route to Login or Admin pages
+  if (route === '#/login') return <Login />;
+  if (route === '#/admin') return <AdminDashboard />;
 
   const translations = TRANSLATIONS[currentLang];
 
