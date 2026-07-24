@@ -105,7 +105,8 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0.2, ease: 'easeOut' }}
-              className="absolute left-[2%] md:left-[5%] lg:left-[8%] top-[30%] md:top-[35%] lg:top-[40%] z-25 pointer-events-none"
+              whileHover={{ x: -30, scale: 1.05, transition: { type: 'spring', stiffness: 400, damping: 15 } }}
+              className="absolute left-[2%] md:left-[5%] lg:left-[8%] top-[30%] md:top-[35%] lg:top-[40%] z-25 cursor-default"
             >
               <h2 className="font-serif text-4xl md:text-[5.5rem] font-bold text-white tracking-tighter leading-none uppercase">
                 SYSTEMS<span className="text-emerald-400 font-light italic">.</span>
@@ -134,7 +135,8 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
-              className="absolute -right-[3%] md:-right-[1%] lg:right-[0%] bottom-[25%] md:bottom-[28%] lg:bottom-[32%] z-25 pointer-events-none"
+              whileHover={{ x: 30, scale: 1.05, transition: { type: 'spring', stiffness: 400, damping: 15 } }}
+              className="absolute -right-[5%] md:-right-[3%] lg:-right-[2%] bottom-[22%] md:bottom-[25%] lg:bottom-[28%] z-25 cursor-default"
             >
               <h2 className="font-serif text-4xl md:text-[5.5rem] font-bold text-white tracking-tighter leading-none uppercase">
                 &amp; <span className="font-light italic text-emerald-400 font-serif lowercase">auto</span>MATION
