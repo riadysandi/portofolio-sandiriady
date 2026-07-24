@@ -12,6 +12,7 @@ import ContactForm from './components/ContactForm';
 import PrintableCV from './components/PrintableCV';
 import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
+import MatrixBackground from './components/MatrixBackground';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Sparkles, Heart, Mail, ExternalLink, Copyright, Terminal } from 'lucide-react';
@@ -120,6 +121,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#050505] text-slate-100 flex flex-col font-sans overflow-x-hidden selection:bg-emerald-500 selection:text-slate-950 relative">
       
+      {/* Matrix Coding Background */}
+      <MatrixBackground />
+
       {/* Dynamic Cursor Light Source (Interactive Hover Glow Background) */}
       <div 
         className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300 hidden md:block"

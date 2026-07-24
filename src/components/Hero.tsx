@@ -11,113 +11,7 @@ interface HeroProps {
   onScrollToContact: () => void;
 }
 
-// Interactive states for the central circular portal
-const PORTAL_STATES = [
-  {
-    id: 'terminal',
-    label: 'LINUX_KERNEL',
-    tag: 'OS Core',
-    color: 'from-emerald-500/20 to-teal-500/5',
-    icon: <Terminal className="h-5 w-5 text-emerald-400" />,
-    render: () => (
-      <div className="absolute inset-0 bg-[#020202] flex flex-col justify-between p-6 font-mono text-[8px] text-emerald-500/80 leading-tight select-none">
-        <div className="space-y-1">
-          <div className="text-emerald-400 font-bold">[ OK ] Reached target Multi-User System.</div>
-          <div>[  OK  ] Started System Logging Service.</div>
-          <div className="text-slate-500">Jul 04 11:36:04 sandi-infra systemd[1]: Starting Zimbra mail core...</div>
-          <div className="text-teal-400">&gt; docker-compose up -d --build</div>
-          <div>Creating network "sandi_default" with driver "bridge"</div>
-          <div>Creating volume "glpi_data" with default driver</div>
-          <div className="text-emerald-400/50">[OK] glpi-mysql_1   | ready for connections. Version: '8.0.32'</div>
-          <div className="text-emerald-400">[OK] n8n-automation_1 | Workflow engine started. Port 5678</div>
-        </div>
-        <div className="flex justify-between items-center border-t border-emerald-500/20 pt-2 text-[7px]">
-          <span>LOAD_AVG: 0.15, 0.08, 0.03</span>
-          <span className="animate-pulse">● SERVICE_RUNNING</span>
-        </div>
-      </div>
-    ),
-  },
-  {
-    id: 'network',
-    label: 'NETWORK_MESH',
-    tag: 'Infra Layer',
-    color: 'from-blue-500/20 to-emerald-500/5',
-    icon: <Network className="h-5 w-5 text-emerald-400" />,
-    render: () => (
-      <div className="absolute inset-0 bg-[#020202] flex items-center justify-center p-6 overflow-hidden select-none">
-        <svg viewBox="0 0 200 200" className="w-full h-full opacity-65">
-          <defs>
-            <radialGradient id="meshGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#10b981" stopOpacity="0.15" />
-              <stop offset="100%" stopColor="#022c22" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <circle cx="100" cy="100" r="80" fill="url(#meshGlow)" />
-          {/* Animated network lines */}
-          <g className="stroke-emerald-500/30" strokeWidth="1" strokeDasharray="2,2">
-            <line x1="50" y1="50" x2="100" y2="100" />
-            <line x1="150" y1="50" x2="100" y2="100" />
-            <line x1="150" y1="150" x2="100" y2="100" />
-            <line x1="50" y1="150" x2="100" y2="100" />
-            <line x1="50" y1="50" x2="150" y2="50" />
-            <line x1="150" y1="50" x2="150" y2="150" />
-            <line x1="150" y1="150" x2="50" y2="150" />
-            <line x1="50" y1="150" x2="50" y2="50" />
-          </g>
-          {/* Pulsing Nodes */}
-          <circle cx="100" cy="100" r="5" fill="#34d399" className="animate-ping" style={{ transformOrigin: 'center' }} />
-          <circle cx="100" cy="100" r="3" fill="#34d399" />
-          <circle cx="50" cy="50" r="3.5" fill="#059669" />
-          <circle cx="150" cy="50" r="3.5" fill="#059669" />
-          <circle cx="150" cy="150" r="3.5" fill="#059669" />
-          <circle cx="50" cy="150" r="3.5" fill="#059669" />
-          <text x="100" y="120" fill="#34d399" fontSize="6" fontFamily="monospace" textAnchor="middle" className="font-bold">GATEWAY: 10.0.0.1</text>
-        </svg>
-      </div>
-    ),
-  },
-  {
-    id: 'erpnext',
-    label: 'FRAPPE_METRICS',
-    tag: 'MIS Core',
-    color: 'from-amber-500/20 to-teal-500/5',
-    icon: <Cpu className="h-5 w-5 text-emerald-400" />,
-    render: () => (
-      <div className="absolute inset-0 bg-[#020202] flex flex-col justify-between p-6 font-mono text-[8px] text-amber-500/80 leading-relaxed select-none">
-        <div className="flex justify-between items-center border-b border-amber-500/20 pb-1.5">
-          <span className="font-bold text-amber-400">FRAPPE_BENCH_SYS</span>
-          <span className="px-1 py-0.5 bg-amber-500/10 rounded text-[6px]">v15.2.0</span>
-        </div>
-        <div className="space-y-1 my-auto">
-          <div className="flex justify-between">
-            <span>[DB_SYNC] PostgreSQL connection:</span>
-            <span className="text-emerald-400 font-bold">ESTABLISHED</span>
-          </div>
-          <div className="flex justify-between">
-            <span>[REDIS_CACHE] Socket active:</span>
-            <span className="text-emerald-400">ACTIVE</span>
-          </div>
-          <div className="flex justify-between">
-            <span>[WORKERS] Background jobs queued:</span>
-            <span className="text-amber-400">0</span>
-          </div>
-          <div className="flex justify-between">
-            <span>[SESSIONS] Active logins:</span>
-            <span className="text-amber-400 font-bold">42</span>
-          </div>
-        </div>
-        <div className="space-y-1 border-t border-amber-500/20 pt-1.5 text-[7px] text-slate-500">
-          <div>ERPNext Assets Monitored: <span className="text-slate-300 font-bold">142 Items</span></div>
-          <div>Multi-level Approval States: <span className="text-emerald-500 font-bold">OK</span></div>
-        </div>
-      </div>
-    ),
-  },
-];
-
 export default function Hero({ currentLang, translations, onScrollToContact }: HeroProps) {
-  const [activePortalIndex, setActivePortalIndex] = useState(0);
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
 
   // Mouse Move Parallax coordinates for the central portal
@@ -134,14 +28,6 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
   const rotateY = useTransform(portalX, [-300, 300], [-12, 12]);
   const imageShiftX = useTransform(portalX, [-300, 300], [-20, 20]);
   const imageShiftY = useTransform(portalY, [-300, 300], [-20, 20]);
-
-  // Track auto-rotation of visual states
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActivePortalIndex((prev) => (prev + 1) % PORTAL_STATES.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -226,51 +112,6 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
               </h2>
             </motion.div>
 
-            {/* Central Circular Interactive Visual Portal */}
-            <motion.div
-              style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-              className="relative h-64 w-64 md:h-96 md:w-96 rounded-full border border-slate-800 bg-[#060606] shadow-2xl overflow-hidden group/portal cursor-pointer z-20 flex items-center justify-center"
-              onClick={() => setActivePortalIndex((prev) => (prev + 1) % PORTAL_STATES.length)}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            >
-              {/* Subtle glass reflection cover */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 pointer-events-none z-20" />
-              
-              {/* Thin glowing inner border ring */}
-              <div className="absolute inset-0.5 rounded-full border border-slate-800/80 pointer-events-none z-25" />
-
-              {/* Dynamic Slideshow Viewport */}
-              <motion.div 
-                style={{ x: imageShiftX, y: imageShiftY }}
-                className="absolute inset-[-40px] rounded-full flex items-center justify-center"
-              >
-                {PORTAL_STATES.map((state, idx) => (
-                  <motion.div
-                    key={state.id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: idx === activePortalIndex ? 1 : 0 }}
-                    transition={{ duration: 0.8, ease: 'easeInOut' }}
-                    className="absolute inset-0 flex items-center justify-center rounded-full overflow-hidden"
-                  >
-                    {/* Glowing background gradient behind state render */}
-                    <div className={`absolute inset-0 bg-gradient-to-b ${state.color} z-0 opacity-40`} />
-                    
-                    {/* Specific structural rendering of the interactive status logs/networks */}
-                    <div className="relative w-full h-full z-10">
-                      {state.render()}
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              {/* Hover Trigger Cue (appears beautifully on hover inside circle) */}
-              <div className="absolute bottom-6 md:bottom-8 z-30 opacity-0 group-hover/portal:opacity-100 transition-all duration-300 scale-95 group-hover/portal:scale-100 bg-[#090909]/90 border border-slate-800 text-[9px] font-mono font-bold text-emerald-400 px-3 py-1.5 rounded-full uppercase tracking-widest flex items-center gap-1.5 shadow-lg">
-                <Sparkles className="h-3 w-3 animate-pulse" />
-                <span>SWITCH_LAYER</span>
-              </div>
-            </motion.div>
-
             {/* The Floating Hero Figure */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -284,7 +125,7 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
               <img 
                 src={heroFigure} 
                 alt="Sandi Riady Figure" 
-                className="h-[380px] md:h-[550px] object-contain drop-shadow-[0_20px_25px_rgba(16,185,129,0.25)]" 
+                className="h-[450px] md:h-[650px] object-contain drop-shadow-[0_20px_25px_rgba(16,185,129,0.25)]" 
               />
             </motion.div>
 
@@ -299,18 +140,11 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
                 &amp; <span className="font-light italic text-emerald-400 font-serif lowercase">auto</span>MATION
               </h2>
             </motion.div>
-
-            {/* Aesthetic coordinate tag or badge floating */}
-            <div className="absolute right-[12%] top-[-10px] md:top-[10px] font-mono text-[8px] md:text-[10px] text-slate-600 font-bold z-10 flex items-center gap-2 select-none uppercase tracking-widest">
-              <span>PORTAL: LAYER_{PORTAL_STATES[activePortalIndex].label}</span>
-              <span className="text-emerald-500">{PORTAL_STATES[activePortalIndex].tag}</span>
-            </div>
-
           </div>
         </div>
 
         {/* Minimalist Bottom Row: Scroll down and subtle details */}
-        <div className="w-full grid grid-cols-3 items-center z-10 px-2 md:px-6">
+        <div className="w-full flex justify-between items-center z-10 px-2 md:px-6">
           {/* Scroll Down Vertical Indicator */}
           <div className="flex justify-start">
             <button
@@ -330,23 +164,9 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
           </div>
 
           {/* Slogan */}
-          <div className="text-center">
+          <div className="text-right">
             <span className="font-mono text-[9px] font-bold text-slate-500 tracking-widest uppercase block mb-1">MIS &amp; IT OPERATIONAL ARCHITECT</span>
             <span className="font-serif italic text-xs text-emerald-400/80 tracking-wide font-light">"Automating chaos into structured harmony."</span>
-          </div>
-
-          {/* Interactive layer controller helper dots */}
-          <div className="flex justify-end gap-1.5">
-            {PORTAL_STATES.map((state, idx) => (
-              <button
-                key={state.id}
-                onClick={() => setActivePortalIndex(idx)}
-                className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                  idx === activePortalIndex ? 'w-6 bg-emerald-400' : 'w-2.5 bg-slate-800 hover:bg-slate-700'
-                }`}
-                title={`Switch to ${state.label}`}
-              />
-            ))}
           </div>
         </div>
       </div>
