@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { Phone, Mail, Instagram, Twitter, Facebook, Sparkles, MapPin, CheckCircle, Languages, Heart, Music, Dumbbell, Compass, Terminal, Cpu, Network, ArrowDown, Activity } from 'lucide-react';
 import { Language, Translation } from '../types';
 import { PERSONAL_INFO, PERSONALITY, HOBBIES, LANGUAGES } from '../data';
+import heroFigure from '../assets/hero-figure.png';
 
 interface HeroProps {
   currentLang: Language;
@@ -268,6 +269,23 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
                 <Sparkles className="h-3 w-3 animate-pulse" />
                 <span>SWITCH_LAYER</span>
               </div>
+            </motion.div>
+
+            {/* The Floating Hero Figure */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: [0, -20, 0] }}
+              transition={{ 
+                opacity: { duration: 1.5, delay: 0.5 },
+                y: { duration: 5, repeat: Infinity, ease: 'easeInOut' }
+              }}
+              className="absolute z-40 bottom-[-80px] md:bottom-[-120px] pointer-events-none"
+            >
+              <img 
+                src={heroFigure} 
+                alt="Sandi Riady Figure" 
+                className="h-[380px] md:h-[550px] object-contain drop-shadow-[0_20px_25px_rgba(16,185,129,0.25)]" 
+              />
             </motion.div>
 
             {/* "& Dream" Right Heading */}
