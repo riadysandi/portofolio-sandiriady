@@ -105,7 +105,7 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0.2, ease: 'easeOut' }}
-              className="absolute left-[3%] md:left-[8%] top-[15%] md:top-[25%] z-25 pointer-events-none"
+              className="absolute left-[3%] md:left-[8%] top-[10%] md:top-[20%] z-25 pointer-events-none"
             >
               <h2 className="font-serif text-4xl md:text-[5.5rem] font-bold text-white tracking-tighter leading-none uppercase">
                 SYSTEMS<span className="text-emerald-400 font-light italic">.</span>
@@ -115,17 +115,17 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
             {/* The Floating Hero Figure */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: [0, -20, 0] }}
+              animate={{ opacity: 1, y: [0, -15, 0] }}
               transition={{ 
                 opacity: { duration: 1.5, delay: 0.5 },
                 y: { duration: 5, repeat: Infinity, ease: 'easeInOut' }
               }}
-              className="absolute z-40 bottom-[-80px] md:bottom-[-120px] pointer-events-none"
+              className="relative z-40 pointer-events-none"
             >
               <img 
                 src={heroFigure} 
                 alt="Sandi Riady Figure" 
-                className="h-[450px] md:h-[650px] object-contain drop-shadow-[0_20px_25px_rgba(16,185,129,0.25)]" 
+                className="h-[380px] md:h-[520px] object-contain drop-shadow-[0_20px_25px_rgba(16,185,129,0.25)]" 
               />
             </motion.div>
 
