@@ -134,7 +134,7 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
-              className="absolute right-[2%] md:right-[5%] lg:right-[8%] bottom-[30%] md:bottom-[35%] lg:bottom-[40%] z-25 pointer-events-none"
+              className="absolute right-[0%] md:right-[3%] lg:right-[5%] bottom-[25%] md:bottom-[28%] lg:bottom-[32%] z-25 pointer-events-none"
             >
               <h2 className="font-serif text-4xl md:text-[5.5rem] font-bold text-white tracking-tighter leading-none uppercase">
                 &amp; <span className="font-light italic text-emerald-400 font-serif lowercase">auto</span>MATION
