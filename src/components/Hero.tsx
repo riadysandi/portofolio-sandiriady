@@ -86,7 +86,7 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
             </div>
           </div>
 
-          <div className="relative flex flex-col items-center justify-center w-full max-w-4xl">
+          <div className="relative flex flex-col items-center justify-center w-full max-w-6xl">
             
             {/* "between" text overlay */}
             <motion.div 
@@ -105,7 +105,7 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0.2, ease: 'easeOut' }}
-              className="absolute -left-[5%] md:-left-[15%] lg:-left-[25%] top-[25%] md:top-[35%] z-25 pointer-events-none"
+              className="absolute left-[2%] md:left-[5%] lg:left-[8%] top-[30%] md:top-[35%] lg:top-[40%] z-25 pointer-events-none"
             >
               <h2 className="font-serif text-4xl md:text-[5.5rem] font-bold text-white tracking-tighter leading-none uppercase">
                 SYSTEMS<span className="text-emerald-400 font-light italic">.</span>
@@ -134,7 +134,7 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
-              className="absolute -right-[5%] md:-right-[15%] lg:-right-[25%] bottom-[25%] md:bottom-[35%] z-25 pointer-events-none"
+              className="absolute right-[2%] md:right-[5%] lg:right-[8%] bottom-[30%] md:bottom-[35%] lg:bottom-[40%] z-25 pointer-events-none"
             >
               <h2 className="font-serif text-4xl md:text-[5.5rem] font-bold text-white tracking-tighter leading-none uppercase">
                 &amp; <span className="font-light italic text-emerald-400 font-serif lowercase">auto</span>MATION
