@@ -105,7 +105,7 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0.2, ease: 'easeOut' }}
-              className="absolute left-[3%] md:left-[8%] top-[10%] md:top-[20%] z-25 pointer-events-none"
+              className="absolute -left-[5%] md:-left-[15%] lg:-left-[25%] top-[25%] md:top-[35%] z-25 pointer-events-none"
             >
               <h2 className="font-serif text-4xl md:text-[5.5rem] font-bold text-white tracking-tighter leading-none uppercase">
                 SYSTEMS<span className="text-emerald-400 font-light italic">.</span>
@@ -134,7 +134,7 @@ export default function Hero({ currentLang, translations, onScrollToContact }: H
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
-              className="absolute right-[3%] md:right-[5%] bottom-[12%] md:bottom-[22%] z-25 pointer-events-none"
+              className="absolute -right-[5%] md:-right-[15%] lg:-right-[25%] bottom-[25%] md:bottom-[35%] z-25 pointer-events-none"
             >
               <h2 className="font-serif text-4xl md:text-[5.5rem] font-bold text-white tracking-tighter leading-none uppercase">
                 &amp; <span className="font-light italic text-emerald-400 font-serif lowercase">auto</span>MATION
