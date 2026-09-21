@@ -121,16 +121,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#050505] text-slate-100 flex flex-col font-sans overflow-x-hidden selection:bg-emerald-500 selection:text-slate-950 relative">
       
-      {/* Matrix Coding Background */}
-      <MatrixBackground />
-
-      {/* Dynamic Cursor Light Source (Interactive Hover Glow Background) */}
-      <div 
-        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300 hidden md:block"
-        style={{
-          background: `radial-gradient(800px at ${mousePos.x}px ${mousePos.y}px, rgba(16, 185, 129, 0.15), transparent 80%)`
-        }}
-      />
+      {/* Solid Dark Background instead of Matrix */}
+      <div className="fixed inset-0 z-0 bg-[#050505]" />
 
       {/* Sticky Navigation Hub */}
       <Navbar
