@@ -27,7 +27,6 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
     return currentLang === 'en' ? 'Working Knowledge' : 'Pengetahuan Kerja';
   };
 
-  // Filter skills based on search query and category
   const filteredSkills = SKILLS.filter((skill) => {
     const matchesCategory = activeCategory === 'all' || skill.category === activeCategory;
     const matchesSearch = skill.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -63,16 +62,17 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
   };
 
   return (
-    <section id="skills" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20">
+    <section id="skills" className="pt-4 pb-8 md:pt-6 md:pb-10 px-4 max-w-7xl mx-auto scroll-mt-16">
       {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-6">`r`n        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3 border border-emerald-500/20">
+      <div className="text-center max-w-3xl mx-auto mb-5">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2.5 border border-emerald-500/20">
           <Wrench className="h-3.5 w-3.5" />
           <span>{translations.navSkills}</span>
         </div>
-        <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-3">
+        <h2 className="font-display font-black text-2xl md:text-4xl text-white tracking-tight uppercase mb-2">
           {translations.skillsTitle}
         </h2>
-        <p className="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
+        <p className="text-slate-400 text-xs md:text-sm max-w-2xl mx-auto">
           {currentLang === 'en'
             ? 'Core systems, server environments, open-source platforms, and administrative tools used in my day-to-day workflow.'
             : 'Sistem utama, lingkungan server, platform open-source, dan perangkat operasional yang saya gunakan sehari-hari.'}
@@ -80,13 +80,14 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
       </div>
 
       {/* Category Filter Buttons */}
-      <div className="flex flex-wrap justify-center gap-2 mb-6">`r`n        {categories.map((cat) => (
+      <div className="flex flex-wrap justify-center gap-2 mb-5">
+        {categories.map((cat) => (
           <button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id as any)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer border ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer border ${
               activeCategory === cat.id
-                ? 'bg-emerald-400 text-slate-950 border-emerald-400 font-extrabold shadow-lg shadow-emerald-500/10'
+                ? 'bg-emerald-400 text-slate-950 border-emerald-400 font-extrabold shadow-md shadow-emerald-500/10'
                 : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white'
             }`}
           >
@@ -98,7 +99,7 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
       {/* Skills Grid */}
       <motion.div
         layout
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5"
       >
         <AnimatePresence mode="popLayout">
           {filteredSkills.map((skill) => (
@@ -107,13 +108,13 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.2 }}
               key={skill.name}
-              className="bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 shadow-lg relative overflow-hidden transition-all duration-300"
+              className="bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 shadow-sm relative overflow-hidden transition-all duration-300"
             >
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0">
+                  <div className="h-9 w-9 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0">
                     {getCategoryIcon(skill.category)}
                   </div>
                   <div>
@@ -126,9 +127,7 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 mt-1">
-                  <CheckCircle className="h-4 w-4 text-emerald-400" />
-                </div>
+                <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0" />
               </div>
             </motion.div>
           ))}
@@ -140,7 +139,7 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center py-12 bg-slate-900/40 border border-slate-800 rounded-2xl max-w-md mx-auto"
+          className="text-center py-8 bg-slate-900/40 border border-slate-800 rounded-2xl max-w-md mx-auto"
         >
           <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{translations.noResults}</p>
         </motion.div>
@@ -148,4 +147,3 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
     </section>
   );
 }
-

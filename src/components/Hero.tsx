@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Phone, Mail, Instagram, Twitter, Facebook, MapPin, CheckCircle, Languages, Heart, Music, Dumbbell, Compass, Server, Database, Wrench, ArrowDown, Download } from 'lucide-react';
+import { Phone, Mail, Instagram, Twitter, Facebook, MapPin, CheckCircle, Languages, Heart, Music, Dumbbell, Compass, Server, Database, Wrench, Download } from 'lucide-react';
 import { Language, Translation } from '../types';
 import { PERSONAL_INFO, PERSONALITY, HOBBIES, LANGUAGES } from '../data';
 
@@ -50,7 +50,7 @@ export default function Hero({ currentLang, translations, onScrollToContact, onD
   };
 
   return (
-    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-4 pb-8 md:pt-6 md:pb-10">
+    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-4 pb-2 md:pt-6 md:pb-4">
       <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-center ">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -209,14 +209,6 @@ export default function Hero({ currentLang, translations, onScrollToContact, onD
         </div>
       </div>
 
-      <button
-        onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}
-        className="mx-auto mt-6 flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-slate-500 transition hover:text-emerald-300 cursor-pointer"
-      >
-        {currentLang === 'en' ? 'See Technical Skills' : 'Lihat Keahlian Teknis'}
-        <ArrowDown className="h-4 w-4" />
-      </button>
-
       {isAvatarModalOpen && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
@@ -232,4 +224,5 @@ export default function Hero({ currentLang, translations, onScrollToContact, onD
     </section>
   );
 }
+
 
