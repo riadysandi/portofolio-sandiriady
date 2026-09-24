@@ -121,8 +121,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#050505] text-slate-100 flex flex-col font-sans overflow-x-hidden selection:bg-emerald-500 selection:text-slate-950 relative">
       
-      {/* Solid Dark Background instead of Matrix */}
-      <div className="fixed inset-0 z-0 bg-[#050505]" />
+      {/* Minimalist Ambient Grid Background */}
+      <MatrixBackground />
 
       {/* Sticky Navigation Hub */}
       <Navbar
@@ -143,6 +143,7 @@ export default function App() {
           currentLang={currentLang}
           translations={translations}
           onScrollToContact={handleScrollToContact}
+          onDownloadPdf={handleDownloadPdf}
         />
 
         {/* Skills Board with Instant Search */}

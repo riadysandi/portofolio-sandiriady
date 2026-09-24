@@ -2,8 +2,8 @@ import { Project, Skill, Experience, Education, Organization, Translation, LiveS
 
 export const PERSONAL_INFO = {
   name: 'Sandi Riady',
-  title: 'Management Information System',
-  profileImage: new URL('../assets/sandiriady.jpg', import.meta.url).href, // user uploaded profile photo
+  title: 'IT Infrastructure Support & MIS Specialist',
+  profileImage: new URL('../assets/sandiriady.jpg', import.meta.url).href,
   contacts: {
     whatsapp: '+6285884926880',
     email: 'riadysandi@gmail.com',
@@ -12,8 +12,8 @@ export const PERSONAL_INFO = {
     facebook: 'sandi riady',
   },
   aboutMe: {
-    en: 'IT Infrastructure Support with hands-on experience in daily endpoint & server ops, basic network, mail ops (Zimbra), helpdesk/ticketing, and open-source automation. Comfortable with Linux & Docker deployments, Frappe/ERPNext administration, asset monitoring workflows, and multi-level approvals. Focus is efficient solutions, clean documentation, and responsive support for business users.',
-    id: 'Dukungan Infrastruktur TI dengan pengalaman langsung dalam operasional endpoint & server harian, jaringan dasar, operasional email (Zimbra), helpdesk/tiketing, dan otomatisasi sumber terbuka. Nyaman dengan penerapan Linux & Docker, administrasi Frappe/ERPNext, alur kerja pemantauan aset, dan persetujuan multi-level. Fokus saya adalah solusi yang efisien, dokumentasi rapi, dan layanan responsif bagi user bisnis.'
+    en: 'IT Infrastructure Support & MIS professional experienced in Linux server management, Docker containerization, corporate Zimbra email administration, and ERPNext/Frappe deployment. Proficient in configuring helpdesk ticketing (GLPI), automating routine tasks with n8n/bash, managing multi-level approval workflows, and supporting daily business user operations.',
+    id: 'Praktisi IT Infrastructure Support & Sistem Informasi Manajemen dengan pengalaman menangani operasional server Linux, Docker container, administrasi email korporat (Zimbra), dan implementasi ERPNext/Frappe. Terbiasa mengelola sistem helpdesk/tiketing (GLPI), otomatisasi alur kerja harian (n8n & skrip bash), pengaturan alur persetujuan bertingkat, serta dukungan teknis harian bagi pengguna bisnis.'
   }
 };
 
@@ -26,33 +26,33 @@ export const TRANSLATIONS: Record<'en' | 'id', Translation> = {
     navLiveSites: 'Live Sites',
     navContact: 'Contact',
     aboutTitle: 'About Me',
-    skillsTitle: 'Core Capabilities',
-    experienceTitle: 'Professional Experience',
-    projectsTitle: 'Featured Projects',
-    liveSitesTitle: 'Live Web Projects',
+    skillsTitle: 'Technical Skills',
+    experienceTitle: 'Work Experience',
+    projectsTitle: 'Featured Implementations',
+    liveSitesTitle: 'Live Systems & Demos',
     contactTitle: 'Get in Touch',
-    downloadButton: 'Download CV PDF',
+    downloadButton: 'Download CV (PDF)',
     downloading: 'Generating PDF...',
-    searchPlaceholder: 'Search skills, projects, experience...',
+    searchPlaceholder: 'Search skills, projects, tools, experience...',
     sendButton: 'Send Message',
     sending: 'Sending...',
-    successMessage: 'Message sent successfully! Thank you.',
+    successMessage: 'Message sent successfully! I will get back to you soon.',
     formName: 'Your Name',
-    formEmail: 'Your Email',
-    formMsg: 'Message',
-    heroSubtitle: 'IT Infrastructure Support & Open-Source Automation Specialist',
+    formEmail: 'Your Email Address',
+    formMsg: 'Your Message',
+    heroSubtitle: 'IT Infrastructure Support & Systems Administrator',
     educationTitle: 'Education',
-    orgTitle: 'Organizational Activity',
-    hobbiesTitle: 'Hobbies & Interests',
-    personalityTitle: 'Personal Strengths',
+    orgTitle: 'Organizational Experience',
+    hobbiesTitle: 'Interests & Activities',
+    personalityTitle: 'Work Ethic & Strengths',
     langTitle: 'Languages',
-    contactSubtitle: 'Have a project or job opportunity? Send me a direct message or connect on social media.',
-    experienceSubtitle: 'Chronology of my professional career, technical operations, and achievements.',
-    projectsSubtitle: 'Implementation gallery showcasing technical workflows, scripts, and automation engines.',
-    liveSitesSubtitle: 'Active domains and web applications currently running in production.',
-    messageHistory: 'Message Inbox (Simulation)',
-    noMessages: 'No messages sent yet. Use the contact form to write something!',
-    noResults: 'No results found matching your search query.',
+    contactSubtitle: 'Interested in discussing a job opportunity, IT infrastructure project, or collaboration? Feel free to reach out.',
+    experienceSubtitle: 'Professional career history, daily operational responsibilities, and systems managed.',
+    projectsSubtitle: 'Real-world systems, containerized deployments, and automation workflows I have implemented.',
+    liveSitesSubtitle: 'Active web platforms and project environments currently running in production.',
+    messageHistory: 'Recent Inquiries',
+    noMessages: 'No messages received yet. Feel free to use the contact form!',
+    noResults: 'No results found matching your search.',
   },
   id: {
     navAbout: 'Tentang',
@@ -62,53 +62,53 @@ export const TRANSLATIONS: Record<'en' | 'id', Translation> = {
     navLiveSites: 'Web Aktif',
     navContact: 'Kontak',
     aboutTitle: 'Tentang Saya',
-    skillsTitle: 'Keahlian Utama',
-    experienceTitle: 'Pengalaman Profesional',
-    projectsTitle: 'Galeri Proyek',
-    liveSitesTitle: 'Proyek Web Aktif',
+    skillsTitle: 'Keahlian & Teknologi',
+    experienceTitle: 'Pengalaman Kerja',
+    projectsTitle: 'Implementasi Sistem & Proyek',
+    liveSitesTitle: 'Layanan & Web Aktif',
     contactTitle: 'Hubungi Saya',
-    downloadButton: 'Unduh CV PDF',
+    downloadButton: 'Unduh CV (PDF)',
     downloading: 'Membuat PDF...',
-    searchPlaceholder: 'Cari keahlian, proyek, pengalaman...',
+    searchPlaceholder: 'Cari keahlian, proyek, tools, pengalaman...',
     sendButton: 'Kirim Pesan',
     sending: 'Mengirim...',
-    successMessage: 'Pesan berhasil dikirim! Terima kasih.',
-    formName: 'Nama Anda',
-    formEmail: 'Email Anda',
+    successMessage: 'Pesan berhasil dikirim! Saya akan segera merespons.',
+    formName: 'Nama Lengkap',
+    formEmail: 'Alamat Email',
     formMsg: 'Isi Pesan',
-    heroSubtitle: 'Spesialis Dukungan Infrastruktur TI & Otomatisasi Sumber Terbuka',
+    heroSubtitle: 'IT Infrastructure Support & Systems Administrator',
     educationTitle: 'Pendidikan',
-    orgTitle: 'Aktivitas Organisasi',
-    hobbiesTitle: 'Hobi & Minat',
-    personalityTitle: 'Karakter & Kepribadian',
+    orgTitle: 'Pengalaman Organisasi',
+    hobbiesTitle: 'Minat & Aktivitas',
+    personalityTitle: 'Etos Kerja & Karakter',
     langTitle: 'Bahasa',
-    contactSubtitle: 'Punya proyek atau peluang kerja? Kirim pesan langsung atau hubungi via media sosial.',
-    experienceSubtitle: 'Kronologi perjalanan karier profesional, operasional teknis, dan pencapaian saya.',
-    projectsSubtitle: 'Galeri implementasi yang menampilkan alur kerja teknis, skrip, dan sistem otomatisasi.',
-    liveSitesSubtitle: 'Domain aktif dan aplikasi web yang saat ini berjalan di tahap produksi.',
-    messageHistory: 'Kotak Masuk Pesan (Simulasi)',
-    noMessages: 'Belum ada pesan yang dikirim. Gunakan formulir di atas untuk menulis sesuatu!',
-    noResults: 'Tidak ada hasil yang cocok dengan pencarian Anda.',
+    contactSubtitle: 'Tertarik mendiskusikan peluang kerja, implementasi infrastruktur IT, atau konsultasi sistem? Silakan hubungi saya.',
+    experienceSubtitle: 'Perjalanan karier, tanggung jawab operasional harian, dan sistem yang saya kelola.',
+    projectsSubtitle: 'Sistem nyata, konfigurasi server, dan otomatisasi alur kerja yang pernah saya bangun.',
+    liveSitesSubtitle: 'Aplikasi web dan lingkungan proyek yang sedang aktif berjalan.',
+    messageHistory: 'Daftar Pesan Masuk',
+    noMessages: 'Belum ada pesan masuk. Silakan gunakan formulir kontak di atas!',
+    noResults: 'Tidak ada data yang sesuai dengan kata kunci pencarian.',
   },
 };
 
 export const SKILLS: Skill[] = [
-  { name: 'Linux Server', category: 'core', level: 5 },
-  { name: 'Docker', category: 'core', level: 5 },
-  { name: 'Frappe / ERPNext', category: 'core', level: 4 },
-  { name: 'Network Basic Ops', category: 'infra', level: 4 },
-  { name: 'Automation (n8n, Postman)', category: 'automation', level: 5 },
-  { name: 'Zimbra Admin', category: 'infra', level: 4 },
-  { name: 'Bash Scripting', category: 'automation', level: 4 },
-  { name: 'GLPI Helpdesk', category: 'tools', level: 5 },
-  { name: 'Device Policy (Android/Win)', category: 'tools', level: 4 },
-  { name: 'Git Version Control', category: 'tools', level: 4 },
+  { name: 'Linux Server (Ubuntu/Debian)', category: 'core', level: 5 },
+  { name: 'Docker & Containerization', category: 'core', level: 5 },
+  { name: 'Frappe Framework & ERPNext', category: 'core', level: 4 },
+  { name: 'Zimbra Collaboration Suite (Mail Ops)', category: 'infra', level: 4 },
+  { name: 'GLPI Helpdesk & Asset Management', category: 'tools', level: 5 },
+  { name: 'Workflow Automation (n8n, Webhooks)', category: 'automation', level: 5 },
+  { name: 'Bash Scripting & Scheduled Tasks', category: 'automation', level: 4 },
+  { name: 'Basic Network Ops (LAN, Routing, DNS)', category: 'infra', level: 4 },
+  { name: 'Device Policy & MDM (Flyve/Dashy)', category: 'tools', level: 4 },
+  { name: 'Git & Version Control', category: 'tools', level: 4 },
 ];
 
 export const EXPERIENCES: Experience[] = [
   {
     id: 'exp1',
-    period: '2024 - PRESENT',
+    period: '2024 - SEKARANG',
     title: {
       en: 'IT INFRASTRUCTURE SPECIALIST',
       id: 'SPESIALIS INFRASTRUKTUR TI',
@@ -116,18 +116,18 @@ export const EXPERIENCES: Experience[] = [
     company: 'IT INFRA SERVICES',
     points: {
       en: [
-        'Manage helpdesk & ticketing; implement multi-level approvals for asset disposal.',
-        'Deploy & administer Linux, Docker, and Frappe/ERPNext with integrated Helpdesk workflows.',
-        'Evaluate & implement open-source stacks: GLPI, Rocket.Chat, Raven, n8n, Flyve MDM, Dashy.',
-        'Operate Zimbra mail, monitor IT assets, and support device policy for Android/Windows.',
-        'Automate daily ops and maintain clear SOP/documentation for the team.'
+        'Administer daily IT helpdesk ticketing, user troubleshooting, and approval workflows for asset disposal.',
+        'Deploy and maintain Linux servers, Dockerized services, and Frappe/ERPNext business applications.',
+        'Evaluate and implement open-source operational tools: GLPI, Rocket.Chat, n8n, Flyve MDM, and Dashy dashboard.',
+        'Manage Zimbra corporate mail server operations, email deliverability (SPF/DKIM), and user mailbox quotas.',
+        'Create and maintain standard operating procedures (SOPs), system documentation, and automated backup routines.'
       ],
       id: [
-        'Mengelola helpdesk & tiketing; menerapkan alur persetujuan multi-level untuk pembuangan aset.',
-        'Mendeploy & mengadministrasi server Linux, Docker, dan Frappe/ERPNext terintegrasi dengan alur helpdesk.',
-        'Mengevaluasi & mengimplementasikan stack open-source: GLPI, Rocket.Chat, Raven, n8n, Flyve MDM, Dashy.',
-        'Mengoperasikan email Zimbra, memonitor aset TI, dan mendukung kebijakan perangkat untuk Android/Windows.',
-        'Mengotomatiskan operasional harian dan memelihara dokumentasi SOP yang jelas untuk tim.'
+        'Mengelola sistem helpdesk & penanganan tiket gangguan harian, troubleshooting user, serta alur persetujuan aset TI.',
+        'Mendeploy dan merawat server Linux, layanan berbasis Docker container, dan aplikasi ERPNext/Frappe.',
+        'Mengimplementasikan tools open-source untuk operasional kantor: GLPI, Rocket.Chat, n8n, Flyve MDM, dan Dashy.',
+        'Mengelola operasional server email Zimbra, konfigurasi keamanan SPF/DKIM, dan kuota akun pengguna.',
+        'Menyusun Standard Operating Procedure (SOP), dokumentasi teknis infrastruktur, serta jadwal backup otomatis.'
       ],
     },
   },
@@ -141,18 +141,16 @@ export const EXPERIENCES: Experience[] = [
     company: 'RESTAURANT OPERATION GROUP',
     points: {
       en: [
-        'Supervised daily operations to ensure process consistency & service quality.',
-        'Trained staff & ensured schedules aligned with operational requirements.',
-        'Handled customer issues & performed service quality evaluations for improvement.',
-        'Prepared operational reports & monitored store performance metrics.',
-        'Standardized restaurant operational procedures and compiled daily logs.'
+        'Supervised daily store operations, ensuring consistency in service standards and inventory compliance.',
+        'Coordinated staff scheduling, conducted team training, and handled escalated operational issues.',
+        'Monitored POS data, daily sales records, and prepared structured operational reports for management.',
+        'Standardized opening/closing store procedures and improved inter-departmental communication.'
       ],
       id: [
-        'Mengawasi operasional harian untuk memastikan konsistensi proses dan kualitas layanan.',
-        'Melatih staf & memastikan jadwal kerja selaras dengan persyaratan operasional.',
-        'Menangani masalah pelanggan & melakukan evaluasi kualitas layanan untuk perbaikan.',
-        'Menyusun laporan operasional & memantau metrik kinerja toko.',
-        'Menstandarisasi prosedur operasional restoran dan menyusun catatan harian.'
+        'Memimpin operasional harian outlet, memastikan standar pelayanan, kebersihan, dan kepatuhan inventaris berjalan konsisten.',
+        'Mengatur jadwal kerja shift staf, membina tim baru, serta menangani keluhan dan kebutuhan eskalasi.',
+        'Memantau transaksi POS, menyusun laporan operasional harian/bulanan, dan mengontrol biaya operasional.',
+        'Menstandarisasi SOP pembukaan/penutupan toko serta meningkatkan koordinasi antardivisi.'
       ],
     },
   },
@@ -163,8 +161,8 @@ export const EDUCATION: Education[] = [
     id: 'edu1',
     period: '2018 - 2022',
     field: {
-      en: 'Management Information Systems',
-      id: 'Sistem Informasi Manajemen',
+      en: 'Bachelor of Management Information Systems (S.Kom)',
+      id: 'Sarjana Sistem Informasi Manajemen (S.Kom)',
     },
     institution: 'UNIVERSITAS RAHARJA',
   },
@@ -175,8 +173,8 @@ export const ORGANIZATIONS: Organization[] = [
     id: 'org1',
     period: '2019 - 2022',
     role: {
-      en: 'Head of Department 4 KOMASI (HMJ)',
-      id: 'Kepala Departemen 4 KOMASI (HMJ)',
+      en: 'Head of Department 4 - KOMASI (Student Association)',
+      id: 'Ketua Departemen 4 - KOMASI (Himpunan Mahasiswa Jurusan)',
     },
     organization: 'UNIVERSITAS RAHARJA',
   },
@@ -184,7 +182,7 @@ export const ORGANIZATIONS: Organization[] = [
     id: 'org2',
     period: '2015 - 2018',
     role: {
-      en: 'Secretary of FORMA (Mosque Youth Forum)',
+      en: 'Secretary of FORMA (Youth Community Organization)',
       id: 'Sekretaris FORMA (Forum Remaja Masjid Ar-Rahmah)',
     },
     organization: 'FORUM REMAJA MASJID AR-RAHMAH',
@@ -195,107 +193,107 @@ export const PROJECTS: Project[] = [
   {
     id: 'proj1',
     title: {
-      en: 'Helpdesk Ticket Automation Engine',
-      id: 'Sistem Otomatisasi Tiket Helpdesk',
+      en: 'GLPI Helpdesk & Notification Bot Integration',
+      id: 'Integrasi Helpdesk GLPI & Notifikasi Otomatis',
     },
     description: {
-      en: 'Integrated GLPI ticketing with n8n and Rocket.Chat to automate support notifications, decreasing critical issue response times by 40%.',
-      id: 'Mengintegrasikan tiket GLPI dengan n8n dan Rocket.Chat untuk mengotomatiskan notifikasi dukungan, mempercepat waktu respons hingga 40%.',
+      en: 'Connected GLPI ticketing with n8n and Rocket.Chat webhook triggers to instantly notify technical support channels when high-priority tickets are logged, improving response time.',
+      id: 'Mengintegrasikan sistem tiket GLPI dengan n8n dan webhook Rocket.Chat untuk mengirimkan notifikasi otomatis ke tim teknis saat ada tiket prioritas tinggi, mempercepat penanganan kendala.',
     },
-    tags: ['n8n', 'GLPI', 'Rocket.Chat', 'Docker', 'Automation'],
+    tags: ['GLPI', 'n8n', 'Rocket.Chat', 'Docker', 'Webhooks'],
     icon: 'Cpu',
   },
   {
     id: 'proj2',
     title: {
-      en: 'ERPNext Enterprise Deployments',
-      id: 'Penerapan ERPNext Skala Perusahaan',
+      en: 'ERPNext & Frappe Self-Hosted Deployment',
+      id: 'Implementasi & Manajemen ERPNext Mandiri',
     },
     description: {
-      en: 'Containerized Frappe/ERPNext infrastructure with customized asset tracking modules, database backups, and hierarchical approval layers.',
-      id: 'Infrastruktur kontainerisasi Frappe/ERPNext dengan modul pelacakan aset khusus, cadangan basis data, dan persetujuan bertingkat.',
+      en: 'Deployed Frappe and ERPNext on Linux Docker stack, configured custom asset management modules, user role permissions, and scheduled daily MariaDB/PostgreSQL database backups.',
+      id: 'Mendeploy ERPNext dan framework Frappe di lingkungan Docker Linux, mengonfigurasi modul pelacakan aset, hak akses peran user, serta jadwal backup database harian.',
     },
-    tags: ['ERPNext', 'Frappe', 'Docker', 'PostgreSQL', 'Linux'],
+    tags: ['ERPNext', 'Frappe', 'Docker Compose', 'MariaDB', 'Linux'],
     icon: 'Database',
   },
   {
     id: 'proj3',
     title: {
-      en: 'Corporate Zimbra Mail Server',
-      id: 'Server Email Korporat Zimbra',
+      en: 'Corporate Zimbra Mail Server Administration',
+      id: 'Administrasi Server Email Korporat Zimbra',
     },
     description: {
-      en: 'Engineered a highly resilient mail server for 500+ corporate users featuring customized spam filtering, active directory syncing, and SPF/DKIM verification.',
-      id: 'Membangun server email tangguh untuk 500+ pengguna dengan penyaringan spam, sinkronisasi direktori aktif, dan verifikasi SPF/DKIM.',
+      en: 'Administered multi-user Zimbra Collaboration Suite on Linux, configured spam filtering, DNS records (SPF, DKIM, DMARC), and SSL certificates for reliable email delivery.',
+      id: 'Mengelola server email Zimbra Collaboration Suite, konfigurasi penyaring spam, pencatatan DNS (SPF, DKIM, DMARC), serta sertifikat SSL untuk menjamin keterkiriman email yang aman.',
     },
-    tags: ['Zimbra Admin', 'Linux Server', 'DKIM/SPF', 'Mail Ops'],
+    tags: ['Zimbra Admin', 'Linux Ubuntu', 'SPF/DKIM/DMARC', 'DNS Records'],
     icon: 'Mail',
   },
   {
     id: 'proj4',
     title: {
-      en: 'IT Asset Dashy & Flyve Hub',
-      id: 'Dasbor Aset TI & Hub Flyve',
+      en: 'Centralized IT Dashboard & Hardware Asset Inventory',
+      id: 'Dasbor Terpusat & Inventarisasi Aset TI',
     },
     description: {
-      en: 'Created a centralized dashboard using Dashy unified with Flyve MDM for tracking, hardware profiling, and remote policy enforcement on corporate endpoints.',
-      id: 'Membuat dasbor terpusat menggunakan Dashy yang terpadu dengan Flyve MDM untuk pelacakan, profil perangkat keras, dan kebijakan jarak jauh.',
+      en: 'Built an internal navigation dashboard using Dashy unified with Flyve MDM for tracking computer hardware specifications, OS versions, and network service statuses across office endpoints.',
+      id: 'Membangun dasbor navigasi internal menggunakan Dashy yang dipadukan dengan Flyve MDM untuk memantau spesifikasi perangkat keras, versi sistem operasi, dan status layanan TI kantor.',
     },
-    tags: ['Dashy', 'Flyve MDM', 'Asset Tracking', 'Device Policy'],
+    tags: ['Dashy', 'Flyve MDM', 'IT Asset Tracking', 'Internal Portal'],
     icon: 'LayoutDashboard',
   },
   {
     id: 'proj5',
     title: {
-      en: 'Linux Network Basic Ops Monitor',
-      id: 'Pemantau Jaringan Dasar Linux',
+      en: 'Automated Network & Server Health Monitoring Script',
+      id: 'Skrip Otomatisasi Pemantauan Jaringan & Server',
     },
     description: {
-      en: 'Designed an automated suite using bash scripts and Postman api polling to perform routing checks, connectivity verification, and alert triggers.',
-      id: 'Merancang rangkaian otomatis menggunakan skrip bash dan jajak pendapat api Postman untuk pemeriksaan rute, verifikasi konektivitas, dan pemicu alarm.',
+      en: 'Developed lightweight Bash monitoring scripts and scheduled cron jobs that verify internet gateway connectivity, disk storage usage, and send alerts upon downtime.',
+      id: 'Mengembangkan skrip Bash ringan dan cron jobs untuk memeriksa konektivitas gateway internet, sisa kapasitas penyimpanan server, serta mengirimkan peringatan jika ada layanan yang mati.',
     },
-    tags: ['Postman API', 'Network Ops', 'Bash Script', 'Syslog'],
+    tags: ['Bash Scripting', 'Linux Cron', 'System Monitoring', 'Network Ops'],
     icon: 'Network',
   },
 ];
 
 export const PERSONALITY: Record<'en' | 'id', string[]> = {
-  en: ['On-time Delivery', 'Optimistic Mindset', 'Highly Adaptable', 'Socially Active', 'Fast Learner'],
-  id: ['Tepat Waktu', 'Optimis', 'Cepat Beradaptasi', 'Gampang Berbaur', 'Cepat Belajar'],
+  en: ['Problem Solver', 'Punctual & Dependable', 'Quick Learner', 'Clear Communicator', 'Team Player'],
+  id: ['Fokus Solusi', 'Tepat Waktu & Bertanggung Jawab', 'Cepat Mempelajari Hal Baru', 'Komunikasi Rapi & Jelas', 'Mudah Beradaptasi'],
 };
 
 export const HOBBIES: Record<'en' | 'id', { name: string; icon: string }[]> = {
   en: [
     { name: 'Playing Guitar', icon: 'Music' },
-    { name: 'Exercising', icon: 'Dumbbell' },
-    { name: 'Traveling', icon: 'Compass' },
+    { name: 'Fitness & Sports', icon: 'Dumbbell' },
+    { name: 'Tech Exploration & Homelab', icon: 'Compass' },
   ],
   id: [
     { name: 'Bermain Gitar', icon: 'Music' },
-    { name: 'Berolahraga', icon: 'Dumbbell' },
-    { name: 'Liburan', icon: 'Compass' },
+    { name: 'Olahraga & Kebugaran', icon: 'Dumbbell' },
+    { name: 'Eksplorasi Teknologi & Homelab', icon: 'Compass' },
   ],
 };
 
 export const LANGUAGES: Record<'en' | 'id', { name: string; level: string }[]> = {
   en: [
-    { name: 'Indonesian', level: 'Native / Active' },
-    { name: 'English', level: 'Conversational / Passive' },
+    { name: 'Indonesian', level: 'Native / Fluent' },
+    { name: 'English', level: 'Working Proficiency' },
   ],
   id: [
-    { name: 'Indonesia', level: 'Asli / Aktif' },
-    { name: 'Inggris', level: 'Konversasional / Pasif' },
+    { name: 'Bahasa Indonesia', level: 'Bahasa Utama / Fasih' },
+    { name: 'Bahasa Inggris', level: 'Kemampuan Kerja / Pasif-Aktif' },
   ],
 };
 
 export const LIVE_SITES: LiveSite[] = [
   {
     id: 'site1',
-    name: 'Portfolio Sandbox',
+    name: 'Live Portfolio & CV Site',
     url: 'https://riadysandi.github.io/portofolio-sandiriady/',
     description: {
-      en: 'My personal portfolio and sandbox environment for experimenting with React, Vite, and modern web technologies.',
-      id: 'Portofolio pribadi dan lingkungan sandbox saya untuk bereksperimen dengan React, Vite, dan teknologi web modern.'
+      en: 'Interactive portfolio and CV web application built with React, Vite, Tailwind CSS, and Supabase integration.',
+      id: 'Aplikasi web portofolio & CV interaktif yang dibangun dengan React, Vite, Tailwind CSS, dan integrasi Supabase.'
     },
     status: 'active'
   }

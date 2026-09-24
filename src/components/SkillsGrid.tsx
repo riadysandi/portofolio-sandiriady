@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Wrench, Terminal, Cpu, Monitor, Network, ShieldCheck } from 'lucide-react';
+import { Wrench, Terminal, Cpu, Network, CheckCircle } from 'lucide-react';
 import { Language, Translation, Skill } from '../types';
 import { SKILLS } from '../data';
 
@@ -14,14 +14,20 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
   const [activeCategory, setActiveCategory] = useState<'all' | 'core' | 'infra' | 'automation' | 'tools'>('all');
 
   const categories = [
-    { id: 'all', label: currentLang === 'en' ? 'All' : 'Semua' },
-    { id: 'core', label: currentLang === 'en' ? 'Core Dev/Infra' : 'Inti Dev/Infra' },
-    { id: 'infra', label: currentLang === 'en' ? 'Systems & Mail' : 'Sistem & Email' },
-    { id: 'automation', label: currentLang === 'en' ? 'Automation' : 'Otomatisasi' },
-    { id: 'tools', label: currentLang === 'en' ? 'Helpdesk & Tools' : 'Helpdesk & Alat' },
+    { id: 'all', label: currentLang === 'en' ? 'All Skills' : 'Semua Keahlian' },
+    { id: 'core', label: currentLang === 'en' ? 'Linux & Containers' : 'Linux & Kontainer' },
+    { id: 'infra', label: currentLang === 'en' ? 'Mail & Network' : 'Email & Jaringan' },
+    { id: 'automation', label: currentLang === 'en' ? 'Automation & Scripting' : 'Otomatisasi & Skrip' },
+    { id: 'tools', label: currentLang === 'en' ? 'Helpdesk & Tools' : 'Helpdesk & Tools' },
   ];
 
-  // Filter skills based on both search query and category
+  const getLevelLabel = (level: number) => {
+    if (level >= 5) return currentLang === 'en' ? 'Daily Operations' : 'Operasional Harian';
+    if (level === 4) return currentLang === 'en' ? 'Proficient / Hands-on' : 'Terbiasa & Mahir';
+    return currentLang === 'en' ? 'Working Knowledge' : 'Pengetahuan Kerja';
+  };
+
+  // Filter skills based on search query and category
   const filteredSkills = SKILLS.filter((skill) => {
     const matchesCategory = activeCategory === 'all' || skill.category === activeCategory;
     const matchesSearch = skill.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -45,7 +51,7 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
       <span>
         {parts.map((part, index) =>
           part.toLowerCase() === search.toLowerCase() ? (
-            <mark key={index} className="bg-emerald-500/20 text-emerald-400 font-black rounded px-1 py-0.5">
+            <mark key={index} className="bg-emerald-500/20 text-emerald-400 font-bold rounded px-1 py-0.5">
               {part}
             </mark>
           ) : (
@@ -59,14 +65,19 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
   return (
     <section id="skills" className="py-12 md:py-20 px-4 max-w-7xl mx-auto scroll-mt-20">
       {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 rounded-lg text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-4 border border-emerald-500/20">
+      <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3 border border-emerald-500/20">
           <Wrench className="h-3.5 w-3.5" />
           <span>{translations.navSkills}</span>
         </div>
-        <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tighter uppercase mb-3">
+        <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-3">
           {translations.skillsTitle}
         </h2>
+        <p className="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
+          {currentLang === 'en'
+            ? 'Core systems, server environments, open-source platforms, and administrative tools used in my day-to-day workflow.'
+            : 'Sistem utama, lingkungan server, platform open-source, dan perangkat operasional yang saya gunakan sehari-hari.'}
+        </p>
       </div>
 
       {/* Category Filter Buttons */}
@@ -75,10 +86,10 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
           <button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id as any)}
-            className={`px-4 py-2.5 rounded-xl text-[10px] font-black tracking-widest uppercase transition-all cursor-pointer border-2 ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer border ${
               activeCategory === cat.id
-                ? 'bg-emerald-500 text-slate-950 border-emerald-500 font-black shadow-lg shadow-emerald-500/10'
-                : 'bg-[#0A0A0A] text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white'
+                ? 'bg-emerald-400 text-slate-950 border-emerald-400 font-extrabold shadow-lg shadow-emerald-500/10'
+                : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white'
             }`}
           >
             {cat.label}
@@ -89,59 +100,36 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
       {/* Skills Grid */}
       <motion.div
         layout
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
       >
         <AnimatePresence mode="popLayout">
           {filteredSkills.map((skill) => (
             <motion.div
               layout
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -6, scale: 1.015 }}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+              transition={{ duration: 0.25 }}
               key={skill.name}
-              className="bg-[#0A0A0A] border-2 border-slate-800 hover:border-emerald-500/40 rounded-3xl p-6 shadow-xl relative overflow-hidden group cursor-pointer"
+              className="bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-2xl p-5 shadow-lg relative overflow-hidden transition-all duration-300"
             >
-              {/* Subtle hover background highlight gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none" />
-
-              <div className="flex items-center justify-between mb-4 relative z-10">
+              <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-xl bg-slate-950 flex items-center justify-center border border-slate-800 group-hover:bg-emerald-950/20 group-hover:border-emerald-500/30 transition-colors">
+                  <div className="h-10 w-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0">
                     {getCategoryIcon(skill.category)}
                   </div>
-                  <h3 className="font-display font-black text-sm text-slate-200 uppercase tracking-wide group-hover:text-white transition-colors">
-                    {highlightText(skill.name, searchQuery)}
-                  </h3>
+                  <div>
+                    <h3 className="font-bold text-sm text-slate-100">
+                      {highlightText(skill.name, searchQuery)}
+                    </h3>
+                    <span className="text-[11px] font-mono text-emerald-400/90 font-medium">
+                      {getLevelLabel(skill.level)}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
-                        i < skill.level ? 'bg-emerald-400 group-hover:bg-emerald-300' : 'bg-slate-800'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
 
-              {/* Progress meter */}
-              <div className="space-y-1.5 relative z-10">
-                <div className="flex justify-between items-center text-[9px] font-bold text-slate-500 uppercase tracking-widest">
-                  <span>Proficiency</span>
-                  <span className="text-emerald-400 font-bold group-hover:text-emerald-300">{skill.level * 20}%</span>
-                </div>
-                <div className="h-1.5 bg-slate-950 rounded-full overflow-hidden border border-slate-900">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level * 20}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, ease: 'easeOut' }}
-                    className="h-full bg-emerald-400 group-hover:bg-emerald-300 rounded-full"
-                  />
+                <div className="flex items-center gap-1 mt-1">
+                  <CheckCircle className="h-4 w-4 text-emerald-400" />
                 </div>
               </div>
             </motion.div>
@@ -154,7 +142,7 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center py-12 bg-[#0A0A0A] border-2 border-slate-800 rounded-3xl max-w-md mx-auto"
+          className="text-center py-12 bg-slate-900/40 border border-slate-800 rounded-2xl max-w-md mx-auto"
         >
           <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{translations.noResults}</p>
         </motion.div>
