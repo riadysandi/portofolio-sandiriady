@@ -51,9 +51,9 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
   };
 
   return (
-    <section id="projects" className="py-12 md:py-20 px-4 max-w-7xl mx-auto scroll-mt-20">
+    <section id="projects" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20">
       {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-12">
+      <div className="text-center max-w-3xl mx-auto mb-8">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3 border border-emerald-500/20">
           <LayoutDashboard className="h-3.5 w-3.5" />
           <span>{translations.navProjects}</span>
@@ -225,3 +225,4 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
     </section>
   );
 }
+

@@ -63,10 +63,9 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
   };
 
   return (
-    <section id="skills" className="py-12 md:py-20 px-4 max-w-7xl mx-auto scroll-mt-20">
+    <section id="skills" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20">
       {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3 border border-emerald-500/20">
+      <div className="text-center max-w-3xl mx-auto mb-6">`r`n        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3 border border-emerald-500/20">
           <Wrench className="h-3.5 w-3.5" />
           <span>{translations.navSkills}</span>
         </div>
@@ -81,8 +80,7 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
       </div>
 
       {/* Category Filter Buttons */}
-      <div className="flex flex-wrap justify-center gap-2 mb-10">
-        {categories.map((cat) => (
+      <div className="flex flex-wrap justify-center gap-2 mb-6">`r`n        {categories.map((cat) => (
           <button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id as any)}
@@ -150,3 +148,4 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
     </section>
   );
 }
+

@@ -84,7 +84,7 @@ export default function ContactForm({ currentLang, translations }: ContactFormPr
   };
 
   return (
-    <section id="contact" className="py-12 md:py-20 px-4 max-w-7xl mx-auto scroll-mt-20">
+    <section id="contact" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Hand: Contact Form Card */}
@@ -282,3 +282,4 @@ export default function ContactForm({ currentLang, translations }: ContactFormPr
     </section>
   );
 }
+

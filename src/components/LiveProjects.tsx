@@ -13,13 +13,13 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
   if (!liveProjects || liveProjects.length === 0) return null;
 
   return (
-    <section id="live-sites" className="py-12 md:py-20 px-4 max-w-7xl mx-auto scroll-mt-20 relative">
+    <section id="live-sites" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20 relative">
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-8"
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 rounded-lg text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-4 border border-emerald-500/20">
             <Globe className="h-3.5 w-3.5" />
@@ -101,3 +101,4 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
     </section>
   );
 }
+

@@ -66,9 +66,9 @@ export default function EducationExperience({
   const hasContent = filteredExperiences.length > 0 || filteredEducation.length > 0 || filteredOrganizations.length > 0;
 
   return (
-    <section id="experience" className="py-12 md:py-20 px-4 max-w-7xl mx-auto scroll-mt-20">
+    <section id="experience" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20">
       {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="text-center max-w-3xl mx-auto mb-8">
         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 rounded-lg text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-4 border border-emerald-500/20">
           <Briefcase className="h-3.5 w-3.5" />
           <span>{translations.navExperience}</span>
@@ -81,7 +81,7 @@ export default function EducationExperience({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         {/* Left Side: Work Experience Timeline */}
         <div className="space-y-6">
           <div className="flex items-center gap-3 mb-6">
@@ -93,7 +93,7 @@ export default function EducationExperience({
             </h3>
           </div>
 
-          <div className="relative border-l-2 border-slate-800 ml-4 pl-6 space-y-8">
+          <div className="relative border-l-2 border-slate-800 ml-4 pl-6 space-y-5">
             {filteredExperiences.map((exp, expIdx) => (
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -261,3 +261,4 @@ export default function EducationExperience({
     </section>
   );
 }
+

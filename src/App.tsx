@@ -183,7 +183,7 @@ export default function App() {
       </main>
 
       {/* Modern, Architectural Footer */}
-      <footer className="bg-[#050505] border-t-2 border-slate-900 py-16 px-4">
+      <footer className="bg-[#050505] border-t-2 border-slate-900 py-8 md:py-10 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-xl bg-slate-900 border-2 border-slate-800 flex items-center justify-center">
@@ -234,3 +234,4 @@ export default function App() {
     </div>
   );
 }
+

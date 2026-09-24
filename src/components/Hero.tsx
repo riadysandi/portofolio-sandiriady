@@ -50,8 +50,8 @@ export default function Hero({ currentLang, translations, onScrollToContact, onD
   };
 
   return (
-    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-10 pb-16 md:pt-16 md:pb-24">
-      <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-center min-h-[78vh]">
+    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-4 pb-8 md:pt-6 md:pb-10">
+      <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-center ">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -119,7 +119,7 @@ export default function Hero({ currentLang, translations, onScrollToContact, onD
               <img
                 src={PERSONAL_INFO.profileImage}
                 alt={PERSONAL_INFO.name}
-                className="h-[28rem] w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                className="h-72 sm:h-80 md:h-[22rem] w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-transparent p-6">
                 <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-300">{PERSONAL_INFO.title}</p>
@@ -165,7 +165,7 @@ export default function Hero({ currentLang, translations, onScrollToContact, onD
         </motion.div>
       </div>
 
-      <div className="mt-8 grid lg:grid-cols-[1.2fr_0.8fr] gap-5">
+      <div className="mt-6 grid lg:grid-cols-[1.2fr_0.8fr] gap-5">
         <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-5">
           <div className="flex items-center gap-2 text-sm font-black text-white mb-4">
             <Wrench className="h-4 w-4 text-emerald-400" />
@@ -211,7 +211,7 @@ export default function Hero({ currentLang, translations, onScrollToContact, onD
 
       <button
         onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}
-        className="mx-auto mt-10 flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-slate-500 transition hover:text-emerald-300 cursor-pointer"
+        className="mx-auto mt-6 flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-slate-500 transition hover:text-emerald-300 cursor-pointer"
       >
         {currentLang === 'en' ? 'See Technical Skills' : 'Lihat Keahlian Teknis'}
         <ArrowDown className="h-4 w-4" />
@@ -232,3 +232,4 @@ export default function Hero({ currentLang, translations, onScrollToContact, onD
     </section>
   );
 }
+
