@@ -26,12 +26,12 @@ export default function Navbar({
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   const navItems = [
-    { id: 'about', num: '01', label: translations.navAbout },
-    { id: 'skills', num: '02', label: translations.navSkills },
-    { id: 'experience', num: '03', label: translations.navExperience },
-    { id: 'projects', num: '04', label: translations.navProjects },
-    { id: 'live-sites', num: '05', label: translations.navLiveSites },
-    { id: 'contact', num: '06', label: translations.navContact },
+    { id: 'about', label: translations.navAbout },
+    { id: 'skills', label: translations.navSkills },
+    { id: 'experience', label: translations.navExperience },
+    { id: 'projects', label: translations.navProjects },
+    { id: 'live-sites', label: translations.navLiveSites },
+    { id: 'contact', label: translations.navContact },
   ];
 
   const scrollToSection = (id: string) => {
@@ -52,17 +52,14 @@ export default function Navbar({
     <nav className="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/10 text-slate-100 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo with Eraf Index Badge */}
+          {/* Logo */}
           <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <div className="h-9 w-9 rounded-lg bg-black border border-white/15 flex items-center justify-center">
               <span className="font-mono text-xs font-bold text-emerald-400">SR</span>
             </div>
             <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-display font-black text-sm text-white block uppercase tracking-tight">Sandi Riady</span>
-                <span className="font-mono text-[9px] text-emerald-400 font-bold tracking-wider">(00)</span>
-              </div>
-              <span className="font-mono text-[9px] text-slate-400 font-bold tracking-[0.2em] uppercase block mt-0.5">IT INFRA &bull; SYSTEM OPS</span>
+              <span className="font-display font-black text-sm text-white block uppercase tracking-tight">Sandi Riady</span>
+              <span className="font-mono text-[9px] text-slate-400 font-bold tracking-[0.2em] uppercase block mt-0.5">IT INFRASTRUCTURE</span>
             </div>
           </div>
 
@@ -92,16 +89,15 @@ export default function Navbar({
             </div>
           </div>
 
-          {/* Navigation Items - Desktop with Eraf indexing */}
+          {/* Navigation Items - Desktop */}
           <div className="hidden lg:flex items-center gap-6 text-[11px] uppercase tracking-[0.18em] font-mono">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="group flex items-center gap-1 text-slate-400 hover:text-white cursor-pointer transition-colors py-2"
+                className="text-slate-400 hover:text-emerald-400 cursor-pointer transition-colors py-2 font-bold"
               >
-                <span className="text-emerald-400 font-bold group-hover:text-emerald-300">{item.num}</span>
-                <span className="font-bold">{item.label}</span>
+                {item.label}
               </button>
             ))}
           </div>

@@ -63,20 +63,10 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
 
   return (
     <section id="skills" className="py-6 md:py-8 px-4 max-w-7xl mx-auto scroll-mt-20">
-      {/* Editorial Section Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 mb-6 border-b border-white/10 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">
-        <div className="flex items-center gap-3">
-          <span className="text-emerald-400 font-bold">(01)</span>
-          <span className="text-white font-bold">{translations.navSkills}</span>
-          <span className="text-slate-600">/</span>
-          <span className="text-slate-400">SYSTEM CAPABILITIES & TOOLS</span>
-        </div>
-        <div className="font-mono text-[9px] text-slate-500 font-bold uppercase tracking-wider">
-          ARCHIVE // {filteredSkills.length} MODULES LOADED
-        </div>
-      </div>
-
       <div className="max-w-3xl mb-6">
+        <div className="text-xs font-mono font-bold tracking-[0.2em] text-emerald-400 uppercase mb-2">
+          {translations.navSkills}
+        </div>
         <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-2">
           {translations.skillsTitle}
         </h2>
@@ -87,7 +77,7 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
         </p>
       </div>
 
-      {/* Category Filter Buttons - Eraf Hairline Aesthetic */}
+      {/* Category Filter Buttons - Clean Hairline */}
       <div className="flex flex-wrap gap-2 mb-6">
         {categories.map((cat) => (
           <motion.button
@@ -107,13 +97,13 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
         ))}
       </div>
 
-      {/* Skills Grid with Corner Crosshairs */}
+      {/* Skills Grid */}
       <motion.div
         layout
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5"
       >
         <AnimatePresence mode="popLayout">
-          {filteredSkills.map((skill, idx) => (
+          {filteredSkills.map((skill) => (
             <motion.div
               layout
               initial={{ opacity: 0, y: 15 }}
@@ -124,23 +114,12 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
               key={skill.name}
               className="group bg-[#060606] border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.02] hover:shadow-[0_0_20px_rgba(16,185,129,0.08)] rounded-xl p-4 shadow-sm relative overflow-hidden transition-all duration-300"
             >
-              {/* Corner crosshair markers */}
-              <span className="absolute -top-1 -left-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-              <span className="absolute -top-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-              <span className="absolute -bottom-1 -left-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-              <span className="absolute -bottom-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <div className="h-10 w-10 rounded-lg bg-black border border-white/10 flex items-center justify-center shrink-0 group-hover:border-emerald-400/40 group-hover:bg-emerald-950/20 transition-all duration-300">
                     {getCategoryIcon(skill.category)}
                   </div>
                   <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-[9px] text-slate-500 font-bold uppercase">
-                        SK-{String(idx + 1).padStart(2, '0')}
-                      </span>
-                    </div>
                     <h3 className="font-bold text-sm text-slate-100 group-hover:text-emerald-300 transition-colors">
                       {highlightText(skill.name, searchQuery)}
                     </h3>

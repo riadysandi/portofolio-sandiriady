@@ -182,40 +182,10 @@ export default function App() {
 
       </main>
 
-      {/* Eraf Editorial Architectural Footer */}
-      <footer className="bg-black border-t border-white/10 py-8 px-4 relative">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-lg bg-black border border-white/15 flex items-center justify-center">
-              <span className="font-mono text-xs font-bold text-emerald-400">SR</span>
-            </div>
-            <div className="text-left">
-              <span className="font-mono text-xs font-bold text-white block uppercase tracking-[0.2em]">SANDI RIADY // ARCHIVE</span>
-              <span className="font-mono text-[9px] text-slate-500 block font-bold uppercase tracking-widest mt-0.5">IT INFRASTRUCTURE &bull; SYSTEM OPS &bull; TANGERANG</span>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-6 text-[10px] uppercase tracking-[0.2em] font-mono text-slate-400">
-            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer">
-              01 // {translations.navAbout}
-            </button>
-            <button onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer">
-              02 // {translations.navSkills}
-            </button>
-            <button onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer">
-              03 // {translations.navExperience}
-            </button>
-            <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer">
-              04 // {translations.navProjects}
-            </button>
-            <button onClick={() => document.getElementById('live-sites')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer">
-              05 // {translations.navLiveSites}
-            </button>
-          </div>
-
-          <div className="flex items-center gap-2 text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider">
-            <span>&copy; 2026 SR. ALL RIGHTS RESERVED.</span>
-          </div>
+      {/* Minimal Clean Footer */}
+      <footer className="bg-black border-t border-white/10 py-6 px-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-center text-[11px] font-mono text-slate-500 font-bold uppercase tracking-wider">
+          <span>&copy; 2026 SR. ALL RIGHTS RESERVED.</span>
         </div>
       </footer>
 

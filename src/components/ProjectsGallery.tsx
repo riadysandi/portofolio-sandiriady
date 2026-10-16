@@ -52,20 +52,10 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
 
   return (
     <section id="projects" className="py-6 md:py-8 px-4 max-w-7xl mx-auto scroll-mt-20">
-      {/* Editorial Section Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 mb-6 border-b border-white/10 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">
-        <div className="flex items-center gap-3">
-          <span className="text-emerald-400 font-bold">(03)</span>
-          <span className="text-white font-bold">{translations.navProjects}</span>
-          <span className="text-slate-600">/</span>
-          <span className="text-slate-400">FEATURED IMPLEMENTATIONS & ARCHITECTURE</span>
-        </div>
-        <div className="font-mono text-[9px] text-slate-500 font-bold uppercase tracking-wider">
-          INDEX // {filteredProjects.length} CASES
-        </div>
-      </div>
-
       <div className="max-w-3xl mb-6">
+        <div className="text-xs font-mono font-bold tracking-[0.2em] text-emerald-400 uppercase mb-2">
+          {translations.navProjects}
+        </div>
         <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-2">
           {translations.projectsTitle}
         </h2>
@@ -77,7 +67,7 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
         <AnimatePresence mode="popLayout">
-          {filteredProjects.map((proj, idx) => (
+          {filteredProjects.map((proj) => (
             <motion.div
               layout
               initial={{ opacity: 0, y: 20 }}
@@ -90,26 +80,15 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
               onClick={() => setSelectedProject(proj)}
               className="group bg-[#060606] border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.02] p-5 md:p-6 rounded-xl shadow-lg cursor-pointer flex flex-col justify-between transition-all duration-300 relative"
             >
-              {/* Corner crosshairs */}
-              <span className="absolute -top-1 -left-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-              <span className="absolute -top-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-              <span className="absolute -bottom-1 -left-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-              <span className="absolute -bottom-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-
               <div>
                 <div className="flex items-center justify-between mb-3.5">
                   <div className="h-10 w-10 rounded-lg bg-black border border-white/10 flex items-center justify-center group-hover:border-emerald-400/40 group-hover:bg-emerald-950/20 transition-all duration-300">
                     {getProjectIcon(proj.icon)}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-[9px] text-slate-500 font-bold uppercase">
-                      PRJ-{String(idx + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-[11px] font-mono font-bold text-slate-400 group-hover:text-emerald-400 transition-colors flex items-center gap-1 uppercase tracking-wider">
-                      <span>{currentLang === 'en' ? 'SPEC' : 'SPEC'}</span>
-                      <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                  </div>
+                  <span className="text-[11px] font-mono font-bold text-slate-400 group-hover:text-emerald-400 transition-colors flex items-center gap-1 uppercase tracking-wider">
+                    <span>{currentLang === 'en' ? 'DETAILS' : 'DETAIL'}</span>
+                    <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                  </span>
                 </div>
 
                 <h3 className="font-bold text-base text-white group-hover:text-emerald-300 transition-colors mb-2">

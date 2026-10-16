@@ -90,20 +90,10 @@ export default function ContactForm({ currentLang, translations }: ContactFormPr
 
   return (
     <section id="contact" className="py-6 md:py-8 px-4 max-w-7xl mx-auto scroll-mt-20">
-      {/* Editorial Section Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 mb-6 border-b border-white/10 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">
-        <div className="flex items-center gap-3">
-          <span className="text-emerald-400 font-bold">(05)</span>
-          <span className="text-white font-bold">{translations.navContact}</span>
-          <span className="text-slate-600">/</span>
-          <span className="text-slate-400">DIRECT TRANSMISSION & INBOX</span>
-        </div>
-        <div className="font-mono text-[9px] text-slate-500 font-bold uppercase tracking-wider">
-          COMMS // SUPABASE DB SYNCED
-        </div>
-      </div>
-
       <div className="max-w-3xl mb-6">
+        <div className="text-xs font-mono font-bold tracking-[0.2em] text-emerald-400 uppercase mb-2">
+          {translations.navContact}
+        </div>
         <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-2">
           {translations.contactTitle}
         </h2>
@@ -116,22 +106,11 @@ export default function ContactForm({ currentLang, translations }: ContactFormPr
         
         {/* Left Hand: Contact Form Card */}
         <div className="lg:col-span-5 bg-[#060606] border border-white/10 rounded-xl p-5 sm:p-7 md:p-8 shadow-2xl relative">
-          {/* Corner Crosshairs */}
-          <span className="absolute -top-1 -left-1 text-[10px] font-mono text-emerald-400 font-bold select-none">+</span>
-          <span className="absolute -top-1 -right-1 text-[10px] font-mono text-emerald-400 font-bold select-none">+</span>
-          <span className="absolute -bottom-1 -left-1 text-[10px] font-mono text-emerald-400 font-bold select-none">+</span>
-          <span className="absolute -bottom-1 -right-1 text-[10px] font-mono text-emerald-400 font-bold select-none">+</span>
-
-          <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-5">
-            <span className="font-mono text-[10px] font-bold text-white uppercase tracking-[0.2em]">TRANSMIT DISPATCH</span>
-            <span className="font-mono text-[9px] text-emerald-400 font-bold uppercase">[ONLINE]</span>
-          </div>
-
           <form onSubmit={handleSend} className="space-y-4">
             {/* Name Input */}
             <div className="space-y-1.5">
               <label className="block text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">
-                01 // {translations.formName}
+                {translations.formName}
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
@@ -150,7 +129,7 @@ export default function ContactForm({ currentLang, translations }: ContactFormPr
             {/* Email Input */}
             <div className="space-y-1.5">
               <label className="block text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">
-                02 // {translations.formEmail}
+                {translations.formEmail}
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
@@ -169,7 +148,7 @@ export default function ContactForm({ currentLang, translations }: ContactFormPr
             {/* Message Input */}
             <div className="space-y-1.5">
               <label className="block text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">
-                03 // {translations.formMsg}
+                {translations.formMsg}
               </label>
               <div className="relative">
                 <span className="absolute top-3.5 left-3.5 pointer-events-none text-slate-500">
@@ -225,27 +204,18 @@ export default function ContactForm({ currentLang, translations }: ContactFormPr
               className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-white hover:bg-emerald-400 disabled:bg-slate-700 text-black hover:text-slate-950 font-mono font-black text-xs tracking-widest uppercase transition-all shadow-md cursor-pointer"
             >
               <Send className="h-4 w-4" />
-              <span>{isSending ? translations.sending : `[ ${translations.sendButton} ]`}</span>
+              <span>{isSending ? translations.sending : translations.sendButton}</span>
             </motion.button>
           </form>
         </div>
 
         {/* Right Hand: Simulated Inbox Hub */}
         <div className="lg:col-span-7 bg-[#060606] border border-white/10 rounded-xl p-5 sm:p-7 md:p-8 shadow-2xl flex flex-col justify-between self-stretch relative">
-          {/* Corner Crosshairs */}
-          <span className="absolute -top-1 -left-1 text-[10px] font-mono text-emerald-400 font-bold select-none">+</span>
-          <span className="absolute -top-1 -right-1 text-[10px] font-mono text-emerald-400 font-bold select-none">+</span>
-          <span className="absolute -bottom-1 -left-1 text-[10px] font-mono text-emerald-400 font-bold select-none">+</span>
-          <span className="absolute -bottom-1 -right-1 text-[10px] font-mono text-emerald-400 font-bold select-none">+</span>
-
           <div>
             <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-bold text-emerald-400">[INBOX]</span>
-                <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
-                  {translations.messageHistory}
-                </h3>
-              </div>
+              <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
+                {translations.messageHistory}
+              </h3>
               {messages.length > 0 && (
                 <button
                   onClick={clearMessages}

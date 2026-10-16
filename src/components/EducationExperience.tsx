@@ -67,20 +67,10 @@ export default function EducationExperience({
 
   return (
     <section id="experience" className="py-6 md:py-8 px-4 max-w-7xl mx-auto scroll-mt-20">
-      {/* Editorial Section Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 mb-6 border-b border-white/10 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">
-        <div className="flex items-center gap-3">
-          <span className="text-emerald-400 font-bold">(02)</span>
-          <span className="text-white font-bold">{translations.navExperience}</span>
-          <span className="text-slate-600">/</span>
-          <span className="text-slate-400">CAREER & EDUCATION ARCHIVE</span>
-        </div>
-        <div className="font-mono text-[9px] text-slate-500 font-bold uppercase tracking-wider">
-          TIMELINE // PROFESSIONAL RECORD
-        </div>
-      </div>
-
       <div className="max-w-3xl mb-6">
+        <div className="text-xs font-mono font-bold tracking-[0.2em] text-emerald-400 uppercase mb-2">
+          {translations.navExperience}
+        </div>
         <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-2">
           {translations.experienceTitle}
         </h2>
@@ -92,14 +82,10 @@ export default function EducationExperience({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
         {/* Left Side: Work Experience Timeline */}
         <div className="space-y-4 md:space-y-5">
-          <div className="flex items-center justify-between pb-2 border-b border-white/10 mb-4">
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-emerald-400">[EXP]</span>
-              <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
-                {translations.experienceTitle}
-              </h3>
-            </div>
-            <span className="font-mono text-[9px] text-slate-500 font-bold uppercase">RECORDED ROLES</span>
+          <div className="pb-2 border-b border-white/10 mb-4">
+            <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
+              {translations.experienceTitle}
+            </h3>
           </div>
 
           <div className="relative border-l border-white/15 ml-3.5 pl-5 md:pl-6 space-y-4">
@@ -120,10 +106,6 @@ export default function EducationExperience({
                   transition={{ ease: [0.3, 0, 0.1, 1], duration: 0.2 }}
                   className="bg-[#060606] border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.02] p-5 md:p-6 rounded-xl shadow-lg transition-all duration-300 cursor-default relative"
                 >
-                  {/* Subtle corner crosshairs */}
-                  <span className="absolute -top-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-                  <span className="absolute -bottom-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-
                   <div className="flex flex-wrap items-center justify-between gap-2.5 mb-2.5">
                     <span className="font-mono text-[9px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-400/25 uppercase tracking-wider">
                       {exp.period}
@@ -160,14 +142,10 @@ export default function EducationExperience({
         <div className="space-y-6">
           {/* Education */}
           <div>
-            <div className="flex items-center justify-between pb-2 border-b border-white/10 mb-4">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-bold text-emerald-400">[EDU]</span>
-                <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
-                  {translations.educationTitle}
-                </h3>
-              </div>
-              <span className="font-mono text-[9px] text-slate-500 font-bold uppercase">ACADEMIC</span>
+            <div className="pb-2 border-b border-white/10 mb-4">
+              <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
+                {translations.educationTitle}
+              </h3>
             </div>
 
             <div className="relative border-l border-white/15 ml-3.5 pl-5 md:pl-6 space-y-4">
@@ -187,8 +165,6 @@ export default function EducationExperience({
                     transition={{ ease: [0.3, 0, 0.1, 1], duration: 0.2 }}
                     className="bg-[#060606] border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.02] p-4 sm:p-5 rounded-xl shadow-lg transition-all duration-300 cursor-default relative"
                   >
-                    <span className="absolute -top-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-                    
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-mono text-[9px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-400/25 uppercase tracking-wider">
                         {edu.period}
@@ -213,14 +189,10 @@ export default function EducationExperience({
 
           {/* Organizations */}
           <div>
-            <div className="flex items-center justify-between pb-2 border-b border-white/10 mb-4">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-bold text-emerald-400">[ORG]</span>
-                <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
-                  {translations.orgTitle}
-                </h3>
-              </div>
-              <span className="font-mono text-[9px] text-slate-500 font-bold uppercase">ACTIVITIES</span>
+            <div className="pb-2 border-b border-white/10 mb-4">
+              <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
+                {translations.orgTitle}
+              </h3>
             </div>
 
             <div className="relative border-l border-white/15 ml-3.5 pl-5 md:pl-6 space-y-4">
@@ -240,8 +212,6 @@ export default function EducationExperience({
                     transition={{ ease: [0.3, 0, 0.1, 1], duration: 0.2 }}
                     className="bg-[#060606] border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.02] p-4 sm:p-5 rounded-xl shadow-lg transition-all duration-300 cursor-default relative"
                   >
-                    <span className="absolute -top-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
-
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-mono text-[9px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-400/25 uppercase tracking-wider">
                         {org.period}
