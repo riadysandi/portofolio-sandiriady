@@ -21,15 +21,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const updateUserSafely = (newUser: User | null) => {
+      setUser(prev => {
+        if (!prev && !newUser) return null;
+        if (prev && newUser && prev.id === newUser.id && prev.email === newUser.email) {
+          return prev; // Preserve identity to avoid triggering dependent useEffects
+        }
+        return newUser;
+      });
+    };
+
     // Check existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
+      updateUserSafely(session?.user ?? null);
       setLoading(false);
     });
 
-    // Listen for auth changes
+    // Listen for auth changes (e.g. TOKEN_REFRESHED on tab focus)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      updateUserSafely(session?.user ?? null);
       setLoading(false);
     });
 

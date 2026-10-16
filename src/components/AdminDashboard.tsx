@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   LayoutDashboard, User, Wrench, Briefcase, GraduationCap, Building2,
   FolderOpen, MessageSquare, Save, LogOut, ArrowLeft, Plus, Trash2,
@@ -96,6 +96,25 @@ export default function AdminDashboard() {
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState<{ type: 'success' | 'error'; msg: string } | null>(null);
   const [hasChanges, setHasChanges] = useState(false);
+  const hasChangesRef = useRef(false);
+  const initialLoaded = useRef(false);
+
+  // Sync ref with state
+  useEffect(() => {
+    hasChangesRef.current = hasChanges;
+  }, [hasChanges]);
+
+  // Prevent accidental loss if closing/refreshing tab with unsaved edits
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasChanges) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [hasChanges]);
 
   // Redirect if not logged in
   useEffect(() => {
@@ -109,7 +128,11 @@ export default function AdminDashboard() {
   };
 
   // Fetch data
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (force = false) => {
+    // Guard: never overwrite in-progress form edits unless explicitly forced
+    if (hasChangesRef.current && !force) {
+      return;
+    }
     setDataLoading(true);
     const [siteRes, msgRes, analyticsData] = await Promise.all([
       supabase.from('site_data').select('*').eq('id', 'main').single(),
@@ -133,9 +156,16 @@ export default function AdminDashboard() {
     setAnalytics(analyticsData);
     setDataLoading(false);
     setHasChanges(false);
+    hasChangesRef.current = false;
   }, []);
 
-  useEffect(() => { if (user) fetchData(); }, [user, fetchData]);
+  // Fetch once on mount/login, NOT on window focus or tab switches
+  useEffect(() => {
+    if (user && !initialLoaded.current) {
+      initialLoaded.current = true;
+      fetchData();
+    }
+  }, [user?.id, fetchData]);
 
   // Mark changes
   const markChanged = () => setHasChanges(true);
@@ -162,6 +192,7 @@ export default function AdminDashboard() {
     } else {
       showToast('success', 'Data berhasil disimpan!');
       setHasChanges(false);
+      hasChangesRef.current = false;
     }
     setSaving(false);
   };
