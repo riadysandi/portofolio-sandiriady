@@ -62,10 +62,10 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
   };
 
   return (
-    <section id="skills" className="pt-4 pb-8 md:pt-6 md:pb-10 px-4 max-w-7xl mx-auto scroll-mt-16">
+    <section id="skills" className="py-6 md:py-8 px-4 max-w-7xl mx-auto scroll-mt-20">
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-5">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2.5 border border-emerald-500/20">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2.5 border border-emerald-500/20 shadow-[0_0_12px_rgba(16,185,129,0.1)]">
           <Wrench className="h-3.5 w-3.5" />
           <span>{translations.navSkills}</span>
         </div>
@@ -82,17 +82,19 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
       {/* Category Filter Buttons */}
       <div className="flex flex-wrap justify-center gap-2 mb-5">
         {categories.map((cat) => (
-          <button
+          <motion.button
             key={cat.id}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => setActiveCategory(cat.id as any)}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all cursor-pointer border ${
               activeCategory === cat.id
-                ? 'bg-emerald-400 text-slate-950 border-emerald-400 font-extrabold shadow-md shadow-emerald-500/10'
-                : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white'
+                ? 'bg-emerald-400 text-slate-950 border-emerald-400 font-extrabold shadow-[0_0_15px_rgba(16,185,129,0.25)]'
+                : 'bg-[#0A0A0A] text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white'
             }`}
           >
             {cat.label}
-          </button>
+          </motion.button>
         ))}
       </div>
 
@@ -108,17 +110,18 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.25 }}
+              whileHover={{ y: -3, scale: 1.01 }}
               key={skill.name}
-              className="bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 rounded-xl p-4 shadow-sm relative overflow-hidden transition-all duration-300"
+              className="group bg-[#0A0A0A] border border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] rounded-2xl p-4 shadow-sm relative overflow-hidden transition-all duration-300"
             >
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0">
+                  <div className="h-10 w-10 rounded-xl bg-black border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-emerald-500/40 group-hover:bg-emerald-950/20 transition-all duration-300">
                     {getCategoryIcon(skill.category)}
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-slate-100">
+                    <h3 className="font-bold text-sm text-slate-100 group-hover:text-emerald-300 transition-colors">
                       {highlightText(skill.name, searchQuery)}
                     </h3>
                     <span className="text-[11px] font-mono text-emerald-400/90 font-medium">
@@ -127,7 +130,7 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
                   </div>
                 </div>
 
-                <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0" />
+                <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0 group-hover:scale-110 transition-transform" />
               </div>
             </motion.div>
           ))}
@@ -139,7 +142,7 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center py-8 bg-slate-900/40 border border-slate-800 rounded-2xl max-w-md mx-auto"
+          className="text-center py-8 bg-[#0A0A0A] border border-slate-800 rounded-2xl max-w-md mx-auto"
         >
           <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{translations.noResults}</p>
         </motion.div>

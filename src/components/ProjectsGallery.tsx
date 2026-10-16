@@ -51,23 +51,23 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
   };
 
   return (
-    <section id="projects" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20">
+    <section id="projects" className="py-6 md:py-8 px-4 max-w-7xl mx-auto scroll-mt-20">
       {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3 border border-emerald-500/20">
+      <div className="text-center max-w-3xl mx-auto mb-6 md:mb-8">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2.5 border border-emerald-500/20 shadow-[0_0_12px_rgba(16,185,129,0.1)]">
           <LayoutDashboard className="h-3.5 w-3.5" />
           <span>{translations.navProjects}</span>
         </div>
-        <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-3">
+        <h2 className="font-display font-black text-2xl md:text-4xl text-white tracking-tight uppercase mb-2">
           {translations.projectsTitle}
         </h2>
-        <p className="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
+        <p className="text-slate-400 text-xs md:text-sm max-w-2xl mx-auto">
           {translations.projectsSubtitle}
         </p>
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((proj) => (
             <motion.div
@@ -77,26 +77,27 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
               viewport={{ once: true }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3 }}
+              whileHover={{ y: -4, scale: 1.01 }}
               key={proj.id}
               onClick={() => setSelectedProject(proj)}
-              className="group bg-slate-900/50 border border-slate-800 hover:border-emerald-500/40 p-6 rounded-2xl shadow-lg cursor-pointer flex flex-col justify-between transition-all duration-300"
+              className="group bg-[#0A0A0A] border border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_0_25px_rgba(16,185,129,0.12)] p-5 md:p-6 rounded-2xl md:rounded-3xl shadow-lg cursor-pointer flex flex-col justify-between transition-all duration-300"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="h-10 w-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center group-hover:border-emerald-500/40 group-hover:bg-emerald-950/20 transition-all">
+                <div className="flex items-center justify-between mb-3.5">
+                  <div className="h-10 w-10 rounded-xl bg-black border border-slate-800 flex items-center justify-center group-hover:border-emerald-500/40 group-hover:bg-emerald-950/20 transition-all duration-300">
                     {getProjectIcon(proj.icon)}
                   </div>
                   <span className="text-xs font-medium text-slate-400 group-hover:text-emerald-400 transition-colors flex items-center gap-1">
                     <span>{currentLang === 'en' ? 'View Details' : 'Lihat Detail'}</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
+                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>
 
-                <h3 className="font-bold text-base text-white group-hover:text-emerald-400 transition-colors mb-2.5">
+                <h3 className="font-bold text-base text-white group-hover:text-emerald-300 transition-colors mb-2">
                   {highlightText(proj.title[currentLang], searchQuery)}
                 </h3>
 
-                <p className="text-xs md:text-sm text-slate-300 leading-relaxed mb-4">
+                <p className="text-xs text-slate-300 leading-relaxed mb-4">
                   {highlightText(proj.description[currentLang], searchQuery)}
                 </p>
               </div>
@@ -106,7 +107,7 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
                 {proj.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[11px] font-mono text-slate-300 bg-slate-950 border border-slate-800 px-2.5 py-1 rounded-md"
+                    className="text-[11px] font-mono text-slate-300 bg-black border border-slate-800/80 px-2.5 py-1 rounded-lg"
                   >
                     {tag}
                   </span>
@@ -119,7 +120,7 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
 
       {/* Empty State */}
       {filteredProjects.length === 0 && (
-        <div className="text-center py-12 bg-slate-900/40 border border-slate-800 rounded-2xl max-w-md mx-auto">
+        <div className="text-center py-8 bg-[#0A0A0A] border border-slate-800 rounded-2xl max-w-md mx-auto">
           <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{translations.noResults}</p>
         </div>
       )}
@@ -128,7 +129,7 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
       <AnimatePresence>
         {selectedProject && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
@@ -136,7 +137,7 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col"
+              className="bg-[#0A0A0A] border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col"
             >
               {/* Modal Header */}
               <div className="p-6 border-b border-slate-800 flex items-center justify-between">

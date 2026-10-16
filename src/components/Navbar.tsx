@@ -49,17 +49,17 @@ export default function Navbar({
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-slate-800 text-slate-100 shadow-xl">
+    <nav className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-slate-900 text-slate-100 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center gap-2.5 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="h-10 w-10 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center shadow-md">
+            <div className="h-10 w-10 rounded-xl bg-black border border-slate-800 flex items-center justify-center shadow-md">
               <span className="font-display text-lg font-black tracking-tighter text-emerald-400">SR<span className="text-white">.</span></span>
             </div>
             <div>
               <span className="font-display font-black tracking-tighter text-base text-white block uppercase leading-snug">Sandi Riady</span>
-              <span className="font-mono text-[9px] text-emerald-400 font-bold tracking-widest uppercase block mt-1 leading-normal">MIS & IT INFRA</span>
+              <span className="font-mono text-[9px] text-emerald-400 font-bold tracking-widest uppercase block mt-0.5 leading-normal">MIS & IT INFRA</span>
             </div>
           </div>
 
@@ -76,7 +76,7 @@ export default function Navbar({
                 onChange={(e) => onSearchChange(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
-                className="w-full pl-9 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-[11px] font-bold tracking-wider text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-0 transition-all uppercase leading-relaxed"
+                className="w-full pl-9 pr-4 py-2 bg-black border border-slate-800 rounded-xl text-[11px] font-bold tracking-wider text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all uppercase leading-relaxed"
               />
               {searchQuery && (
                 <button
@@ -90,7 +90,7 @@ export default function Navbar({
           </div>
 
           {/* Navigation Items - Desktop */}
-          <div className="hidden lg:flex items-center gap-8 text-[11px] uppercase tracking-[0.2em] font-bold">
+          <div className="hidden lg:flex items-center gap-7 text-[11px] uppercase tracking-[0.2em] font-bold">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -103,9 +103,9 @@ export default function Navbar({
           </div>
 
           {/* Action Tools */}
-          <div className="hidden md:flex items-center gap-4 ml-4">
+          <div className="hidden md:flex items-center gap-3.5 ml-4">
             {/* Language Switch */}
-            <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-full px-3 py-2 text-[10px] uppercase tracking-[0.1em] font-bold leading-relaxed">
+            <div className="flex items-center gap-2 bg-black border border-slate-800 rounded-full px-3 py-1.5 text-[10px] uppercase tracking-[0.1em] font-bold leading-relaxed">
               <span 
                 className={`cursor-pointer transition-colors ${currentLang === 'en' ? 'text-emerald-400 font-extrabold' : 'text-slate-500 hover:text-white'}`}
                 onClick={() => onLangChange('en')}
@@ -125,7 +125,7 @@ export default function Navbar({
             <button
               onClick={onDownloadPdf}
               disabled={isDownloading}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:bg-emerald-800/80 text-slate-950 font-black text-[11px] uppercase tracking-wider hover:shadow-lg hover:shadow-emerald-500/15 active:scale-[0.98] transition-all cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 disabled:bg-emerald-800/80 text-slate-950 font-black text-[11px] uppercase tracking-wider hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] transition-all cursor-pointer shadow-md"
             >
               <Download className={`h-3.5 w-3.5 ${isDownloading ? 'animate-bounce' : ''}`} />
               <span>{isDownloading ? translations.downloading : translations.downloadButton}</span>
@@ -137,14 +137,14 @@ export default function Navbar({
             {/* Language Switch Mobile Quick */}
             <button
               onClick={() => onLangChange(currentLang === 'en' ? 'id' : 'en')}
-              className="flex items-center justify-center h-8 px-2.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 text-[10px] font-black tracking-widest cursor-pointer"
+              className="flex items-center justify-center h-8 px-2.5 rounded-lg bg-black border border-slate-800 text-slate-300 text-[10px] font-black tracking-widest cursor-pointer"
             >
               {currentLang === 'en' ? 'EN' : 'ID'}
             </button>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white cursor-pointer"
+              className="p-1.5 rounded-lg bg-black border border-slate-800 text-slate-300 hover:text-white cursor-pointer"
             >
               {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -159,7 +159,7 @@ export default function Navbar({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-slate-800 bg-[#0A0A0A]"
+            className="md:hidden border-t border-slate-900 bg-black"
           >
             <div className="px-4 py-5 space-y-4">
               {/* Mobile Search Input */}
@@ -172,7 +172,7 @@ export default function Navbar({
                   placeholder={translations.searchPlaceholder}
                   value={searchQuery}
                   onChange={(e) => onSearchChange(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-850 rounded-lg text-xs text-slate-100 placeholder-slate-600 focus:outline-none uppercase font-bold tracking-widest"
+                  className="w-full pl-10 pr-4 py-2 bg-black border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-emerald-500 uppercase font-bold tracking-widest"
                 />
               </div>
 
@@ -182,7 +182,7 @@ export default function Navbar({
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="flex justify-center items-center py-2.5 px-4 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold uppercase tracking-widest text-slate-300 hover:bg-slate-850 hover:text-emerald-400 cursor-pointer text-center"
+                    className="flex justify-center items-center py-2.5 px-4 rounded-xl bg-[#0A0A0A] border border-slate-800 text-xs font-bold uppercase tracking-widest text-slate-300 hover:border-emerald-500/40 hover:text-emerald-400 cursor-pointer text-center transition-colors"
                   >
                     {item.label}
                   </button>
@@ -197,7 +197,7 @@ export default function Navbar({
                     onDownloadPdf();
                   }}
                   disabled={isDownloading}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:bg-emerald-800 text-slate-950 font-black text-xs uppercase tracking-widest"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-400 hover:bg-emerald-300 disabled:bg-emerald-800 text-slate-950 font-black text-xs uppercase tracking-widest cursor-pointer shadow-lg shadow-emerald-500/20"
                 >
                   <Download className={`h-3.5 w-3.5 ${isDownloading ? 'animate-bounce' : ''}`} />
                   <span>{isDownloading ? translations.downloading : translations.downloadButton}</span>

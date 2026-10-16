@@ -12,7 +12,6 @@ import ContactForm from './components/ContactForm';
 import PrintableCV from './components/PrintableCV';
 import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
-import MatrixBackground from './components/MatrixBackground';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Sparkles, Heart, Mail, ExternalLink, Copyright, Terminal } from 'lucide-react';
@@ -119,11 +118,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-slate-100 flex flex-col font-sans overflow-x-hidden selection:bg-emerald-500 selection:text-slate-950 relative">
+    <div className="min-h-screen bg-black text-slate-100 flex flex-col font-sans overflow-x-hidden selection:bg-emerald-500 selection:text-slate-950 relative">
       
-      {/* Minimalist Ambient Grid Background */}
-      <MatrixBackground />
-
       {/* Sticky Navigation Hub */}
       <Navbar
         currentLang={currentLang}
@@ -183,8 +179,8 @@ export default function App() {
       </main>
 
       {/* Modern, Architectural Footer */}
-      <footer className="bg-[#050505] border-t-2 border-slate-900 py-8 md:py-10 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+      <footer className="bg-black border-t border-slate-900 py-6 md:py-8 px-4">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-xl bg-slate-900 border-2 border-slate-800 flex items-center justify-center">
               <Terminal className="h-4 w-4 text-emerald-400" />

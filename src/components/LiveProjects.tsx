@@ -13,27 +13,27 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
   if (!liveProjects || liveProjects.length === 0) return null;
 
   return (
-    <section id="live-sites" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20 relative">
+    <section id="live-sites" className="py-6 md:py-8 px-4 max-w-7xl mx-auto scroll-mt-20 relative">
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="text-center max-w-3xl mx-auto mb-8"
+          className="text-center max-w-3xl mx-auto mb-6 md:mb-8"
         >
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 rounded-lg text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-4 border border-emerald-500/20">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2.5 border border-emerald-500/20 shadow-[0_0_12px_rgba(16,185,129,0.1)]">
             <Globe className="h-3.5 w-3.5" />
             <span>{translations.navLiveSites}</span>
           </div>
-          <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tighter uppercase mb-3">
+          <h2 className="font-display font-black text-2xl md:text-4xl text-white tracking-tight uppercase mb-2">
             {translations.liveSitesTitle}
           </h2>
-          <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">
+          <p className="text-slate-400 text-xs md:text-sm max-w-2xl mx-auto">
             {translations.liveSitesSubtitle}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {liveProjects.map((site, index) => (
             <motion.div
               key={site.id}
@@ -41,13 +41,14 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group bg-[#0A0A0A] border-2 border-slate-800 hover:border-emerald-500/50 p-6 rounded-3xl shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full"
+              whileHover={{ y: -4, scale: 1.01 }}
+              className="group bg-[#0A0A0A] border border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_0_25px_rgba(16,185,129,0.12)] p-5 md:p-6 rounded-2xl md:rounded-3xl shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-full"
             >
               {/* Corner Accent */}
-              <div className="absolute top-0 right-0 h-16 w-16 bg-gradient-to-bl from-emerald-500/5 to-transparent rounded-bl-3xl group-hover:from-emerald-500/15 transition-all" />
+              <div className="absolute top-0 right-0 h-16 w-16 bg-gradient-to-bl from-emerald-500/10 to-transparent rounded-bl-3xl group-hover:from-emerald-500/20 transition-all" />
 
-              <div className="flex justify-between items-start mb-6">
-                <div className="h-10 w-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center group-hover:border-emerald-500/30 group-hover:bg-emerald-950/20 transition-all duration-300">
+              <div className="flex justify-between items-start mb-5">
+                <div className="h-10 w-10 rounded-xl bg-black border border-slate-800 flex items-center justify-center group-hover:border-emerald-500/40 group-hover:bg-emerald-950/20 transition-all duration-300">
                   <Globe className="h-5 w-5 text-emerald-400" />
                 </div>
                 
@@ -68,11 +69,11 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                 )}
               </div>
 
-              <h3 className="font-display font-black text-base text-white group-hover:text-emerald-400 transition-colors uppercase tracking-wide mb-3">
+              <h3 className="font-display font-black text-base text-white group-hover:text-emerald-300 transition-colors uppercase tracking-wide mb-2">
                 {site.name}
               </h3>
               
-              <p className="text-slate-300 text-xs leading-relaxed font-sans line-clamp-3 mb-8 flex-grow">
+              <p className="text-slate-300 text-xs leading-relaxed font-sans line-clamp-3 mb-6 flex-grow">
                 {site.description[currentLang]}
               </p>
 
@@ -82,13 +83,13 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                     href={site.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-emerald-500/50 text-slate-300 hover:text-emerald-400 text-xs font-bold uppercase tracking-wider transition-all duration-300 group/btn"
+                    className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-black border border-slate-800 hover:border-emerald-500/50 hover:bg-emerald-950/20 text-slate-300 hover:text-emerald-400 text-xs font-bold uppercase tracking-wider transition-all duration-300 group/btn"
                   >
                     <span>Visit Website</span>
                     <ExternalLink className="h-3 w-3 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                   </a>
                 ) : (
-                  <div className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-slate-950/50 border border-slate-800/50 text-slate-500 text-xs font-bold uppercase tracking-wider cursor-not-allowed">
+                  <div className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-black/50 border border-slate-800/50 text-slate-500 text-xs font-bold uppercase tracking-wider cursor-not-allowed">
                     <AlertTriangle className="h-3 w-3" />
                     <span>Unavailable</span>
                   </div>
