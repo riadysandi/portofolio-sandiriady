@@ -26,12 +26,12 @@ export default function Navbar({
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   const navItems = [
-    { id: 'about', label: translations.navAbout },
-    { id: 'skills', label: translations.navSkills },
-    { id: 'experience', label: translations.navExperience },
-    { id: 'projects', label: translations.navProjects },
-    { id: 'live-sites', label: translations.navLiveSites },
-    { id: 'contact', label: translations.navContact },
+    { id: 'about', num: '01', label: translations.navAbout },
+    { id: 'skills', num: '02', label: translations.navSkills },
+    { id: 'experience', num: '03', label: translations.navExperience },
+    { id: 'projects', num: '04', label: translations.navProjects },
+    { id: 'live-sites', num: '05', label: translations.navLiveSites },
+    { id: 'contact', num: '06', label: translations.navContact },
   ];
 
   const scrollToSection = (id: string) => {
@@ -49,17 +49,20 @@ export default function Navbar({
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-slate-900 text-slate-100 shadow-xl">
+    <nav className="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/10 text-slate-100 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center gap-2.5 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="h-10 w-10 rounded-xl bg-black border border-slate-800 flex items-center justify-center shadow-md">
-              <span className="font-display text-lg font-black tracking-tighter text-emerald-400">SR<span className="text-white">.</span></span>
+          {/* Logo with Eraf Index Badge */}
+          <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <div className="h-9 w-9 rounded-lg bg-black border border-white/15 flex items-center justify-center">
+              <span className="font-mono text-xs font-bold text-emerald-400">SR</span>
             </div>
             <div>
-              <span className="font-display font-black tracking-tighter text-base text-white block uppercase leading-snug">Sandi Riady</span>
-              <span className="font-mono text-[9px] text-emerald-400 font-bold tracking-widest uppercase block mt-0.5 leading-normal">MIS & IT INFRA</span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-display font-black text-sm text-white block uppercase tracking-tight">Sandi Riady</span>
+                <span className="font-mono text-[9px] text-emerald-400 font-bold tracking-wider">(00)</span>
+              </div>
+              <span className="font-mono text-[9px] text-slate-400 font-bold tracking-[0.2em] uppercase block mt-0.5">IT INFRA &bull; SYSTEM OPS</span>
             </div>
           </div>
 
@@ -76,7 +79,7 @@ export default function Navbar({
                 onChange={(e) => onSearchChange(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
-                className="w-full pl-9 pr-4 py-2 bg-black border border-slate-800 rounded-xl text-[11px] font-bold tracking-wider text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all uppercase leading-relaxed"
+                className="w-full pl-9 pr-4 py-2 bg-black border border-white/15 rounded-lg text-[11px] font-mono font-bold tracking-wider text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/20 transition-all uppercase leading-relaxed"
               />
               {searchQuery && (
                 <button
@@ -89,23 +92,24 @@ export default function Navbar({
             </div>
           </div>
 
-          {/* Navigation Items - Desktop */}
-          <div className="hidden lg:flex items-center gap-7 text-[11px] uppercase tracking-[0.2em] font-bold">
+          {/* Navigation Items - Desktop with Eraf indexing */}
+          <div className="hidden lg:flex items-center gap-6 text-[11px] uppercase tracking-[0.18em] font-mono">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="hover:text-emerald-400 text-slate-300 cursor-pointer transition-colors font-display py-2 leading-relaxed"
+                className="group flex items-center gap-1 text-slate-400 hover:text-white cursor-pointer transition-colors py-2"
               >
-                {item.label}
+                <span className="text-emerald-400 font-bold group-hover:text-emerald-300">{item.num}</span>
+                <span className="font-bold">{item.label}</span>
               </button>
             ))}
           </div>
 
           {/* Action Tools */}
-          <div className="hidden md:flex items-center gap-3.5 ml-4">
+          <div className="hidden md:flex items-center gap-3 ml-4">
             {/* Language Switch */}
-            <div className="flex items-center gap-2 bg-black border border-slate-800 rounded-full px-3 py-1.5 text-[10px] uppercase tracking-[0.1em] font-bold leading-relaxed">
+            <div className="flex items-center gap-2 bg-black border border-white/15 rounded-lg px-2.5 py-1.5 text-[10px] uppercase font-mono tracking-wider font-bold">
               <span 
                 className={`cursor-pointer transition-colors ${currentLang === 'en' ? 'text-emerald-400 font-extrabold' : 'text-slate-500 hover:text-white'}`}
                 onClick={() => onLangChange('en')}
@@ -125,26 +129,26 @@ export default function Navbar({
             <button
               onClick={onDownloadPdf}
               disabled={isDownloading}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 disabled:bg-emerald-800/80 text-slate-950 font-black text-[11px] uppercase tracking-wider hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] transition-all cursor-pointer shadow-md"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white hover:bg-emerald-400 disabled:bg-slate-700 text-black hover:text-slate-950 font-mono font-black text-[10px] uppercase tracking-[0.15em] transition-all cursor-pointer shadow-md"
             >
-              <Download className={`h-3.5 w-3.5 ${isDownloading ? 'animate-bounce' : ''}`} />
+              <Download className={`h-3 w-3 ${isDownloading ? 'animate-bounce' : ''}`} />
               <span>{isDownloading ? translations.downloading : translations.downloadButton}</span>
             </button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-3">
+          <div className="flex md:hidden items-center gap-2.5">
             {/* Language Switch Mobile Quick */}
             <button
               onClick={() => onLangChange(currentLang === 'en' ? 'id' : 'en')}
-              className="flex items-center justify-center h-8 px-2.5 rounded-lg bg-black border border-slate-800 text-slate-300 text-[10px] font-black tracking-widest cursor-pointer"
+              className="flex items-center justify-center h-8 px-2.5 rounded-lg bg-black border border-white/15 text-slate-300 text-[10px] font-mono font-bold tracking-widest cursor-pointer"
             >
               {currentLang === 'en' ? 'EN' : 'ID'}
             </button>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-1.5 rounded-lg bg-black border border-slate-800 text-slate-300 hover:text-white cursor-pointer"
+              className="p-1.5 rounded-lg bg-black border border-white/15 text-slate-300 hover:text-white cursor-pointer"
             >
               {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>

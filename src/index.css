@@ -28,3 +28,23 @@ html, body {
 ::-webkit-scrollbar-thumb:hover {
   background: #10b981;
 }
+
+/* Eraf / Blacklead Studio Signature Animations */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.ease-eraf {
+  transition-timing-function: cubic-bezier(0.3, 0, 0.1, 1);
+}

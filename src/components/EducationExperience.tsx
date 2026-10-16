@@ -67,16 +67,24 @@ export default function EducationExperience({
 
   return (
     <section id="experience" className="py-6 md:py-8 px-4 max-w-7xl mx-auto scroll-mt-20">
-      {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-6 md:mb-8">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-500/10 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2.5 border border-emerald-500/20 shadow-[0_0_12px_rgba(16,185,129,0.1)]">
-          <Briefcase className="h-3.5 w-3.5" />
-          <span>{translations.navExperience}</span>
+      {/* Editorial Section Header */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 mb-6 border-b border-white/10 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">
+        <div className="flex items-center gap-3">
+          <span className="text-emerald-400 font-bold">(02)</span>
+          <span className="text-white font-bold">{translations.navExperience}</span>
+          <span className="text-slate-600">/</span>
+          <span className="text-slate-400">CAREER & EDUCATION ARCHIVE</span>
         </div>
-        <h2 className="font-display font-black text-2xl md:text-4xl text-white tracking-tight uppercase mb-2">
+        <div className="font-mono text-[9px] text-slate-500 font-bold uppercase tracking-wider">
+          TIMELINE // PROFESSIONAL RECORD
+        </div>
+      </div>
+
+      <div className="max-w-3xl mb-6">
+        <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-2">
           {translations.experienceTitle}
         </h2>
-        <p className="text-slate-400 text-xs md:text-sm max-w-2xl mx-auto">
+        <p className="text-slate-400 text-xs md:text-sm max-w-2xl font-sans">
           {translations.experienceSubtitle}
         </p>
       </div>
@@ -84,39 +92,44 @@ export default function EducationExperience({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
         {/* Left Side: Work Experience Timeline */}
         <div className="space-y-4 md:space-y-5">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-8 w-8 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
-              <Briefcase className="h-4 w-4 text-emerald-400" />
+          <div className="flex items-center justify-between pb-2 border-b border-white/10 mb-4">
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-xs font-bold text-emerald-400">[EXP]</span>
+              <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
+                {translations.experienceTitle}
+              </h3>
             </div>
-            <h3 className="font-display font-black text-base md:text-lg text-white uppercase tracking-wider">
-              {translations.experienceTitle}
-            </h3>
+            <span className="font-mono text-[9px] text-slate-500 font-bold uppercase">RECORDED ROLES</span>
           </div>
 
-          <div className="relative border-l-2 border-slate-800 ml-3.5 pl-5 md:pl-6 space-y-4">
+          <div className="relative border-l border-white/15 ml-3.5 pl-5 md:pl-6 space-y-4">
             {filteredExperiences.map((exp, expIdx) => (
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: expIdx * 0.1 }}
+                transition={{ duration: 0.5, delay: expIdx * 0.1, ease: [0.3, 0, 0.1, 1] }}
                 key={exp.id}
                 className="relative group"
               >
                 {/* Timeline Dot */}
-                <span className="absolute -left-[29px] md:-left-[33px] top-2 h-3.5 w-3.5 rounded-full bg-black border-2 border-slate-700 group-hover:border-emerald-400 group-hover:bg-emerald-400 group-hover:shadow-[0_0_12px_rgba(16,185,129,0.8)] transition-all duration-300" />
+                <span className="absolute -left-[27px] md:-left-[31px] top-2.5 h-2.5 w-2.5 rounded-full bg-black border border-slate-500 group-hover:border-emerald-400 group-hover:bg-emerald-400 transition-all duration-300" />
 
                 <motion.div
-                  whileHover={{ x: 4 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                  className="bg-[#0A0A0A] border border-slate-800 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.1)] p-5 md:p-6 rounded-2xl md:rounded-3xl shadow-lg transition-all duration-300 cursor-pointer"
+                  whileHover={{ x: 3 }}
+                  transition={{ ease: [0.3, 0, 0.1, 1], duration: 0.2 }}
+                  className="bg-[#060606] border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.02] p-5 md:p-6 rounded-xl shadow-lg transition-all duration-300 cursor-default relative"
                 >
+                  {/* Subtle corner crosshairs */}
+                  <span className="absolute -top-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
+                  <span className="absolute -bottom-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
+
                   <div className="flex flex-wrap items-center justify-between gap-2.5 mb-2.5">
-                    <span className="font-mono text-[9px] text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-400/25 uppercase tracking-wider">
+                    <span className="font-mono text-[9px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-400/25 uppercase tracking-wider">
                       {exp.period}
                     </span>
                     <span className="font-mono text-[9px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                      <Building2 className="h-3.5 w-3.5 text-emerald-400" />
+                      <Building2 className="h-3 w-3 text-emerald-400" />
                       {exp.company}
                     </span>
                   </div>
@@ -138,44 +151,46 @@ export default function EducationExperience({
             ))}
 
             {filteredExperiences.length === 0 && (
-              <p className="text-slate-500 text-xs uppercase font-bold tracking-wider italic">No matching experiences.</p>
+              <p className="text-slate-500 text-xs uppercase font-mono tracking-wider italic">No matching experiences.</p>
             )}
           </div>
         </div>
 
         {/* Right Side: Education & Organization TIMELINE */}
-        <div className="space-y-5 md:space-y-6">
+        <div className="space-y-6">
           {/* Education */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-8 w-8 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
-                <GraduationCap className="h-4 w-4 text-emerald-400" />
+            <div className="flex items-center justify-between pb-2 border-b border-white/10 mb-4">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs font-bold text-emerald-400">[EDU]</span>
+                <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
+                  {translations.educationTitle}
+                </h3>
               </div>
-              <h3 className="font-display font-black text-base md:text-lg text-white uppercase tracking-wider">
-                {translations.educationTitle}
-              </h3>
+              <span className="font-mono text-[9px] text-slate-500 font-bold uppercase">ACADEMIC</span>
             </div>
 
-            <div className="relative border-l-2 border-slate-800 ml-3.5 pl-5 md:pl-6 space-y-4">
+            <div className="relative border-l border-white/15 ml-3.5 pl-5 md:pl-6 space-y-4">
               {filteredEducation.map((edu, eduIdx) => (
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4 }}
+                  transition={{ duration: 0.5, delay: eduIdx * 0.1, ease: [0.3, 0, 0.1, 1] }}
                   key={edu.id}
                   className="relative group"
                 >
-                  {/* Timeline Dot */}
-                  <span className="absolute -left-[29px] md:-left-[33px] top-2 h-3.5 w-3.5 rounded-full bg-black border-2 border-slate-700 group-hover:border-emerald-400 group-hover:bg-emerald-400 group-hover:shadow-[0_0_12px_rgba(16,185,129,0.8)] transition-all duration-300" />
+                  <span className="absolute -left-[27px] md:-left-[31px] top-2.5 h-2.5 w-2.5 rounded-full bg-black border border-slate-500 group-hover:border-emerald-400 group-hover:bg-emerald-400 transition-all duration-300" />
 
                   <motion.div
-                    whileHover={{ x: 4 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                    className="bg-[#0A0A0A] border border-slate-800 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.1)] p-4 sm:p-5 rounded-2xl md:rounded-3xl shadow-lg transition-all duration-300 cursor-pointer"
+                    whileHover={{ x: 3 }}
+                    transition={{ ease: [0.3, 0, 0.1, 1], duration: 0.2 }}
+                    className="bg-[#060606] border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.02] p-4 sm:p-5 rounded-xl shadow-lg transition-all duration-300 cursor-default relative"
                   >
+                    <span className="absolute -top-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
+                    
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-mono text-[9px] text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-400/25 uppercase tracking-wider">
+                      <span className="font-mono text-[9px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-400/25 uppercase tracking-wider">
                         {edu.period}
                       </span>
                     </div>
@@ -191,42 +206,44 @@ export default function EducationExperience({
               ))}
 
               {filteredEducation.length === 0 && (
-                <p className="text-slate-500 text-xs uppercase font-bold tracking-wider italic">No matching education.</p>
+                <p className="text-slate-500 text-xs uppercase font-mono tracking-wider italic">No matching education.</p>
               )}
             </div>
           </div>
 
           {/* Organizations */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-8 w-8 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
-                <Network className="h-4 w-4 text-emerald-400" />
+            <div className="flex items-center justify-between pb-2 border-b border-white/10 mb-4">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs font-bold text-emerald-400">[ORG]</span>
+                <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
+                  {translations.orgTitle}
+                </h3>
               </div>
-              <h3 className="font-display font-black text-base md:text-lg text-white uppercase tracking-wider">
-                {translations.orgTitle}
-              </h3>
+              <span className="font-mono text-[9px] text-slate-500 font-bold uppercase">ACTIVITIES</span>
             </div>
 
-            <div className="relative border-l-2 border-slate-800 ml-3.5 pl-5 md:pl-6 space-y-4">
+            <div className="relative border-l border-white/15 ml-3.5 pl-5 md:pl-6 space-y-4">
               {filteredOrganizations.map((org, orgIdx) => (
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: orgIdx * 0.1 }}
+                  transition={{ duration: 0.5, delay: orgIdx * 0.1, ease: [0.3, 0, 0.1, 1] }}
                   key={org.id}
                   className="relative group"
                 >
-                  {/* Timeline Dot */}
-                  <span className="absolute -left-[29px] md:-left-[33px] top-2 h-3.5 w-3.5 rounded-full bg-black border-2 border-slate-700 group-hover:border-emerald-400 group-hover:bg-emerald-400 group-hover:shadow-[0_0_12px_rgba(16,185,129,0.8)] transition-all duration-300" />
+                  <span className="absolute -left-[27px] md:-left-[31px] top-2.5 h-2.5 w-2.5 rounded-full bg-black border border-slate-500 group-hover:border-emerald-400 group-hover:bg-emerald-400 transition-all duration-300" />
 
                   <motion.div
-                    whileHover={{ x: 4 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                    className="bg-[#0A0A0A] border border-slate-800 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.1)] p-4 sm:p-5 rounded-2xl md:rounded-3xl shadow-lg transition-all duration-300 cursor-pointer"
+                    whileHover={{ x: 3 }}
+                    transition={{ ease: [0.3, 0, 0.1, 1], duration: 0.2 }}
+                    className="bg-[#060606] border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.02] p-4 sm:p-5 rounded-xl shadow-lg transition-all duration-300 cursor-default relative"
                   >
+                    <span className="absolute -top-1 -right-1 text-[10px] font-mono text-emerald-400/0 group-hover:text-emerald-400 font-bold select-none transition-colors duration-200">+</span>
+
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-mono text-[9px] text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-400/25 uppercase tracking-wider">
+                      <span className="font-mono text-[9px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-400/25 uppercase tracking-wider">
                         {org.period}
                       </span>
                     </div>
@@ -242,7 +259,7 @@ export default function EducationExperience({
               ))}
 
               {filteredOrganizations.length === 0 && (
-                <p className="text-slate-500 text-xs uppercase font-bold tracking-wider italic">No matching organization activity.</p>
+                <p className="text-slate-500 text-xs uppercase font-mono tracking-wider italic">No matching organization activity.</p>
               )}
             </div>
           </div>

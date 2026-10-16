@@ -9,6 +9,7 @@ import EducationExperience from './components/EducationExperience';
 import ProjectsGallery from './components/ProjectsGallery';
 import LiveProjects from './components/LiveProjects';
 import ContactForm from './components/ContactForm';
+import TechTicker from './components/TechTicker';
 import PrintableCV from './components/PrintableCV';
 import Login from './components/Login';
 import AdminDashboard from './components/AdminDashboard';
@@ -142,6 +143,9 @@ export default function App() {
           onDownloadPdf={handleDownloadPdf}
         />
 
+        {/* Eraf Horizontal Infinite Marquee Ticker */}
+        <TechTicker />
+
         {/* Skills Board with Instant Search */}
         <SkillsGrid
           currentLang={currentLang}
@@ -178,40 +182,39 @@ export default function App() {
 
       </main>
 
-      {/* Modern, Architectural Footer */}
-      <footer className="bg-black border-t border-slate-900 py-6 md:py-8 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+      {/* Eraf Editorial Architectural Footer */}
+      <footer className="bg-black border-t border-white/10 py-8 px-4 relative">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-xl bg-slate-900 border-2 border-slate-800 flex items-center justify-center">
-              <Terminal className="h-4 w-4 text-emerald-400" />
+            <div className="h-9 w-9 rounded-lg bg-black border border-white/15 flex items-center justify-center">
+              <span className="font-mono text-xs font-bold text-emerald-400">SR</span>
             </div>
             <div className="text-left">
-              <span className="font-display font-black text-slate-200 block text-sm uppercase tracking-wide">Sandi Riady Portfolio</span>
-              <span className="font-mono text-[9px] text-slate-500 block font-bold uppercase tracking-widest mt-0.5">IT INFRASTRUCTURE &bull; MIS SPECIALIST</span>
+              <span className="font-mono text-xs font-bold text-white block uppercase tracking-[0.2em]">SANDI RIADY // ARCHIVE</span>
+              <span className="font-mono text-[9px] text-slate-500 block font-bold uppercase tracking-widest mt-0.5">IT INFRASTRUCTURE &bull; SYSTEM OPS &bull; TANGERANG</span>
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-8 text-[11px] uppercase tracking-widest font-bold text-slate-400">
-            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer font-display py-1.5 leading-relaxed">
-              {translations.navAbout}
+          <div className="flex flex-wrap justify-center gap-6 text-[10px] uppercase tracking-[0.2em] font-mono text-slate-400">
+            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer">
+              01 // {translations.navAbout}
             </button>
-            <button onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer font-display py-1.5 leading-relaxed">
-              {translations.navSkills}
+            <button onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer">
+              02 // {translations.navSkills}
             </button>
-            <button onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer font-display py-1.5 leading-relaxed">
-              {translations.navExperience}
+            <button onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer">
+              03 // {translations.navExperience}
             </button>
-            <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer font-display py-1.5 leading-relaxed">
-              {translations.navProjects}
+            <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer">
+              04 // {translations.navProjects}
             </button>
-            <button onClick={() => document.getElementById('live-sites')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer font-display py-1.5 leading-relaxed">
-              {translations.navLiveSites}
+            <button onClick={() => document.getElementById('live-sites')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-emerald-400 transition-colors cursor-pointer">
+              05 // {translations.navLiveSites}
             </button>
           </div>
 
           <div className="flex items-center gap-2 text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider">
-            <Copyright className="h-3.5 w-3.5 text-emerald-500" />
-            <span>2026 Sandi Riady. Built with React & Tailwind.</span>
+            <span>&copy; 2026 SR. ALL RIGHTS RESERVED.</span>
           </div>
         </div>
       </footer>

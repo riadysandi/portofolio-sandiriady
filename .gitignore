@@ -8,3 +8,6 @@ coverage/
 !.env.example
 *.md
 .agents/
+
+.vercel
+.env*
