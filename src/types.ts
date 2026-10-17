@@ -16,6 +16,8 @@ export interface LiveSite {
   url: string;
   description: { en: string; id: string };
   status: 'active' | 'maintenance' | 'development';
+  image?: string;
+  screenshots?: string[];
 }
 
 export interface Skill {

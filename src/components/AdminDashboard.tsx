@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   LayoutDashboard, User, Wrench, Briefcase, GraduationCap, Building2,
   FolderOpen, MessageSquare, Save, LogOut, ArrowLeft, Plus, Trash2,
-  ChevronRight, Check, AlertCircle, Menu, X, Loader2, Users, Activity, Globe, MousePointerClick
+  ChevronRight, Check, AlertCircle, Menu, X, Loader2, Users, Activity, Globe, MousePointerClick,
+  Image as ImageIcon, Upload, Star, ExternalLink, Link as LinkIcon
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
@@ -19,7 +20,15 @@ interface ExpItem { id: string; period: string; title: { en: string; id: string 
 interface EduItem { id: string; period: string; field: { en: string; id: string }; institution: string }
 interface OrgItem { id: string; period: string; role: { en: string; id: string }; organization: string }
 interface ProjItem { id: string; title: { en: string; id: string }; description: { en: string; id: string }; tags: string[]; icon: string }
-interface LiveSiteItem { id: string; name: string; url: string; description: { en: string; id: string }; status: 'active' | 'maintenance' | 'development' }
+interface LiveSiteItem {
+  id: string;
+  name: string;
+  url: string;
+  description: { en: string; id: string };
+  status: 'active' | 'maintenance' | 'development';
+  image?: string;
+  screenshots?: string[];
+}
 interface ContactMsg { id: string; name: string; email: string; message: string; created_at: string }
 
 type TabKey = 'overview' | 'personal' | 'skills' | 'experience' | 'education' | 'organizations' | 'projects' | 'liveSites' | 'messages';
@@ -96,6 +105,8 @@ export default function AdminDashboard() {
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState<{ type: 'success' | 'error'; msg: string } | null>(null);
   const [hasChanges, setHasChanges] = useState(false);
+  const [uploadingSiteId, setUploadingSiteId] = useState<string | null>(null);
+  const [urlInputs, setUrlInputs] = useState<Record<string, string>>({});
   const hasChangesRef = useRef(false);
   const initialLoaded = useRef(false);
 
@@ -273,9 +284,103 @@ export default function AdminDashboard() {
   );
 
   const renderLiveSites = () => {
-    const addSite = () => { setLiveProjects(prev => [...prev, { id: `site${Date.now()}`, name: '', url: '', description: { en: '', id: '' }, status: 'active' }]); markChanged(); };
-    const updateSite = (i: number, fn: (s: LiveSiteItem) => LiveSiteItem) => { setLiveProjects(prev => prev.map((s, idx) => idx === i ? fn(s) : s)); markChanged(); };
-    const removeSite = (i: number) => { setLiveProjects(prev => prev.filter((_, idx) => idx !== i)); markChanged(); };
+    const addSite = () => {
+      setLiveProjects(prev => [...prev, {
+        id: `site${Date.now()}`,
+        name: '',
+        url: '',
+        description: { en: '', id: '' },
+        status: 'active',
+        image: '',
+        screenshots: []
+      }]);
+      markChanged();
+    };
+
+    const updateSite = (i: number, fn: (s: LiveSiteItem) => LiveSiteItem) => {
+      setLiveProjects(prev => prev.map((s, idx) => idx === i ? fn(s) : s));
+      markChanged();
+    };
+
+    const removeSite = (i: number) => {
+      setLiveProjects(prev => prev.filter((_, idx) => idx !== i));
+      markChanged();
+    };
+
+    const handleUploadFiles = async (i: number, siteId: string, files: FileList | null) => {
+      if (!files || files.length === 0) return;
+      setUploadingSiteId(siteId);
+      try {
+        const uploadedUrls: string[] = [];
+        for (let f = 0; f < files.length; f++) {
+          const file = files[f];
+          const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+          const fileName = `site_${siteId}_${Date.now()}_${cleanName}`;
+          const { error: uploadError } = await supabase.storage.from('portfolio-images').upload(fileName, file, {
+            cacheControl: '3600',
+            upsert: true
+          });
+          if (uploadError) {
+            showToast('error', `Gagal upload ${file.name}: ${uploadError.message}`);
+            continue;
+          }
+          const { data: publicData } = supabase.storage.from('portfolio-images').getPublicUrl(fileName);
+          if (publicData?.publicUrl) {
+            uploadedUrls.push(publicData.publicUrl);
+          }
+        }
+        if (uploadedUrls.length > 0) {
+          updateSite(i, s => {
+            const current = s.screenshots || [];
+            const combined = [...current, ...uploadedUrls];
+            return {
+              ...s,
+              image: s.image || combined[0],
+              screenshots: combined
+            };
+          });
+          showToast('success', `${uploadedUrls.length} screenshot berhasil diunggah!`);
+        }
+      } catch (err: any) {
+        showToast('error', `Error upload: ${err.message}`);
+      } finally {
+        setUploadingSiteId(null);
+      }
+    };
+
+    const handleAddManualUrl = (i: number, siteId: string) => {
+      const url = urlInputs[siteId]?.trim();
+      if (!url) return;
+      updateSite(i, s => {
+        const current = s.screenshots || [];
+        const combined = [...current, url];
+        return {
+          ...s,
+          image: s.image || combined[0],
+          screenshots: combined
+        };
+      });
+      setUrlInputs(prev => ({ ...prev, [siteId]: '' }));
+      showToast('success', 'URL screenshot berhasil ditambahkan!');
+    };
+
+    const handleRemoveScreenshot = (i: number, imgIndex: number) => {
+      updateSite(i, s => {
+        const current = s.screenshots || [];
+        const targetImg = current[imgIndex];
+        const updated = current.filter((_, idx) => idx !== imgIndex);
+        return {
+          ...s,
+          image: s.image === targetImg ? (updated[0] || '') : s.image,
+          screenshots: updated
+        };
+      });
+    };
+
+    const handleSetPrimary = (i: number, imgUrl: string) => {
+      updateSite(i, s => ({ ...s, image: imgUrl }));
+      showToast('success', 'Cover utama diatur!');
+    };
     
     return (
       <div>
@@ -285,32 +390,149 @@ export default function AdminDashboard() {
             <Plus className="h-3.5 w-3.5" /> Tambah
           </button>
         </div>
-        <div className="space-y-4">
-          {liveProjects.map((site, i) => (
-            <div key={site.id} className="bg-[#060606] border border-white/10 rounded-xl p-5 space-y-4">
-              <div className="flex justify-between items-start">
-                <h3 className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">{site.name || 'New Live Site'}</h3>
-                <button onClick={() => removeSite(i)} className="text-red-400 hover:text-red-300 cursor-pointer"><Trash2 className="h-4 w-4" /></button>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <Input label="Name" value={site.name} onChange={v => updateSite(i, s => ({ ...s, name: v }))} />
-                <Input label="URL" value={site.url} onChange={v => updateSite(i, s => ({ ...s, url: v }))} placeholder="https://..." />
-                <div>
-                  <label className="block text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1.5">Status</label>
-                  <select value={site.status} onChange={e => updateSite(i, s => ({ ...s, status: e.target.value as any }))}
-                    className="w-full bg-black border border-white/15 text-slate-200 rounded-lg px-3 py-2 text-xs font-mono focus:outline-none focus:border-emerald-400 cursor-pointer">
-                    <option value="active">Active</option>
-                    <option value="maintenance">Maintenance</option>
-                    <option value="development">Development</option>
-                  </select>
+        <div className="space-y-6">
+          {liveProjects.map((site, i) => {
+            const screenshotsList = site.screenshots || (site.image ? [site.image] : []);
+            return (
+              <div key={site.id} className="bg-[#060606] border border-white/10 rounded-xl p-5 space-y-4">
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-2">
+                    <Globe className="h-4 w-4 text-emerald-400" />
+                    <h3 className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">{site.name || 'New Live Site'}</h3>
+                  </div>
+                  <button onClick={() => removeSite(i)} className="text-red-400 hover:text-red-300 cursor-pointer p-1"><Trash2 className="h-4 w-4" /></button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <Input label="Nama Web / Platform" value={site.name} onChange={v => updateSite(i, s => ({ ...s, name: v }))} placeholder="cth: ERP Dashboard" />
+                  <Input label="URL Website" value={site.url} onChange={v => updateSite(i, s => ({ ...s, url: v }))} placeholder="https://..." />
+                  <div>
+                    <label className="block text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1.5">Status</label>
+                    <select value={site.status} onChange={e => updateSite(i, s => ({ ...s, status: e.target.value as any }))}
+                      className="w-full bg-black border border-white/15 text-slate-200 rounded-lg px-3 py-2 text-xs font-mono focus:outline-none focus:border-emerald-400 cursor-pointer">
+                      <option value="active">Active (Online Live)</option>
+                      <option value="maintenance">Maintenance</option>
+                      <option value="development">Development</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <TextArea label="Description (EN)" value={site.description.en} onChange={v => updateSite(i, s => ({ ...s, description: { ...s.description, en: v } }))} />
+                  <TextArea label="Description (ID)" value={site.description.id} onChange={v => updateSite(i, s => ({ ...s, description: { ...s.description, id: v } }))} />
+                </div>
+
+                {/* Screenshots & Photos Manager */}
+                <div className="pt-3 border-t border-white/10 space-y-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <ImageIcon className="h-4 w-4 text-emerald-400" />
+                      <span className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-widest">
+                        Foto & Screenshot Web ({screenshotsList.length})
+                      </span>
+                    </div>
+                    
+                    {/* Upload button from device */}
+                    <label className="flex items-center gap-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono font-bold px-3 py-1.5 rounded cursor-pointer transition-colors">
+                      <Upload className="h-3 w-3" />
+                      <span>{uploadingSiteId === site.id ? 'Mengunggah...' : 'Upload dari Perangkat'}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        className="hidden"
+                        disabled={uploadingSiteId === site.id}
+                        onChange={e => {
+                          handleUploadFiles(i, site.id, e.target.files);
+                          e.target.value = '';
+                        }}
+                      />
+                    </label>
+                  </div>
+
+                  {/* Manual URL input */}
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={urlInputs[site.id] || ''}
+                      onChange={e => setUrlInputs({ ...urlInputs, [site.id]: e.target.value })}
+                      placeholder="Atau tempel URL gambar / screenshot (https://...)"
+                      className="flex-1 bg-black border border-white/15 text-slate-100 rounded px-3 py-1.5 text-xs font-mono placeholder:text-slate-600 focus:outline-none focus:border-emerald-400"
+                      onKeyDown={e => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleAddManualUrl(i, site.id);
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleAddManualUrl(i, site.id)}
+                      className="bg-white hover:bg-emerald-400 text-black text-xs font-mono font-bold px-3 py-1.5 rounded transition-colors cursor-pointer shrink-0"
+                    >
+                      Tambah Link
+                    </button>
+                  </div>
+
+                  {/* Thumbnails list */}
+                  {screenshotsList.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 pt-1">
+                      {screenshotsList.map((imgUrl, imgIdx) => {
+                        const isCover = site.image === imgUrl || (!site.image && imgIdx === 0);
+                        return (
+                          <div key={imgIdx} className="group/thumb relative rounded-lg border border-white/10 overflow-hidden bg-black flex flex-col">
+                            <div className="relative aspect-video overflow-hidden bg-[#0d0d0d]">
+                              <img src={imgUrl} alt={`Screenshot ${imgIdx + 1}`} className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-300" />
+                              {isCover && (
+                                <span className="absolute top-1 left-1 bg-emerald-500 text-black text-[9px] font-mono font-black uppercase px-1.5 py-0.5 rounded shadow">
+                                  ★ COVER
+                                </span>
+                              )}
+                              <a
+                                href={imgUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="absolute top-1 right-1 bg-black/80 hover:bg-black text-white p-1 rounded opacity-0 group-hover/thumb:opacity-100 transition-opacity"
+                                title="Lihat ukuran penuh"
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                              </a>
+                            </div>
+                            
+                            <div className="p-1.5 bg-[#0a0a0a] border-t border-white/10 flex items-center justify-between text-[10px] font-mono">
+                              {!isCover ? (
+                                <button
+                                  type="button"
+                                  onClick={() => handleSetPrimary(i, imgUrl)}
+                                  className="text-slate-400 hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors"
+                                >
+                                  <Star className="h-3 w-3" /> Set Cover
+                                </button>
+                              ) : (
+                                <span className="text-emerald-400 font-bold">Cover Utama</span>
+                              )}
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveScreenshot(i, imgIdx)}
+                                className="text-red-400 hover:text-red-300 p-0.5 cursor-pointer ml-auto"
+                                title="Hapus foto"
+                              >
+                                <Trash2 className="h-3 w-3" />
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="p-4 rounded-lg border border-dashed border-white/10 text-center">
+                      <p className="text-slate-500 text-xs font-mono">Belum ada screenshot yang diunggah. Klik tombol upload atau masukkan URL gambar di atas.</p>
+                    </div>
+                  )}
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <TextArea label="Description (EN)" value={site.description.en} onChange={v => updateSite(i, s => ({ ...s, description: { ...s.description, en: v } }))} />
-                <TextArea label="Description (ID)" value={site.description.id} onChange={v => updateSite(i, s => ({ ...s, description: { ...s.description, id: v } }))} />
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     );

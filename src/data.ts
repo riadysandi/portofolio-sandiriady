@@ -290,11 +290,16 @@ export const LIVE_SITES: LiveSite[] = [
   {
     id: 'site1',
     name: 'Live Portfolio & CV Site',
-    url: 'https://riadysandi.github.io/portofolio-sandiriady/',
+    url: 'https://portofolio-sandiriady.vercel.app',
     description: {
       en: 'Interactive portfolio and CV web application built with React, Vite, Tailwind CSS, and Supabase integration.',
       id: 'Aplikasi web portofolio & CV interaktif yang dibangun dengan React, Vite, Tailwind CSS, dan integrasi Supabase.'
     },
-    status: 'active'
+    status: 'active',
+    image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80',
+    screenshots: [
+      'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80'
+    ]
   }
 ];
