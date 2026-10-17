@@ -288,18 +288,167 @@ export const LANGUAGES: Record<'en' | 'id', { name: string; level: string }[]> =
 
 export const LIVE_SITES: LiveSite[] = [
   {
-    id: 'site1',
-    name: 'Live Portfolio & CV Site',
-    url: 'https://portofolio-sandiriady.vercel.app',
-    description: {
-      en: 'Interactive portfolio and CV web application built with React, Vite, Tailwind CSS, and Supabase integration.',
-      id: 'Aplikasi web portofolio & CV interaktif yang dibangun dengan React, Vite, Tailwind CSS, dan integrasi Supabase.'
+    "id": "site1784796145202",
+    "url": "https://itpma-ticketing.pinusmerahabadi.co.id/",
+    "name": "MONASYS",
+    "status": "active",
+    "description": {
+      "en": "Monasys is a Laravel and Filament based operations portal designed for internal IT workflows. It combines an application directory, uptime dashboard, Prometheus monitoring, public portal, knowledge base, news, and realtime live support in one focused admin experience.\n\nThe project favors Filament-native tables, forms, modals, actions, notifications, and lightweight Blade/Livewire pages over a separate SPA admin layer.",
+      "id": "Monasys adalah portal operasional berbasis Laravel dan Filament yang dirancang untuk alur kerja TI internal. Sistem ini memadukan direktori aplikasi, dasbor *uptime*, pemantauan Prometheus, portal publik, basis pengetahuan, berita, dan dukungan langsung (*live support*) waktu nyata ke dalam satu pengalaman administrasi yang terpadu.\n\nProyek ini lebih mengutamakan penggunaan komponen bawaan Filament—seperti tabel, formulir, modal, aksi, dan notifikasi—serta halaman Blade/Livewire yang ringan, dibandingkan menggunakan lapisan administrasi SPA yang terpisah."
     },
-    status: 'active',
-    image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80',
-    screenshots: [
-      'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80'
+    "image": "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/01_public_portal_full.png",
+    "screenshots": [
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/01_public_portal_full.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/01_public_portal.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/02_auth_login.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/03_panel_portal_overview.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/04_dashboard_uptime_monitoring.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/05_asset_inventory_hardware.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/06_asset_deploy_provisioning.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/07_asset_availability_loans.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/08_log_agent_submissions.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/09_config_receiver_agent.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/10_cctv_devices_monitoring.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/11_password_management_vault.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/12_prometheus_metrics.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/13_mail_security_zimbra.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/14_security_center_alerts.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/15_system_notifications.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/16_service_renewals_reminder.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/17_support_analytics_kpi.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/18_approval_requests_workflow.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/19_application_directory.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/20_user_management_access.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/21_system_reports.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/22_administration_settings.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/23_knowledge_base_sop.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/06_Monasys-Internal/24_configuration_audit_log.png"
+    ]
+  },
+  {
+    "id": "site1792142940748",
+    "url": "https://mafero-production.up.railway.app/",
+    "name": "Mafero - E-Commerce & Inventory Management Platform",
+    "status": "active",
+    "description": {
+      "en": "Mafero (TokoNiaga.ID) is a production-grade full-stack e-commerce and retail management web application. Built using a modern monolith architecture with Laravel and React 18 (Inertia.js), it delivers complete commerce capabilities: an interactive customer catalog with search/filter and multi-address checkout, automated inventory reservation and CSV restock import/export, shipping tracking and return/refund management, Google OAuth & phone OTP verification, and role-based access control with Dockerized environment.",
+      "id": "Mafero (TokoNiaga.ID) adalah aplikasi web e-commerce dan manajemen retail full-stack siap produksi. Dibangun menggunakan arsitektur monolit modern Laravel dan React 18 (Inertia.js), platform ini mencakup alur bisnis menyeluruh: katalog pelanggan interaktif dengan pencarian/filter dan multi-alamat, reservasi stok otomatis serta ekspor/impor restock CSV, pelacakan pengiriman dan retur barang, autentikasi Google & verifikasi OTP HP, serta kontrol akses berbasis peran (RBAC) dengan lingkungan Docker."
+    },
+    "image": "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/01_landing_storefront.png",
+    "screenshots": [
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/01_landing_storefront.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/02_landing_storefront_full.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/03_auth_login.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/04_auth_register.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/05_superadmin_control_center.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/06_admin_inventory_management.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/07_superadmin_discounts_campaign.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/08_superadmin_master_settings.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/09_admin_sales_analytics.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/10_admin_monthly_report.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/11_superadmin_users_roles.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/12_orders_transactions_management.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/13_superadmin_system_backups.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/14_superadmin_system_audit_logs.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/15_customer_catalog_experience.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/04_Mafero-ECommerce/16_order_shipment_tracking.png"
+    ]
+  },
+  {
+    "id": "site1792142924525",
+    "url": "https://undangan-digital-production-e6fd.up.railway.app/",
+    "name": "UndanganDigital - Interactive SaaS Digital Wedding Platform",
+    "status": "active",
+    "description": {
+      "en": "Architected and developed UndanganDigital, a production-grade SaaS platform for bespoke digital wedding invitations built with Laravel 11, Inertia.js v2, Vue 3 (TypeScript), and Tailwind CSS. Features an interactive visual editor with 0ms bidirectional postMessage sync, multi-tiered subscription billing with automated QRIS & Midtrans integration, and a QR-code guest management system for RSVP and on-site check-in. Engineered immersive 60 FPS HTML5 Canvas physics simulations and 3D animations (including interactive koi ponds, ascending sky lanterns, and pearl oyster mini-games), delivering high-performance, fluid mobile-first user experiences.",
+      "id": "Merancang dan membangun UndanganDigital, platform SaaS undangan pernikahan digital modern berbasis Laravel 11, Inertia.js v2, Vue 3 (TypeScript), dan Tailwind CSS. Dilengkapi editor visual interaktif dengan sinkronisasi instan dua arah (postMessage 0ms), sistem langganan multi-tier dengan pembayaran otomatis QRIS & Midtrans, serta manajemen tamu berbasis QR-code untuk RSVP dan check-in lokasi acara. Mengembangkan simulasi fisika kanvas HTML5 60 FPS dan animasi 3D interaktif (seperti kolam ikan koi, pelepasan lentera terbang, dan mini-game kerang mutiara laut) yang responsif dan berkinerja tinggi."
+    },
+    "image": "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/01_landing_showcase.png",
+    "screenshots": [
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/01_landing_showcase.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/02_landing_showcase_full.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/03_pricing_packages.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/04_layanan_bantu_buat.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/05_demo_template_ningrum-fairytale-3d.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/06_auth_login.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/07_auth_register.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/08_customer_dashboard_active_invitation_full.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/08_customer_dashboard_active_invitation.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/08_customer_dashboard_after_action.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/08_customer_dashboard_full.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/08_customer_dashboard_overview.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/08_customer_dashboard_with_invitation_full.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/08_customer_dashboard_with_invitation.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/09_invitation_create_wizard_full.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/09_invitation_create_wizard.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/10_visual_canvas_editor.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/11_guest_rsvp_management_full.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/11_guest_rsvp_management.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/05_Undangan-Digital/12_reception_qr_checkin.png"
+    ]
+  },
+  {
+    "id": "site1792142884085",
+    "url": "https://website-kampanye-pilkades.vercel.app",
+    "name": "Digital Election Campaign Platform (Pilkades)",
+    "status": "active",
+    "description": {
+      "en": "A full-stack, responsive digital campaign platform built for local democratic elections. Features an interactive volunteer recruitment portal with Leaflet.js geospatial mapping (down to RT/RW level), public citizen aspiration submission, campaign agenda scheduling, press releases, and a custom Twibbon generator. Powered by Next.js 14 App Router, TypeScript, Tailwind CSS, and integrated with Supabase (PostgreSQL) with role-based admin controls.",
+      "id": "Platform digital kampanye pemilu dan pilkades berbasis full-stack. Dilengkapi sistem pendaftaran & pemetaan sebaran relawan interaktif menggunakan Leaflet.js hingga tingkat RT/RW, kanal aspirasi warga langsung, publikasi agenda & rilis pers, serta generator twibbon kampanye. Dibangun dengan Next.js 14 App Router, TypeScript, Tailwind CSS, dan terintegrasi dengan database cloud Supabase (PostgreSQL) serta dasbor manajemen admin berbasis hak akses."
+    },
+    "image": "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/01_beranda_landing_full.png",
+    "screenshots": [
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/01_beranda_landing_full.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/02_profil_calon.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/03_visi_misi_program.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/04_berita_publikasi.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/05_agenda_kegiatan.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/06_kanal_aspirasi_warga.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/07_formulir_relawan.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/08_cek_fakta_klarifikasi.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/09_galeri_dokumentasi.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/10_panduan_pemilih.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/11_twibbon_dukungan.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/12_kontak_posko_pemenangan.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/13_admin_login_screen.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/14_admin_dashboard_overview_full.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/14_admin_dashboard_overview.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/15_admin_agenda_management.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/15_admin_berita_management.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/15_admin_relawan_management.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/02_Website-Kampanye-Pilkades/15_admin_settings_management.png"
+    ]
+  },
+  {
+    "id": "site1792143000002",
+    "url": "https://ultah-dinnda-ochtaffia.vercel.app",
+    "name": "Ultah Dinnda Ochtaffia - Interactive Celebration Web App",
+    "status": "active",
+    "description": {
+      "en": "Interactive celebration web application crafted with React 18, Vite, Tailwind CSS, Canvas-Confetti, and Howler.js audio player. Includes dynamic celebration animations, memory timeline journey, celebration photo gallery, and interactive mini-games for a delightful user experience.",
+      "id": "Aplikasi web perayaan ulang tahun interaktif modern yang dibuat dengan React 18, Vite, Tailwind CSS, Canvas-Confetti, dan audio player Howler.js. Dilengkapi animasi perayaan dinamis, linimasa perjalanan memori, galeri foto perayaan, serta mini-game interaktif yang menghibur."
+    },
+    "image": "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/03_Ultah-Dinnda-Ochtaffia/01_landing_hero.png",
+    "screenshots": [
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/03_Ultah-Dinnda-Ochtaffia/01_landing_hero.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/03_Ultah-Dinnda-Ochtaffia/02_full_celebration_page.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/03_Ultah-Dinnda-Ochtaffia/03_interactive_section.png"
+    ]
+  },
+  {
+    "id": "site1792143000001",
+    "url": "https://portofolio-sandiriady.vercel.app",
+    "name": "Portofolio & CV - Sandi Riady",
+    "status": "active",
+    "description": {
+      "en": "Modern interactive portfolio and curriculum vitae web application. Built with React 19, TypeScript, Tailwind CSS, Framer Motion, and Supabase integration. Features dark cybernetic styling, active live sites showcase, automatic PDF resume generator, and protected admin dashboard.",
+      "id": "Aplikasi web portofolio dan kurikulum vitae interaktif modern. Dibangun dengan React 19, TypeScript, Tailwind CSS, Framer Motion, dan integrasi backend Supabase. Menampilkan estetika bertema dark cybernetic, showcase web aktif, generator resume PDF otomatis, dan dasbor manajemen admin terproteksi."
+    },
+    "image": "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/01_Portofolio-Sandi-Riady/01_hero_overview.png",
+    "screenshots": [
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/01_Portofolio-Sandi-Riady/01_hero_overview.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/01_Portofolio-Sandi-Riady/02_full_portfolio_page.png",
+      "https://gqonqrwgvfqioxcghrmg.supabase.co/storage/v1/object/public/portfolio-images/projects/01_Portofolio-Sandi-Riady/03_admin_login_portal.png"
     ]
   }
 ];

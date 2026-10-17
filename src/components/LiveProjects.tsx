@@ -173,17 +173,17 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                       </AnimatePresence>
 
                       {/* Vignette / Overlay on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-40 group-hover:opacity-75 transition-opacity duration-300" />
 
-                      {/* Zoom button on hover */}
-                      <div className="absolute bottom-3 right-3 bg-black/80 hover:bg-emerald-500 hover:text-black border border-white/20 text-white p-1.5 rounded-lg opacity-0 group-hover/img:opacity-100 transition-all duration-200 shadow-lg flex items-center gap-1 text-[10px] font-mono font-bold">
-                        <Maximize2 className="h-3 w-3" />
-                        <span className="hidden sm:inline">Zoom</span>
+                      {/* Zoom / Fullscreen Gallery button on hover */}
+                      <div className="absolute bottom-3 right-3 bg-black/90 hover:bg-emerald-400 hover:text-black border border-white/20 text-white px-2.5 py-1.5 rounded-lg opacity-0 group-hover/img:opacity-100 transition-all duration-200 shadow-xl flex items-center gap-1.5 text-[10px] font-mono font-bold backdrop-blur-sm">
+                        <Maximize2 className="h-3 w-3 text-emerald-400 group-hover:text-black transition-colors" />
+                        <span>Buka Galeri Foto ({screenshots.length})</span>
                       </div>
 
                       {/* Multiple Screenshots Indicator Badge */}
                       {screenshots.length > 1 && (
-                        <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-sm border border-white/15 text-slate-300 px-2 py-1 rounded-md text-[10px] font-mono font-bold flex items-center gap-1.5 shadow">
+                        <div className="absolute top-3 left-3 bg-black/85 backdrop-blur-sm border border-white/15 text-slate-200 px-2.5 py-1 rounded-md text-[10px] font-mono font-bold flex items-center gap-1.5 shadow-lg">
                           <Layers className="h-3 w-3 text-emerald-400" />
                           <span>{currentSlide + 1} / {screenshots.length}</span>
                         </div>
@@ -242,6 +242,20 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                   {/* Mini Screenshot Thumbnails Strip (if > 1) */}
                   {screenshots.length > 1 && (
                     <div className="mb-4 pt-3 border-t border-white/5">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                          <Layers className="h-3 w-3 text-emerald-400" />
+                          <span>Screenshots ({screenshots.length})</span>
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => openLightbox(site.name, site.url, screenshots, currentSlide)}
+                          className="text-[10px] font-mono font-bold text-emerald-400 hover:text-emerald-300 hover:underline flex items-center gap-1 cursor-pointer transition-colors"
+                        >
+                          <span>Buka Galeri</span>
+                          <Maximize2 className="h-2.5 w-2.5" />
+                        </button>
+                      </div>
                       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
                         {screenshots.map((thumbUrl, tIdx) => (
                           <button
@@ -253,6 +267,7 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                                 ? 'border-emerald-400 ring-1 ring-emerald-400/50 scale-105'
                                 : 'border-white/10 opacity-50 hover:opacity-100'
                             }`}
+                            title={`Lihat Foto ${tIdx + 1}`}
                           >
                             <img src={thumbUrl} alt="" className="w-full h-full object-cover" />
                           </button>
@@ -388,7 +403,7 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
             {/* Lightbox Bottom Thumbnail Bar */}
             {lightbox.images.length > 1 && (
               <div
-                className="pt-4 border-t border-white/10 max-w-xl mx-auto w-full flex items-center justify-center gap-2 overflow-x-auto pb-2"
+                className="pt-3 border-t border-white/10 max-w-5xl mx-auto w-full flex items-center justify-start sm:justify-center gap-2.5 overflow-x-auto px-4 pb-2"
                 onClick={e => e.stopPropagation()}
               >
                 {lightbox.images.map((imgUrl, idx) => (
@@ -396,13 +411,17 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                     key={idx}
                     type="button"
                     onClick={() => setLightbox(prev => prev ? { ...prev, currentIndex: idx } : null)}
-                    className={`relative h-12 w-20 rounded-lg overflow-hidden border transition-all cursor-pointer ${
+                    className={`relative h-12 w-20 rounded-lg overflow-hidden border transition-all cursor-pointer shrink-0 ${
                       idx === lightbox.currentIndex
                         ? 'border-emerald-400 ring-2 ring-emerald-400/50 scale-105'
                         : 'border-white/15 opacity-40 hover:opacity-100'
                     }`}
+                    title={`Foto ${idx + 1}`}
                   >
                     <img src={imgUrl} alt="" className="w-full h-full object-cover" />
+                    <span className="absolute bottom-0.5 right-1 text-[8px] font-mono bg-black/80 border border-white/10 px-1 rounded text-slate-300">
+                      {idx + 1}
+                    </span>
                   </button>
                 ))}
               </div>
