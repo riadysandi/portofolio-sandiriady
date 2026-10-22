@@ -128,12 +128,12 @@ export default function App() {
           onDownloadPdf={handleDownloadPdf}
         />
 
-        {/* 2. Dikshant Style SHOWREEL / System Spotlight */}
+        {/* 2. Dikshant Style SHOWREEL / System Spotlight with Auto-Rotating Projects */}
         <ShowreelSpotlight
           currentLang={currentLang}
           translations={translations}
-          featuredSite={liveProjectsData[0]}
-          onOpenLiveSiteGallery={() => {
+          sites={liveProjectsData}
+          onOpenSite={(site) => {
             const el = document.getElementById('live-sites');
             if (el) el.scrollIntoView({ behavior: 'smooth' });
           }}
