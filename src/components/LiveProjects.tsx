@@ -83,13 +83,18 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mb-8">
-          <div className="text-xs font-mono font-bold tracking-[0.2em] text-emerald-400 uppercase mb-2">
-            {translations.navLiveSites}
+          <div className="flex items-center gap-2">
+            <h2 className="font-marker text-3xl sm:text-4xl lg:text-5xl text-white tracking-wider uppercase">
+              {translations.liveSitesTitle}
+            </h2>
+            <span className="text-[#ccff00] text-xl font-marker animate-pulse">⚡</span>
           </div>
-          <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-2">
-            {translations.liveSitesTitle}
-          </h2>
-          <p className="text-slate-400 text-xs md:text-sm max-w-2xl font-sans">
+          <div className="text-[#8b5cf6] -mt-1 mb-2">
+            <svg viewBox="0 0 160 30" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 sm:w-44 h-6 text-[#8b5cf6]">
+              <path d="M5 15 Q 25 2, 45 15 T 85 15 T 125 15 T 155 15" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+            </svg>
+          </div>
+          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl font-sans">
             {translations.liveSitesSubtitle}
           </p>
         </div>
@@ -114,28 +119,28 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.45, ease: [0.3, 0, 0.1, 1] }}
-                whileHover={{ y: -5 }}
-                className="group bg-[#060606] border border-white/10 hover:border-emerald-400/40 rounded-xl shadow-2xl transition-all duration-300 relative flex flex-col overflow-hidden h-full"
+                whileHover={{ y: -6 }}
+                className="group bg-[#12131a] border-2 border-[#232533] hover:border-[#ccff00]/60 rounded-3xl shadow-2xl transition-all duration-300 relative flex flex-col overflow-hidden h-full"
               >
                 {/* ── Browser Window Header Mockup ── */}
-                <div className="bg-[#0b0b0b] px-4 py-2.5 border-b border-white/10 flex items-center justify-between gap-3 select-none">
+                <div className="bg-[#0e0f17] px-4 py-3 border-b border-white/10 flex items-center justify-between gap-3 select-none">
                   <div className="flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-red-500/40 group-hover:bg-red-500/80 transition-colors" />
-                    <span className="h-2 w-2 rounded-full bg-yellow-500/40 group-hover:bg-yellow-500/80 transition-colors" />
-                    <span className="h-2 w-2 rounded-full bg-emerald-500/40 group-hover:bg-emerald-500/80 transition-colors" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-red-500/60 group-hover:bg-red-500 transition-colors" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/60 group-hover:bg-yellow-500 transition-colors" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#ccff00]/60 group-hover:bg-[#ccff00] transition-colors" />
                   </div>
 
                   {/* Address pill */}
-                  <div className="flex-1 max-w-[180px] sm:max-w-[210px] bg-black border border-white/10 px-2.5 py-1 rounded-md flex items-center gap-1.5 truncate">
-                    <Lock className="h-2.5 w-2.5 text-emerald-400 shrink-0" />
+                  <div className="flex-1 max-w-[180px] sm:max-w-[210px] bg-black border border-white/10 px-2.5 py-1 rounded-full flex items-center gap-1.5 truncate">
+                    <Lock className="h-2.5 w-2.5 text-[#ccff00] shrink-0" />
                     <span className="text-[10px] font-mono text-slate-400 truncate">{cleanDisplayUrl}</span>
                   </div>
 
                   {/* Status Indicator */}
                   <div>
                     {site.status === 'active' && (
-                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] font-mono font-bold uppercase tracking-wider">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> LIVE
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#ccff00]/15 border border-[#ccff00]/30 text-[#ccff00] text-[9px] font-mono font-black uppercase tracking-wider">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#ccff00] animate-pulse" /> LIVE
                       </span>
                     )}
                     {site.status === 'maintenance' && (
@@ -283,13 +288,13 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                         href={site.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg bg-black border border-white/15 hover:border-emerald-400 hover:text-emerald-400 text-slate-200 text-xs font-mono font-bold uppercase tracking-[0.15em] transition-all duration-300 group/btn"
+                        className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-full bg-[#1b1c28] border border-white/20 hover:border-[#ccff00] hover:text-[#ccff00] hover:bg-black text-white text-xs font-marker tracking-wider uppercase transition-all duration-300 group/btn shadow-md"
                       >
                         <span>LAUNCH PORTAL</span>
                         <ExternalLink className="h-3.5 w-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                       </a>
                     ) : (
-                      <div className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg bg-black/40 border border-white/5 text-slate-500 text-xs font-mono font-bold uppercase tracking-wider cursor-not-allowed">
+                      <div className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-full bg-black/40 border border-white/5 text-slate-500 text-xs font-mono font-bold uppercase tracking-wider cursor-not-allowed">
                         <AlertTriangle className="h-3.5 w-3.5" />
                         <span>OFFLINE // IN MAINTENANCE</span>
                       </div>

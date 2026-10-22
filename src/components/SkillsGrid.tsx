@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Wrench, Terminal, Cpu, Network, CheckCircle } from 'lucide-react';
+import { Terminal, Cpu, Network, Wrench, Shield, Database, GitBranch, Layers, Sparkles } from 'lucide-react';
 import { Language, Translation, Skill } from '../types';
 import { SKILLS } from '../data';
+import { DoodleSquiggle, DoodleSwirl } from './Doodles';
 
 interface SkillsGridProps {
   currentLang: Language;
@@ -21,10 +22,20 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
     { id: 'tools', label: currentLang === 'en' ? 'Helpdesk & Tools' : 'Helpdesk & Tools' },
   ];
 
-  const getLevelLabel = (level: number) => {
-    if (level >= 5) return currentLang === 'en' ? 'Daily Operations' : 'Operasional Harian';
-    if (level === 4) return currentLang === 'en' ? 'Proficient / Hands-on' : 'Terbiasa & Mahir';
-    return currentLang === 'en' ? 'Working Knowledge' : 'Pengetahuan Kerja';
+  // Distinctive App Tile Badge Colorings (Dikshant App Tiles style)
+  const getSkillTileStyle = (name: string) => {
+    const n = name.toLowerCase();
+    if (n.includes('linux')) return { bg: 'bg-[#e95420]/15', text: 'text-[#e95420]', border: 'border-[#e95420]/30', badge: 'Ub', icon: 'Linux' };
+    if (n.includes('docker')) return { bg: 'bg-[#0db7ed]/15', text: 'text-[#0db7ed]', border: 'border-[#0db7ed]/30', badge: 'Dk', icon: 'Docker' };
+    if (n.includes('erpnext') || n.includes('frappe')) return { bg: 'bg-[#0089ff]/15', text: 'text-[#0089ff]', border: 'border-[#0089ff]/30', badge: 'Er', icon: 'Frappe' };
+    if (n.includes('zimbra')) return { bg: 'bg-[#ea3923]/15', text: 'text-[#ea3923]', border: 'border-[#ea3923]/30', badge: 'Zm', icon: 'Zimbra' };
+    if (n.includes('glpi')) return { bg: 'bg-[#10b981]/15', text: 'text-[#10b981]', border: 'border-[#10b981]/30', badge: 'Gl', icon: 'GLPI' };
+    if (n.includes('n8n') || n.includes('automation')) return { bg: 'bg-[#ea4b71]/15', text: 'text-[#ea4b71]', border: 'border-[#ea4b71]/30', badge: 'n8', icon: 'n8n' };
+    if (n.includes('bash')) return { bg: 'bg-[#ccff00]/15', text: 'text-[#ccff00]', border: 'border-[#ccff00]/30', badge: 'Sh', icon: 'Bash' };
+    if (n.includes('network') || n.includes('dns')) return { bg: 'bg-[#06b6d4]/15', text: 'text-[#06b6d4]', border: 'border-[#06b6d4]/30', badge: 'Net', icon: 'Network' };
+    if (n.includes('mdm') || n.includes('dashy')) return { bg: 'bg-[#8b5cf6]/15', text: 'text-[#8b5cf6]', border: 'border-[#8b5cf6]/30', badge: 'Ds', icon: 'Dashy' };
+    if (n.includes('git')) return { bg: 'bg-[#f05032]/15', text: 'text-[#f05032]', border: 'border-[#f05032]/30', badge: 'Git', icon: 'Git' };
+    return { bg: 'bg-emerald-500/15', text: 'text-emerald-400', border: 'border-emerald-500/30', badge: 'IT', icon: 'IT' };
   };
 
   const filteredSkills = SKILLS.filter((skill) => {
@@ -33,63 +44,46 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
     return matchesCategory && matchesSearch;
   });
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'core': return <Cpu className="h-4 w-4 text-emerald-400" />;
-      case 'infra': return <Network className="h-4 w-4 text-emerald-400" />;
-      case 'automation': return <Terminal className="h-4 w-4 text-emerald-400" />;
-      case 'tools': return <Wrench className="h-4 w-4 text-emerald-400" />;
-      default: return <Wrench className="h-4 w-4 text-slate-400" />;
-    }
-  };
-
-  const highlightText = (text: string, search: string) => {
-    if (!search) return <span>{text}</span>;
-    const parts = text.split(new RegExp(`(${search})`, 'gi'));
-    return (
-      <span>
-        {parts.map((part, index) =>
-          part.toLowerCase() === search.toLowerCase() ? (
-            <mark key={index} className="bg-emerald-500/20 text-emerald-400 font-bold rounded px-1 py-0.5">
-              {part}
-            </mark>
-          ) : (
-            part
-          )
-        )}
-      </span>
-    );
-  };
-
   return (
-    <section id="skills" className="py-6 md:py-8 px-4 max-w-7xl mx-auto scroll-mt-20">
-      <div className="max-w-3xl mb-6">
-        <div className="text-xs font-mono font-bold tracking-[0.2em] text-emerald-400 uppercase mb-2">
-          {translations.navSkills}
+    <section id="skills" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20 relative">
+      
+      {/* Section Header with Dikshant Style Marker Title & Scribbles */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div>
+          <div className="flex items-center gap-2">
+            <h2 className="font-marker text-3xl sm:text-4xl lg:text-5xl text-white tracking-wider uppercase">
+              {translations.skillsTitle}
+            </h2>
+            <span className="text-[#ccff00] text-xl font-marker animate-pulse">⚡</span>
+          </div>
+          <div className="text-[#8b5cf6] -mt-1 mb-2">
+            <DoodleSquiggle className="w-28 sm:w-36 h-5 text-[#8b5cf6]" />
+          </div>
+          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl font-sans">
+            {currentLang === 'en'
+              ? 'Core systems, server environments, open-source platforms, and administrative tools used in my daily operations.'
+              : 'Sistem server, lingkungan kontainer, platform open-source, dan alat bantu operasional yang saya gunakan sehari-hari.'}
+          </p>
         </div>
-        <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-2">
-          {translations.skillsTitle}
-        </h2>
-        <p className="text-slate-400 text-xs md:text-sm max-w-2xl font-sans">
-          {currentLang === 'en'
-            ? 'Core systems, server environments, open-source platforms, and administrative tools used in my day-to-day workflow.'
-            : 'Sistem utama, lingkungan server, platform open-source, dan perangkat operasional yang saya gunakan sehari-hari.'}
-        </p>
+
+        {/* Right Decorative Swirl Scribble */}
+        <div className="hidden lg:block text-[#8b5cf6] pointer-events-none opacity-80">
+          <DoodleSwirl className="w-16 h-16 text-[#8b5cf6]" />
+        </div>
       </div>
 
-      {/* Category Filter Buttons - Clean Hairline */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      {/* Category Filter Buttons - Rounded Pills */}
+      <div className="flex flex-wrap gap-2 mb-8">
         {categories.map((cat) => (
           <motion.button
             key={cat.id}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ ease: [0.3, 0, 0.1, 1], duration: 0.2 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => setActiveCategory(cat.id as any)}
-            className={`px-3.5 py-1.5 rounded-lg text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer border ${
+            className={`px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer border-2 ${
               activeCategory === cat.id
-                ? 'bg-white text-black border-white font-bold shadow-[0_0_15px_rgba(255,255,255,0.15)]'
-                : 'bg-[#060606] text-slate-400 border-white/10 hover:border-white/30 hover:text-white'
+                ? 'bg-[#ccff00] text-black border-[#ccff00] shadow-[0_0_20px_rgba(204,255,0,0.4)]'
+                : 'bg-[#12131a] text-slate-300 border-[#242636] hover:border-white/40 hover:text-white'
             }`}
           >
             {cat.label}
@@ -97,55 +91,49 @@ export default function SkillsGrid({ currentLang, translations, searchQuery }: S
         ))}
       </div>
 
-      {/* Skills Grid */}
-      <motion.div
-        layout
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5"
-      >
-        <AnimatePresence mode="popLayout">
-          {filteredSkills.map((skill) => (
+      {/* Skills Tiles Grid - Dikshant Style App Tiles */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        {filteredSkills.map((skill, index) => {
+          const style = getSkillTileStyle(skill.name);
+          return (
             <motion.div
-              layout
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.35, ease: [0.3, 0, 0.1, 1] }}
-              whileHover={{ y: -3 }}
               key={skill.name}
-              className="group bg-[#060606] border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.02] hover:shadow-[0_0_20px_rgba(16,185,129,0.08)] rounded-xl p-4 shadow-sm relative overflow-hidden transition-all duration-300"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05, duration: 0.35 }}
+              whileHover={{ y: -6, scale: 1.02 }}
+              className="group rounded-2xl bg-[#12131a] border-2 border-[#242636] hover:border-white/30 p-4 sm:p-5 flex flex-col items-center text-center justify-between shadow-xl transition-all duration-300 relative overflow-hidden"
             >
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-black border border-white/10 flex items-center justify-center shrink-0 group-hover:border-emerald-400/40 group-hover:bg-emerald-950/20 transition-all duration-300">
-                    {getCategoryIcon(skill.category)}
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-sm text-slate-100 group-hover:text-emerald-300 transition-colors">
-                      {highlightText(skill.name, searchQuery)}
-                    </h3>
-                    <span className="text-[10px] font-mono text-emerald-400 font-semibold uppercase tracking-wider block mt-0.5">
-                      {getLevelLabel(skill.level)}
-                    </span>
-                  </div>
-                </div>
+              {/* Distinctive App Tile Icon/Badge */}
+              <div className={`h-14 w-14 sm:h-16 sm:w-16 rounded-2xl ${style.bg} border-2 ${style.border} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-md`}>
+                <span className={`font-marker text-xl sm:text-2xl font-black ${style.text}`}>
+                  {style.badge}
+                </span>
+              </div>
 
-                <CheckCircle className="h-3.5 w-3.5 text-emerald-400 shrink-0 group-hover:scale-110 transition-transform" />
+              {/* Skill Name */}
+              <h3 className="font-display font-black text-xs sm:text-sm text-white group-hover:text-[#ccff00] transition-colors leading-snug mb-2">
+                {skill.name}
+              </h3>
+
+              {/* Proficiency Level Dots */}
+              <div className="mt-auto pt-2 flex items-center justify-center gap-1.5 w-full">
+                {[1, 2, 3, 4, 5].map((lvl) => (
+                  <span
+                    key={lvl}
+                    className={`h-1.5 rounded-full transition-all ${
+                      lvl <= skill.level
+                        ? 'w-3.5 bg-[#ccff00]'
+                        : 'w-1.5 bg-white/10'
+                    }`}
+                  />
+                ))}
               </div>
             </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
-
-      {/* Empty State */}
-      {filteredSkills.length === 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-8 bg-[#0A0A0A] border border-slate-800 rounded-2xl max-w-md mx-auto"
-        >
-          <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{translations.noResults}</p>
-        </motion.div>
-      )}
+          );
+        })}
+      </div>
     </section>
   );
 }

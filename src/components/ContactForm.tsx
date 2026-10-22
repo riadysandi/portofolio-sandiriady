@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Send, Mail, MessageSquare, ShieldCheck, CheckCircle2, User, Inbox, AlertCircle, Clock, Trash2, Check } from 'lucide-react';
+import {
+  Send, Mail, Phone, Instagram, Twitter, MapPin,
+  CheckCircle2, AlertCircle, Clock, Trash2, ArrowUpRight
+} from 'lucide-react';
 import { Language, Translation, ContactMessage } from '../types';
 import { sendContactMessage } from '../lib/dataService';
+import { PERSONAL_INFO } from '../data';
+import { DoodleMascot, DoodleLightning, DoodleStar } from './Doodles';
 
 interface ContactFormProps {
   currentLang: Language;
@@ -35,12 +40,12 @@ export default function ContactForm({ currentLang, translations }: ContactFormPr
     setError('');
 
     if (!name.trim() || !email.trim() || !message.trim()) {
-      setError(currentLang === 'en' ? 'Please fill out all fields.' : 'Harap isi semua bidang.');
+      setError(currentLang === 'en' ? 'Please fill out all fields.' : 'Harap isi semua kolom pesan.');
       return;
     }
 
     if (!/\S+@\S+\.\S+/.test(email)) {
-      setError(currentLang === 'en' ? 'Please provide a valid email.' : 'Harap masukkan email yang valid.');
+      setError(currentLang === 'en' ? 'Please provide a valid email.' : 'Harap masukkan alamat email yang valid.');
       return;
     }
 
@@ -77,10 +82,9 @@ export default function ContactForm({ currentLang, translations }: ContactFormPr
     setEmail('');
     setMessage('');
 
-    // Fade out success message after 5 seconds
     setTimeout(() => {
       setIsSuccess(false);
-    }, 5000);
+    }, 6000);
   };
 
   const clearMessages = () => {
@@ -89,198 +93,208 @@ export default function ContactForm({ currentLang, translations }: ContactFormPr
   };
 
   return (
-    <section id="contact" className="py-6 md:py-8 px-4 max-w-7xl mx-auto scroll-mt-20">
-      <div className="max-w-3xl mb-6">
-        <div className="text-xs font-mono font-bold tracking-[0.2em] text-emerald-400 uppercase mb-2">
-          {translations.navContact}
-        </div>
-        <h2 className="font-display font-black text-3xl md:text-5xl text-white tracking-tight uppercase mb-2">
-          {translations.contactTitle}
+    <section id="contact" className="py-12 md:py-16 px-4 max-w-7xl mx-auto scroll-mt-20 relative">
+      
+      {/* ── Dikshant Style Footer Banner Headline ── */}
+      <div className="mb-10 text-center sm:text-left">
+        <h2 className="font-marker text-4xl sm:text-6xl md:text-7xl text-white uppercase tracking-wide leading-tight">
+          LET'S MAKE SOMETHING{' '}
+          <span className="relative inline-block text-[#ccff00]">
+            <span className="relative z-10">ROBUST!</span>
+            {/* Hand-drawn highlighter loop around ROBUST */}
+            <svg
+              viewBox="0 0 240 80"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute -inset-x-3 -inset-y-2 w-[115%] h-[120%] text-[#8b5cf6] pointer-events-none -z-0"
+            >
+              <ellipse
+                cx="120"
+                cy="40"
+                rx="110"
+                ry="32"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+                transform="rotate(-2 120 40)"
+              />
+            </svg>
+          </span>
         </h2>
-        <p className="text-slate-400 text-xs md:text-sm max-w-2xl font-sans">
+        <p className="mt-4 text-slate-300 text-sm sm:text-base max-w-2xl font-sans">
           {translations.contactSubtitle}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-start">
+      {/* ── Main Contact Container ── */}
+      <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start relative">
         
-        {/* Left Hand: Contact Form Card */}
-        <div className="lg:col-span-5 bg-[#060606] border border-white/10 rounded-xl p-5 sm:p-7 md:p-8 shadow-2xl relative">
-          <form onSubmit={handleSend} className="space-y-4">
-            {/* Name Input */}
-            <div className="space-y-1.5">
-              <label className="block text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">
+        {/* Left: Contact Form */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="rounded-3xl bg-[#12131a] border-2 border-[#232533] p-6 sm:p-8 lg:p-10 shadow-2xl relative"
+        >
+          <form onSubmit={handleSend} className="space-y-5">
+            <div>
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-2">
                 {translations.formName}
               </label>
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
-                  <User className="h-4 w-4" />
-                </span>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={currentLang === 'en' ? 'John Doe' : 'Budi Santoso'}
-                  className="w-full pl-10 pr-4 py-2.5 bg-black border border-white/15 rounded-lg text-xs font-mono text-slate-100 placeholder-slate-600 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/20 transition-all uppercase tracking-wider font-bold"
-                />
-              </div>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="e.g. Alex Johnson"
+                className="w-full px-4 py-3 rounded-2xl bg-black border border-white/15 text-white placeholder-slate-600 font-mono text-xs sm:text-sm focus:outline-none focus:border-[#ccff00] focus:ring-2 focus:ring-[#ccff00]/20 transition-all"
+              />
             </div>
 
-            {/* Email Input */}
-            <div className="space-y-1.5">
-              <label className="block text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">
+            <div>
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-2">
                 {translations.formEmail}
               </label>
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
-                  <Mail className="h-4 w-4" />
-                </span>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="johndoe@example.com"
-                  className="w-full pl-10 pr-4 py-2.5 bg-black border border-white/15 rounded-lg text-xs font-mono text-slate-100 placeholder-slate-600 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/20 transition-all uppercase tracking-wider font-bold"
-                />
-              </div>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="alex@company.com"
+                className="w-full px-4 py-3 rounded-2xl bg-black border border-white/15 text-white placeholder-slate-600 font-mono text-xs sm:text-sm focus:outline-none focus:border-[#ccff00] focus:ring-2 focus:ring-[#ccff00]/20 transition-all"
+              />
             </div>
 
-            {/* Message Input */}
-            <div className="space-y-1.5">
-              <label className="block text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">
+            <div>
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-2">
                 {translations.formMsg}
               </label>
-              <div className="relative">
-                <span className="absolute top-3.5 left-3.5 pointer-events-none text-slate-500">
-                  <MessageSquare className="h-4 w-4" />
-                </span>
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  rows={4}
-                  placeholder={currentLang === 'en' ? 'Hi Sandi, let\'s collaborate!' : 'Halo Sandi, mari berkolaborasi!'}
-                  className="w-full pl-10 pr-4 py-3 bg-black border border-white/15 rounded-lg text-xs font-mono text-slate-100 placeholder-slate-600 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/20 transition-all resize-none uppercase tracking-wider font-bold"
-                />
-              </div>
+              <textarea
+                rows={4}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder={currentLang === 'en' ? 'Tell me about your server, deployment, or IT requirements...' : 'Ceritakan kebutuhan server, deployment, atau IT Anda...'}
+                className="w-full px-4 py-3 rounded-2xl bg-black border border-white/15 text-white placeholder-slate-600 font-sans text-xs sm:text-sm focus:outline-none focus:border-[#ccff00] focus:ring-2 focus:ring-[#ccff00]/20 transition-all"
+              />
             </div>
 
-            {/* Error Message */}
-            <AnimatePresence>
-              {error && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider font-bold text-rose-400 bg-rose-500/10 p-3 rounded-lg border border-rose-500/20"
-                >
-                  <AlertCircle className="h-3.5 w-3.5 shrink-0" />
-                  <span>{error}</span>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {error && (
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono">
+                <AlertCircle className="h-4 w-4 shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
 
-            {/* Success Message */}
-            <AnimatePresence>
-              {isSuccess && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider font-bold text-emerald-400 bg-emerald-500/10 p-3 rounded-lg border border-emerald-500/20"
-                >
-                  <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
-                  <span>{translations.successMessage}</span>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {isSuccess && (
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-[#ccff00] text-xs font-mono font-bold">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-[#ccff00]" />
+                <span>{translations.successMessage}</span>
+              </div>
+            )}
 
-            {/* Submit Button */}
             <motion.button
-              whileHover={{ scale: 1.01 }}
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ ease: [0.3, 0, 0.1, 1], duration: 0.2 }}
               type="submit"
               disabled={isSending}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-white hover:bg-emerald-400 disabled:bg-slate-700 text-black hover:text-slate-950 font-mono font-black text-xs tracking-widest uppercase transition-all shadow-md cursor-pointer"
+              className="w-full py-4 rounded-full bg-[#ccff00] hover:bg-[#d9ff33] text-black font-marker text-sm sm:text-base tracking-wider uppercase flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(204,255,0,0.35)] transition-all cursor-pointer"
             >
               <Send className="h-4 w-4" />
               <span>{isSending ? translations.sending : translations.sendButton}</span>
             </motion.button>
           </form>
-        </div>
+        </motion.div>
 
-        {/* Right Hand: Simulated Inbox Hub */}
-        <div className="lg:col-span-7 bg-[#060606] border border-white/10 rounded-xl p-5 sm:p-7 md:p-8 shadow-2xl flex flex-col justify-between self-stretch relative">
-          <div>
-            <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
-              <h3 className="font-mono text-xs font-bold text-white uppercase tracking-[0.2em]">
-                {translations.messageHistory}
-              </h3>
-              {messages.length > 0 && (
-                <button
-                  onClick={clearMessages}
-                  className="flex items-center gap-1.5 py-1 px-2.5 rounded bg-black hover:bg-rose-500/15 border border-white/10 hover:border-rose-500/30 text-[9px] font-mono font-bold text-slate-400 hover:text-rose-400 transition-all cursor-pointer uppercase tracking-wider"
-                >
-                  <Trash2 className="h-3 w-3" />
-                  <span>CLEAR</span>
-                </button>
-              )}
+        {/* Right: Direct Contact Pills & Mascot Doodle */}
+        <div className="space-y-6">
+          <div className="rounded-3xl bg-[#12131a] border-2 border-[#232533] p-6 sm:p-8 space-y-4 shadow-2xl">
+            <h3 className="font-mono text-xs font-bold text-[#ccff00] uppercase tracking-wider">
+              {currentLang === 'en' ? 'DIRECT CHANNELS' : 'KONTAK CEPAT'}
+            </h3>
+
+            {/* Email Pill */}
+            <a
+              href={`mailto:${PERSONAL_INFO.contacts.email}`}
+              className="flex items-center gap-3 p-3.5 rounded-2xl bg-black border border-white/10 hover:border-[#ccff00] hover:text-[#ccff00] text-slate-200 transition-colors group"
+            >
+              <div className="h-10 w-10 rounded-xl bg-[#ccff00] text-black flex items-center justify-center shrink-0">
+                <Mail className="h-5 w-5" />
+              </div>
+              <div className="truncate">
+                <span className="text-[10px] font-mono text-slate-400 block uppercase">Email</span>
+                <span className="font-mono text-xs sm:text-sm font-bold truncate block">{PERSONAL_INFO.contacts.email}</span>
+              </div>
+            </a>
+
+            {/* WhatsApp Pill */}
+            <a
+              href={`https://wa.me/${PERSONAL_INFO.contacts.whatsapp.replace(/[^0-9]/g, '')}`}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-3 p-3.5 rounded-2xl bg-black border border-white/10 hover:border-emerald-400 hover:text-emerald-400 text-slate-200 transition-colors group"
+            >
+              <div className="h-10 w-10 rounded-xl bg-emerald-400 text-black flex items-center justify-center shrink-0">
+                <Phone className="h-5 w-5" />
+              </div>
+              <div className="truncate">
+                <span className="text-[10px] font-mono text-slate-400 block uppercase">WhatsApp</span>
+                <span className="font-mono text-xs sm:text-sm font-bold truncate block">{PERSONAL_INFO.contacts.whatsapp}</span>
+              </div>
+            </a>
+
+            {/* Location Pill */}
+            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-black border border-white/10 text-slate-200">
+              <div className="h-10 w-10 rounded-xl bg-[#8b5cf6] text-white flex items-center justify-center shrink-0">
+                <MapPin className="h-5 w-5" />
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-slate-400 block uppercase">Location</span>
+                <span className="font-mono text-xs sm:text-sm font-bold block">Tangerang, Banten, Indonesia</span>
+              </div>
             </div>
 
-            {/* Message Stack */}
-            <div className="space-y-3 max-h-[350px] overflow-y-auto pr-1">
-              <AnimatePresence initial={false}>
-                {messages.map((msg) => (
-                  <motion.div
-                    key={msg.id}
-                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    className="p-4 bg-black border border-white/10 rounded-lg space-y-2 hover:border-white/25 transition-colors relative"
-                  >
-                    <div className="flex justify-between items-start gap-2 flex-wrap">
-                      <div className="space-y-0.5">
-                        <span className="font-mono font-bold text-xs text-white block uppercase tracking-wide">
-                          {msg.name}
-                        </span>
-                        <span className="font-mono text-[9px] text-slate-500 block">
-                          {msg.email}
-                        </span>
-                      </div>
-                      <span className="font-mono text-[9px] text-slate-500 flex items-center gap-1">
-                        <Clock className="h-3 w-3 text-emerald-400" />
-                        {msg.timestamp}
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-300 leading-relaxed font-sans bg-[#060606] p-3 rounded border border-white/5">
-                      {msg.message}
-                    </p>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-
-              {messages.length === 0 && (
-                <div className="text-center py-16 text-slate-500 space-y-3">
-                  <Inbox className="h-8 w-8 text-slate-700 mx-auto stroke-1" />
-                  <p className="text-xs font-mono uppercase tracking-wider max-w-xs mx-auto">
-                    {translations.noMessages}
-                  </p>
-                </div>
-              )}
+            {/* Social Pills Row */}
+            <div className="pt-2 flex items-center gap-2">
+              <a
+                href={`https://instagram.com/${PERSONAL_INFO.contacts.instagram.replace('@', '')}`}
+                target="_blank"
+                rel="noreferrer"
+                className="h-11 w-11 rounded-2xl bg-black border border-white/10 hover:border-[#f43f5e] hover:text-[#f43f5e] flex items-center justify-center text-slate-300 transition-colors"
+                title="Instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href={`https://twitter.com/${PERSONAL_INFO.contacts.twitter.replace('@', '')}`}
+                target="_blank"
+                rel="noreferrer"
+                className="h-11 w-11 rounded-2xl bg-black border border-white/10 hover:border-[#38bdf8] hover:text-[#38bdf8] flex items-center justify-center text-slate-300 transition-colors"
+                title="Twitter"
+              >
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+                className="h-11 w-11 rounded-2xl bg-black border border-white/10 hover:border-[#0089ff] hover:text-[#0089ff] flex items-center justify-center text-slate-300 transition-colors font-mono font-bold text-xs"
+                title="LinkedIn"
+              >
+                in
+              </a>
             </div>
           </div>
 
-          <div className="mt-5 pt-3.5 border-t border-white/10 flex items-center justify-between text-[9px] font-mono text-slate-500 font-bold uppercase tracking-wider">
-            <span>[DB] PERSISTENCE: SUPABASE + LOCAL</span>
-            <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              ONLINE_READY
-            </span>
+          {/* Dikshant Mascot Creature Doodle (Peace sign) */}
+          <div className="flex items-center justify-end pr-6 -mt-2">
+            <div className="relative animate-bounce">
+              <DoodleMascot className="w-28 h-28 text-[#38bdf8]" />
+              <span className="absolute -top-3 -right-2 font-hand text-xs text-[#ccff00] transform rotate-12">
+                Peace out! ✌️
+              </span>
+            </div>
           </div>
         </div>
-
       </div>
     </section>
   );
 }
-

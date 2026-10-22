@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Phone, Mail, Instagram, Twitter, Facebook, MapPin, CheckCircle, Languages, Heart, Music, Dumbbell, Compass, Server, Database, Wrench, Download } from 'lucide-react';
+import {
+  Play, Download, ArrowUpRight, ChevronDown, Mail, Phone,
+  Instagram, Twitter, MapPin, Server, Database, Terminal,
+  CheckCircle2, Sparkles, Heart, Music, Dumbbell, Compass
+} from 'lucide-react';
 import { Language, Translation } from '../types';
 import { PERSONAL_INFO, PERSONALITY, HOBBIES, LANGUAGES } from '../data';
+import {
+  DoodleCrown, DoodleCurvedArrow, DoodleLightning, DoodleStar,
+  DoodleSmiley, DoodleTerminal, SpeechBubble, LiquidSplash
+} from './Doodles';
 
 interface HeroProps {
   currentLang: Language;
@@ -11,235 +19,248 @@ interface HeroProps {
   onDownloadPdf: () => void;
 }
 
-const highlights = {
-  en: [
-    { label: 'Linux, Docker, Zimbra', desc: 'Daily server and email operations' },
-    { label: 'ERPNext / Frappe', desc: 'Self-hosted business application deployment' },
-    { label: 'GLPI, n8n, Dashy', desc: 'Helpdesk, automation, and internal dashboards' },
-  ],
-  id: [
-    { label: 'Linux, Docker, Zimbra', desc: 'Operasional server dan email harian' },
-    { label: 'ERPNext / Frappe', desc: 'Implementasi aplikasi bisnis self-hosted' },
-    { label: 'GLPI, n8n, Dashy', desc: 'Helpdesk, otomatisasi, dan dasbor internal' },
-  ],
-};
+export default function Hero({
+  currentLang,
+  translations,
+  onScrollToContact,
+  onDownloadPdf,
+}: HeroProps) {
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
 
-const summary = {
-  en: 'I help teams keep IT operations reliable: servers, email, business apps, helpdesk workflows, documentation, and practical automation.',
-  id: 'Saya membantu operasional IT kantor tetap rapi dan stabil: server, email, aplikasi bisnis, helpdesk, dokumentasi, dan otomatisasi praktis.',
-};
-
-export default function Hero({ currentLang, translations, onScrollToContact, onDownloadPdf }: HeroProps) {
-  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
-
-  const contactItems = [
-    { icon: <Phone className="h-4 w-4" />, label: PERSONAL_INFO.contacts.whatsapp, href: `https://wa.me/${PERSONAL_INFO.contacts.whatsapp.replace(/[^0-9]/g, '')}` },
-    { icon: <Mail className="h-4 w-4" />, label: PERSONAL_INFO.contacts.email, href: `mailto:${PERSONAL_INFO.contacts.email}` },
-    { icon: <Instagram className="h-4 w-4" />, label: PERSONAL_INFO.contacts.instagram, href: `https://instagram.com/${PERSONAL_INFO.contacts.instagram.replace('@', '')}` },
-    { icon: <Twitter className="h-4 w-4" />, label: PERSONAL_INFO.contacts.twitter, href: `https://twitter.com/${PERSONAL_INFO.contacts.twitter.replace('@', '')}` },
-    { icon: <Facebook className="h-4 w-4" />, label: PERSONAL_INFO.contacts.facebook, href: 'https://facebook.com' },
-  ];
-
-  const getHobbyIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Music': return <Music className="h-4 w-4 text-emerald-400" />;
-      case 'Dumbbell': return <Dumbbell className="h-4 w-4 text-emerald-400" />;
-      case 'Compass': return <Compass className="h-4 w-4 text-emerald-400" />;
-      default: return <Heart className="h-4 w-4 text-emerald-400" />;
+  const scrollToLiveSites = () => {
+    const el = document.getElementById('live-sites');
+    if (el) {
+      const offset = 80;
+      const pos = el.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: pos, behavior: 'smooth' });
     }
   };
 
+  const scrollToProjects = () => {
+    const el = document.getElementById('projects');
+    if (el) {
+      const offset = 80;
+      const pos = el.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: pos, behavior: 'smooth' });
+    }
+  };
+
+  const speechText = currentLang === 'en' ? "LET'S BUILD SOLID INFRA!" : "SIAP SOLUSIKAN SISTEM!";
+  const roleTagline = currentLang === 'en'
+    ? 'IT Infrastructure Support • Systems Administrator • DevOps Homelab'
+    : 'Spesialis Infrastruktur IT • Administrator Server • DevOps & Otomasi';
+
   return (
-    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-6 pb-4 md:pt-10 md:pb-6 scroll-mt-20">
-      <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-12 items-center">
+    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-6 sm:pt-10 pb-8 sm:pb-12 scroll-mt-20 overflow-hidden">
+      
+      {/* ── Top Hero Row: Dikshant Layout ── */}
+      <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center min-h-[580px]">
+        
+        {/* Left Column: Hand-drawn Typography & Actions */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.3, 0, 0.1, 1] }}
-          className="space-y-6 md:space-y-7"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: [0.3, 0, 0.1, 1] }}
+          className="space-y-6 relative z-10"
         >
-          <div className="space-y-3">
-            <div className="text-xs font-mono font-bold tracking-[0.2em] text-emerald-400 uppercase">
-              {translations.heroSubtitle}
+          {/* "Hey, I'm" with curved arrow pointing to Name */}
+          <div className="relative inline-block">
+            <span className="font-hand text-3xl sm:text-4xl text-white block transform -rotate-3 tracking-wide">
+              Hey, I'm
+            </span>
+            <div className="absolute -bottom-6 left-10 text-white pointer-events-none">
+              <DoodleCurvedArrow className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
             </div>
+          </div>
 
-            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white uppercase leading-[0.9] select-none">
-              {PERSONAL_INFO.name}
+          {/* Huge Signature Marker Name: SANDI RIADY */}
+          <div className="pt-2">
+            <h1 className="font-marker text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white tracking-wider leading-[0.9] select-none uppercase drop-shadow-2xl">
+              SANDI
             </h1>
-            
-            <p className="max-w-3xl text-base md:text-lg leading-7 md:leading-8 text-slate-200 font-sans font-medium pt-1">
-              {summary[currentLang]}
-            </p>
-            <p className="max-w-3xl text-xs md:text-sm leading-6 md:leading-7 text-slate-400 font-sans">
-              {PERSONAL_INFO.aboutMe[currentLang]}
-            </p>
+            <h1 className="font-marker text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#ccff00] tracking-wider leading-[0.9] select-none uppercase drop-shadow-[0_0_25px_rgba(204,255,0,0.35)] -mt-1 sm:-mt-2">
+              RIADY
+            </h1>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-3">
-            {highlights[currentLang].map((item, idx) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.15 + idx * 0.08, ease: [0.3, 0, 0.1, 1] }}
-                whileHover={{ y: -3 }}
-                className="rounded-xl border border-white/10 bg-[#060606] p-4 transition-all duration-300 hover:border-emerald-400/50 hover:bg-white/[0.02] hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] cursor-default group"
-              >
-                <p className="text-sm font-black text-white group-hover:text-emerald-300 transition-colors">{item.label}</p>
-                <p className="mt-1 text-xs leading-5 text-slate-400">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+          {/* Tagline with Bullet Dots */}
+          <p className="font-mono text-xs sm:text-sm text-slate-300 font-bold tracking-wide flex flex-wrap items-center gap-2">
+            <span>IT Infrastructure Support</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#ccff00]" />
+            <span>Systems Administrator</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#8b5cf6]" />
+            <span>DevOps Homelab</span>
+          </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 pt-1">
+          {/* Short Bio Blurb */}
+          <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-sans">
+            {PERSONAL_INFO.aboutMe[currentLang]}
+          </p>
+
+          {/* Action Buttons: Dikshant Pill Style */}
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            {/* Primary Button: Neon Lime Pill with Play Icon */}
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ ease: [0.3, 0, 0.1, 1], duration: 0.2 }}
-              onClick={onScrollToContact}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-400 px-6 py-3.5 text-xs font-mono font-black uppercase tracking-[0.15em] text-slate-950 transition-all hover:bg-emerald-300 cursor-pointer shadow-lg shadow-emerald-500/20"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={scrollToLiveSites}
+              className="inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 rounded-full bg-[#ccff00] hover:bg-[#d9ff33] text-black font-marker text-sm sm:text-base tracking-wide uppercase shadow-[0_0_25px_rgba(204,255,0,0.4)] transition-all cursor-pointer"
             >
-              <Mail className="h-4 w-4" />
-              <span>{translations.navContact}</span>
+              <span className="h-5 w-5 rounded-full bg-black text-[#ccff00] flex items-center justify-center">
+                <Play className="h-3 w-3 fill-[#ccff00] ml-0.5" />
+              </span>
+              <span>{currentLang === 'en' ? 'Explore Systems' : 'Lihat Sistem Aktif'}</span>
             </motion.button>
+
+            {/* Secondary Button: Dark Outlined Pill with Arrow */}
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ ease: [0.3, 0, 0.1, 1], duration: 0.2 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={onDownloadPdf}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-black px-6 py-3.5 text-xs font-mono font-black uppercase tracking-[0.15em] text-slate-200 transition-all hover:border-white hover:text-white cursor-pointer shadow-md"
+              className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-[#12131a] hover:bg-white text-white hover:text-black border-2 border-white/20 text-xs sm:text-sm font-mono font-bold tracking-wider uppercase transition-all cursor-pointer shadow-lg"
             >
-              <Download className="h-4 w-4" />
               <span>{translations.downloadButton}</span>
+              <ArrowUpRight className="h-4 w-4" />
             </motion.button>
           </div>
+
+          {/* Scroll Down Indicator */}
+          <div className="pt-4 flex items-center gap-2 text-slate-400 select-none">
+            <div className="h-6 w-4 rounded-full border-2 border-slate-500 flex items-start justify-center p-1">
+              <span className="h-1 w-1 bg-[#ccff00] rounded-full animate-bounce" />
+            </div>
+            <span className="font-mono text-[10px] tracking-widest uppercase">Scroll Down</span>
+          </div>
         </motion.div>
 
+        {/* Right Column: Comic Avatar Composition with Doodles */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.3, 0, 0.1, 1] }}
-          className="space-y-4"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.3, 0, 0.1, 1] }}
+          className="relative flex items-center justify-center pt-6 lg:pt-0"
         >
-          {/* Editorial Frame with Corner Accents */}
-          <div className="relative rounded-2xl sm:rounded-3xl border border-white/10 bg-[#050505] p-3 sm:p-4 shadow-2xl transition-all duration-500 hover:border-emerald-400/40 hover:shadow-[0_0_35px_rgba(16,185,129,0.12)] group">
-            {/* Corner Crosshairs */}
-            <span className="absolute -top-1.5 -left-1.5 text-xs font-mono text-emerald-400 font-bold select-none">+</span>
-            <span className="absolute -top-1.5 -right-1.5 text-xs font-mono text-emerald-400 font-bold select-none">+</span>
-            <span className="absolute -bottom-1.5 -left-1.5 text-xs font-mono text-emerald-400 font-bold select-none">+</span>
-            <span className="absolute -bottom-1.5 -right-1.5 text-xs font-mono text-emerald-400 font-bold select-none">+</span>
-
-            <button
-              onClick={() => setIsAvatarModalOpen(true)}
-              className="relative block w-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-black text-left cursor-pointer"
-            >
-              <img
-                src={PERSONAL_INFO.profileImage}
-                alt={PERSONAL_INFO.name}
-                className="h-72 sm:h-80 md:h-[22rem] w-full object-cover object-center transition duration-700 ease-[cubic-bezier(0.3,0,0.1,1)] group-hover:scale-[1.04]"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/85 to-transparent p-5 sm:p-6">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-400 mb-1">{PERSONAL_INFO.title}</p>
-                <p className="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-tight">{PERSONAL_INFO.name}</p>
-                <p className="mt-1 flex items-center gap-2 text-xs font-mono text-slate-400"><MapPin className="h-3.5 w-3.5 text-emerald-400" /> TANGERANG &bull; BANTEN [IDN]</p>
-              </div>
-            </button>
+          {/* Huge Fluid Liquid Splash in Purple */}
+          <div className="absolute w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] text-[#8b5cf6] opacity-85 -z-10 animate-float-reverse pointer-events-none">
+            <LiquidSplash className="w-full h-full text-[#8b5cf6]" />
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-3">
-            <div className="rounded-xl border border-white/10 bg-[#060606] p-4 hover:border-white/20 transition-all duration-300">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-white uppercase tracking-wider mb-3">
-                <Server className="h-3.5 w-3.5 text-emerald-400" />
-                <span>{currentLang === 'en' ? 'Daily Focus' : 'Fokus Harian'}</span>
-              </div>
-              <ul className="space-y-2 text-xs text-slate-300 font-sans">
-                <li className="flex gap-2 items-start"><CheckCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" /> Server, email, backup & uptime</li>
-                <li className="flex gap-2 items-start"><CheckCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" /> Helpdesk, SOP, & technical support</li>
-                <li className="flex gap-2 items-start"><CheckCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" /> Workflow & Bash automations</li>
-              </ul>
-            </div>
+          {/* Crown Doodle on Head */}
+          <div className="absolute -top-6 sm:-top-8 left-1/2 -translate-x-12 z-20 animate-float pointer-events-none">
+            <DoodleCrown className="w-12 h-12 sm:w-16 sm:h-16 text-yellow-300" />
+          </div>
 
-            <div className="rounded-xl border border-white/10 bg-[#060606] p-4 hover:border-white/20 transition-all duration-300">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-white uppercase tracking-wider mb-3">
-                <Database className="h-3.5 w-3.5 text-emerald-400" />
-                <span>{translations.langTitle}</span>
-              </div>
-              <div className="space-y-2.5">
-                {LANGUAGES[currentLang].map((lang) => (
-                  <div key={lang.name}>
-                    <div className="flex justify-between gap-3 text-xs font-bold text-slate-200">
-                      <span>{lang.name}</span>
-                      <span className="text-slate-400 text-[10px] font-mono">{lang.level}</span>
-                    </div>
-                    <div className="mt-1.5 h-1 rounded-full bg-slate-900 border border-white/10">
-                      <div className={`h-full rounded-full bg-emerald-400 ${lang.name.toLowerCase().includes('inggris') || lang.name.toLowerCase().includes('english') ? 'w-7/12' : 'w-full'}`} />
-                    </div>
+          {/* Comic Speech Bubble */}
+          <div className="absolute -top-4 sm:-top-6 right-2 sm:right-6 z-20 animate-bounce">
+            <SpeechBubble text={speechText} />
+          </div>
+
+          {/* Floating Lightning Doodle */}
+          <div className="absolute bottom-10 left-2 sm:left-4 z-20 animate-float pointer-events-none">
+            <DoodleLightning className="w-10 h-10 sm:w-12 sm:h-12 text-[#ccff00]" />
+          </div>
+
+          {/* Floating Star Doodle */}
+          <div className="absolute top-16 right-0 z-20 animate-float pointer-events-none">
+            <DoodleStar className="w-8 h-8 text-yellow-400" />
+          </div>
+
+          {/* Floating Smiley Doodle */}
+          <div className="absolute bottom-4 right-10 z-20 animate-float-reverse pointer-events-none">
+            <DoodleSmiley className="w-10 h-10 sm:w-12 sm:h-12 text-[#ccff00]" />
+          </div>
+
+          {/* Floating Terminal Prompt Doodle `>_` */}
+          <div className="absolute top-36 -left-4 z-20 animate-float pointer-events-none">
+            <DoodleTerminal className="w-10 h-10 text-[#38bdf8]" />
+          </div>
+
+          {/* Sandi's Photo with White Sticker Cutout Frame */}
+          <div
+            onClick={() => setIsPhotoModalOpen(true)}
+            className="relative cursor-pointer group"
+          >
+            {/* White Sticker Border Outline Effect */}
+            <div className="relative rounded-3xl p-2 bg-white/95 shadow-[0_20px_50px_rgba(0,0,0,0.8)] transform -rotate-1 group-hover:rotate-0 transition-all duration-300">
+              <div className="relative w-64 h-80 sm:w-80 sm:h-96 rounded-2xl overflow-hidden bg-black border-2 border-black">
+                <img
+                  src={PERSONAL_INFO.profileImage}
+                  alt={PERSONAL_INFO.name}
+                  className="w-full h-full object-cover object-center filter contrast-105 group-hover:scale-105 transition-transform duration-500 ease-out"
+                />
+
+                {/* Bottom Sticker Tag on Photo */}
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-mono font-bold text-[#ccff00] uppercase tracking-wider block">
+                      VERIFIED ENGINEER
+                    </span>
+                    <span className="text-sm font-display font-black text-white uppercase tracking-tight">
+                      Sandi Riady
+                    </span>
                   </div>
-                ))}
+                  <span className="px-2 py-1 rounded bg-[#ccff00] text-black text-[9px] font-mono font-black uppercase tracking-wider">
+                    ONLINE
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </motion.div>
       </div>
 
-      <div className="mt-4 md:mt-5 grid lg:grid-cols-[1.2fr_0.8fr] gap-4">
-        <div className="rounded-xl border border-white/10 bg-[#060606] p-4 sm:p-5">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-white uppercase tracking-wider mb-3">
-            <Wrench className="h-3.5 w-3.5 text-emerald-400" />
-            <span>{currentLang === 'en' ? 'Direct Comms & Network' : 'Jalur Kontak & Jejaring'}</span>
+      {/* ── Quick Highlights Row (Servers, Automations, Languages) ── */}
+      <div className="mt-10 grid sm:grid-cols-3 gap-4">
+        <div className="rounded-2xl bg-[#12131a] border border-[#242636] p-4 sm:p-5 hover:border-[#8b5cf6] transition-colors">
+          <div className="flex items-center gap-2 mb-2">
+            <Server className="h-4 w-4 text-[#8b5cf6]" />
+            <h3 className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+              {currentLang === 'en' ? 'Core Infrastructure' : 'Infrastruktur Utama'}
+            </h3>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            {contactItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                target={item.href.startsWith('http') ? '_blank' : undefined}
-                rel="noreferrer"
-                className="flex items-center gap-2.5 rounded-lg border border-white/10 bg-black/60 px-3 py-2 text-xs font-mono text-slate-300 transition-all duration-300 hover:border-emerald-400/50 hover:text-white hover:bg-emerald-950/20"
-              >
-                <span className="text-emerald-400 shrink-0">{item.icon}</span>
-                <span className="truncate">{item.label}</span>
-              </a>
-            ))}
-          </div>
+          <p className="text-xs text-slate-300 font-sans leading-relaxed">
+            Linux Ubuntu/Debian, Docker Containerization, Proxmox VE, Zimbra Mail Server, and ERPNext deployment.
+          </p>
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-[#060606] p-4 sm:p-5">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-white uppercase tracking-wider mb-3">
-            <Heart className="h-3.5 w-3.5 text-emerald-400" />
-            <span>{translations.personalityTitle}</span>
+        <div className="rounded-2xl bg-[#12131a] border border-[#242636] p-4 sm:p-5 hover:border-[#ccff00] transition-colors">
+          <div className="flex items-center gap-2 mb-2">
+            <Terminal className="h-4 w-4 text-[#ccff00]" />
+            <h3 className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+              {currentLang === 'en' ? 'Workflow & Automations' : 'Otomasi & Alur Kerja'}
+            </h3>
           </div>
-          <div className="flex flex-wrap gap-1.5">
-            {PERSONALITY[currentLang].map((trait) => (
-              <span key={trait} className="rounded-md border border-white/10 bg-black px-2.5 py-1 text-[11px] font-mono text-slate-300">
-                {trait}
-              </span>
-            ))}
+          <p className="text-xs text-slate-300 font-sans leading-relaxed">
+            GLPI Ticketing with n8n Webhooks, Bash cron backup scripts, and Dashy unified monitoring portals.
+          </p>
+        </div>
+
+        <div className="rounded-2xl bg-[#12131a] border border-[#242636] p-4 sm:p-5 hover:border-[#38bdf8] transition-colors">
+          <div className="flex items-center gap-2 mb-2">
+            <Database className="h-4 w-4 text-[#38bdf8]" />
+            <h3 className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+              {currentLang === 'en' ? 'Operational Support' : 'Dukungan Operasional'}
+            </h3>
           </div>
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {HOBBIES[currentLang].map((hobby) => (
-              <span key={hobby.name} className="inline-flex items-center gap-1.5 rounded-md bg-black border border-white/10 px-2.5 py-1 text-[11px] font-mono text-slate-300">
-                {getHobbyIcon(hobby.icon)} {hobby.name}
-              </span>
-            ))}
-          </div>
+          <p className="text-xs text-slate-300 font-sans leading-relaxed">
+            Multi-branch user support, SOP documentation, asset tracking, and 99.9% uptime maintenance.
+          </p>
         </div>
       </div>
 
-      {isAvatarModalOpen && (
+      {/* Fullscreen Photo Modal */}
+      {isPhotoModalOpen && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
-          onClick={() => setIsAvatarModalOpen(false)}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-md"
+          onClick={() => setIsPhotoModalOpen(false)}
         >
           <img
             src={PERSONAL_INFO.profileImage}
             alt={PERSONAL_INFO.name}
-            className="max-h-[85vh] max-w-full rounded-3xl border border-slate-700 object-contain shadow-2xl"
+            className="max-h-[85vh] max-w-full rounded-3xl border-4 border-white object-contain shadow-2xl"
           />
         </div>
       )}
     </section>
   );
 }
-
-

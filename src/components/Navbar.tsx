@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Globe, Menu, X, Download, FileText } from 'lucide-react';
+import { Search, Globe, Menu, X, Download, Sparkles } from 'lucide-react';
 import { Language, Translation } from '../types';
+import { LiquidSplash } from './Doodles';
 
 interface NavbarProps {
   currentLang: Language;
@@ -24,21 +25,23 @@ export default function Navbar({
 }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   const navItems = [
     { id: 'about', label: translations.navAbout },
-    { id: 'skills', label: translations.navSkills },
-    { id: 'experience', label: translations.navExperience },
     { id: 'projects', label: translations.navProjects },
     { id: 'live-sites', label: translations.navLiveSites },
+    { id: 'skills', label: translations.navSkills },
+    { id: 'experience', label: translations.navExperience },
     { id: 'contact', label: translations.navContact },
   ];
 
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false);
+    setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
-      const offset = 80; // height of sticky navbar
+      const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
       window.scrollTo({
@@ -49,160 +52,168 @@ export default function Navbar({
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/10 text-slate-100 shadow-2xl">
+    <nav className="sticky top-0 z-50 bg-[#0b0c10]/95 backdrop-blur-md border-b border-white/10 text-slate-100 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="h-9 w-9 rounded-lg bg-black border border-white/15 flex items-center justify-center">
-              <span className="font-mono text-xs font-bold text-emerald-400">SR</span>
+        <div className="flex items-center justify-between h-20">
+          
+          {/* Logo with Purple Liquid Splash like Dikshant */}
+          <div
+            className="flex-shrink-0 flex items-center cursor-pointer relative group select-none"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            {/* Background Liquid Splash */}
+            <div className="absolute -top-4 -left-6 w-24 h-24 text-[#8b5cf6] opacity-90 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 pointer-events-none -z-10">
+              <LiquidSplash className="w-full h-full text-[#8b5cf6]" />
             </div>
-            <div>
-              <span className="font-display font-black text-sm text-white block uppercase tracking-tight">Sandi Riady</span>
-              <span className="font-mono text-[9px] text-slate-400 font-bold tracking-[0.2em] uppercase block mt-0.5">IT INFRASTRUCTURE</span>
-            </div>
-          </div>
 
-          {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-xs lg:max-w-sm mx-6">
-            <div className={`relative w-full transition-all duration-300 ${isSearchFocused ? 'scale-105' : ''}`}>
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                <Search className={`h-3.5 w-3.5 ${isSearchFocused ? 'text-emerald-400' : 'text-slate-500'}`} />
-              </div>
-              <input
-                type="text"
-                placeholder={translations.searchPlaceholder}
-                value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-                className="w-full pl-9 pr-4 py-2 bg-black border border-white/15 rounded-lg text-[11px] font-mono font-bold tracking-wider text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/20 transition-all uppercase leading-relaxed"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => onSearchChange('')}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-white"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              )}
+            <div className="relative pl-1">
+              <span className="font-marker text-2xl sm:text-3xl text-white tracking-wide block drop-shadow-md">
+                SANDI.
+              </span>
+              <span className="font-mono text-[9px] text-[#ccff00] font-bold tracking-[0.2em] uppercase block -mt-1">
+                IT INFRASTRUCTURE
+              </span>
             </div>
           </div>
 
           {/* Navigation Items - Desktop */}
-          <div className="hidden lg:flex items-center gap-6 text-[11px] uppercase tracking-[0.18em] font-mono">
+          <div className="hidden lg:flex items-center gap-7 text-xs font-mono font-bold tracking-wider">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className={`relative py-1.5 transition-colors cursor-pointer ${
+                activeSection === 'home' ? 'text-[#ccff00]' : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <span>Home</span>
+              {activeSection === 'home' && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ccff00] rounded-full" />
+              )}
+            </button>
+
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-slate-400 hover:text-emerald-400 cursor-pointer transition-colors py-2 font-bold"
+                className={`relative py-1.5 transition-colors cursor-pointer ${
+                  activeSection === item.id ? 'text-[#ccff00]' : 'text-slate-300 hover:text-white'
+                }`}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {activeSection === item.id && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ccff00] rounded-full" />
+                )}
               </button>
             ))}
           </div>
 
-          {/* Action Tools */}
-          <div className="hidden md:flex items-center gap-3 ml-4">
-            {/* Language Switch */}
-            <div className="flex items-center gap-2 bg-black border border-white/15 rounded-lg px-2.5 py-1.5 text-[10px] uppercase font-mono tracking-wider font-bold">
+          {/* Action Tools & Menu */}
+          <div className="flex items-center gap-3">
+            {/* Search Bar - Desktop */}
+            <div className="hidden md:flex relative w-36 lg:w-48">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className={`h-3 w-3 ${isSearchFocused ? 'text-[#ccff00]' : 'text-slate-500'}`} />
+              </div>
+              <input
+                type="text"
+                placeholder={currentLang === 'en' ? 'Search...' : 'Cari...'}
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setIsSearchFocused(false)}
+                className="w-full pl-8 pr-3 py-1.5 bg-[#14151f] border border-white/15 rounded-full text-[10px] font-mono font-bold text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#ccff00] focus:ring-1 focus:ring-[#ccff00]/30 transition-all uppercase"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => onSearchChange('')}
+                  className="absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-500 hover:text-white"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              )}
+            </div>
+
+            {/* Language Switch Pill */}
+            <div className="flex items-center gap-1.5 bg-[#14151f] border border-white/15 rounded-full px-2.5 py-1 text-[10px] uppercase font-mono font-bold">
               <span 
-                className={`cursor-pointer transition-colors ${currentLang === 'en' ? 'text-emerald-400 font-extrabold' : 'text-slate-500 hover:text-white'}`}
+                className={`cursor-pointer transition-colors ${currentLang === 'en' ? 'text-[#ccff00] font-black' : 'text-slate-500 hover:text-white'}`}
                 onClick={() => onLangChange('en')}
               >
                 EN
               </span>
-              <span className="text-slate-700">|</span>
+              <span className="text-slate-700">/</span>
               <span 
-                className={`cursor-pointer transition-colors ${currentLang === 'id' ? 'text-emerald-400 font-extrabold' : 'text-slate-500 hover:text-white'}`}
+                className={`cursor-pointer transition-colors ${currentLang === 'id' ? 'text-[#ccff00] font-black' : 'text-slate-500 hover:text-white'}`}
                 onClick={() => onLangChange('id')}
               >
                 ID
               </span>
             </div>
 
-            {/* Download PDF */}
-            <button
+            {/* Download CV Pill Button */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={onDownloadPdf}
               disabled={isDownloading}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white hover:bg-emerald-400 disabled:bg-slate-700 text-black hover:text-slate-950 font-mono font-black text-[10px] uppercase tracking-[0.15em] transition-all cursor-pointer shadow-md"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#1b1c28] hover:bg-white text-white hover:text-black border border-white/15 text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md"
+              title="Download CV (PDF)"
             >
-              <Download className={`h-3 w-3 ${isDownloading ? 'animate-bounce' : ''}`} />
-              <span>{isDownloading ? translations.downloading : translations.downloadButton}</span>
-            </button>
-          </div>
+              <Download className="h-3.5 w-3.5" />
+              <span>{isDownloading ? translations.downloading : 'CV PDF'}</span>
+            </motion.button>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-2.5">
-            {/* Language Switch Mobile Quick */}
-            <button
-              onClick={() => onLangChange(currentLang === 'en' ? 'id' : 'en')}
-              className="flex items-center justify-center h-8 px-2.5 rounded-lg bg-black border border-white/15 text-slate-300 text-[10px] font-mono font-bold tracking-widest cursor-pointer"
-            >
-              {currentLang === 'en' ? 'EN' : 'ID'}
-            </button>
-
+            {/* Dikshant Style Purple Round Hamburger Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-1.5 rounded-lg bg-black border border-white/15 text-slate-300 hover:text-white cursor-pointer"
+              className="h-10 w-10 rounded-full bg-[#8b5cf6] text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-lg shadow-[#8b5cf6]/30 lg:hidden"
+              aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Search & Menu Overlay */}
+      {/* Mobile Drawer Navigation */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-slate-900 bg-black"
+            className="lg:hidden bg-[#12131a] border-b border-white/10 px-4 pt-3 pb-6 space-y-3"
           >
-            <div className="px-4 py-5 space-y-4">
-              {/* Mobile Search Input */}
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-4 w-4 text-slate-500" />
-                </div>
-                <input
-                  type="text"
-                  placeholder={translations.searchPlaceholder}
-                  value={searchQuery}
-                  onChange={(e) => onSearchChange(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-black border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-emerald-500 uppercase font-bold tracking-widest"
-                />
-              </div>
+            {/* Mobile Search */}
+            <div className="relative mb-3">
+              <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-500" />
+              <input
+                type="text"
+                placeholder={translations.searchPlaceholder}
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+                className="w-full pl-9 pr-4 py-2 bg-black border border-white/15 rounded-xl text-xs font-mono text-white placeholder-slate-500"
+              />
+            </div>
 
-              {/* Navigation Links */}
-              <div className="grid grid-cols-2 gap-2">
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className="flex justify-center items-center py-2.5 px-4 rounded-xl bg-[#0A0A0A] border border-slate-800 text-xs font-bold uppercase tracking-widest text-slate-300 hover:border-emerald-500/40 hover:text-emerald-400 cursor-pointer text-center transition-colors"
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="w-full text-left py-2 px-3 rounded-lg text-sm font-mono font-bold text-slate-200 hover:bg-[#8b5cf6]/20 hover:text-[#ccff00] transition-colors"
+              >
+                {item.label}
+              </button>
+            ))}
 
-              {/* Action Buttons Mobile */}
-              <div className="pt-2">
-                <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onDownloadPdf();
-                  }}
-                  disabled={isDownloading}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-400 hover:bg-emerald-300 disabled:bg-emerald-800 text-slate-950 font-black text-xs uppercase tracking-widest cursor-pointer shadow-lg shadow-emerald-500/20"
-                >
-                  <Download className={`h-3.5 w-3.5 ${isDownloading ? 'animate-bounce' : ''}`} />
-                  <span>{isDownloading ? translations.downloading : translations.downloadButton}</span>
-                </button>
-              </div>
+            <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+              <button
+                onClick={onDownloadPdf}
+                disabled={isDownloading}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#ccff00] text-black font-marker text-xs uppercase"
+              >
+                <Download className="h-4 w-4" />
+                <span>{isDownloading ? translations.downloading : translations.downloadButton}</span>
+              </button>
             </div>
           </motion.div>
         )}
