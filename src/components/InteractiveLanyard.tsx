@@ -6,11 +6,13 @@ import { Language } from '../types';
 interface InteractiveLanyardProps {
   currentLang?: Language;
   className?: string;
+  anchor?: 'left' | 'center' | 'right';
 }
 
 export default function InteractiveLanyard({
   currentLang = 'id',
-  className = ''
+  className = '',
+  anchor: customAnchor
 }: InteractiveLanyardProps) {
   const [textures, setTextures] = useState<BadgeTextures | null>(null);
   const [isMobile, setIsMobile] = useState(() => {
@@ -30,8 +32,10 @@ export default function InteractiveLanyard({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const activeAnchor = customAnchor || (isMobile ? 'center' : 'right');
+
   return (
-    <div className={`relative w-full h-[620px] sm:h-[700px] lg:h-[780px] flex items-center justify-center select-none ${className}`}>
+    <div className={`relative w-full h-full flex items-center justify-center select-none ${className}`}>
       {/* 3D Lanyard Canvas Container - Full Height & Width for Wide Drag Freedom */}
       <div className="relative w-full h-full">
         {textures ? (
@@ -45,7 +49,7 @@ export default function InteractiveLanyard({
             finish="glossy"
             cornerRadius={0.25}
             size={isMobile ? 0.62 : 0.65}
-            anchor="center"
+            anchor={activeAnchor}
             strapLength={isMobile ? 0.52 : 0.58}
             strapWidth={0.62}
             metal="silver"

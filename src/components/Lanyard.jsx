@@ -1185,11 +1185,27 @@ const Lanyard = ({
       body.angular.addScaledVector(up, FLIP_SPIN * direction);
     };
 
+    const updateHitState = event => {
+      if (!settingsRef.current.interactive) return;
+      if (sim.grab) {
+        canvas.style.pointerEvents = 'auto';
+        return;
+      }
+      toPointer(event);
+      hovering = !!pickCard();
+      canvas.style.pointerEvents = hovering ? 'auto' : 'none';
+      setCursor(hovering ? 'grab' : '');
+    };
+
     const onPointerDown = event => {
       if (!settingsRef.current.interactive || event.button > 0) return;
       toPointer(event);
       const hit = pickCard();
-      if (!hit) return;
+      if (!hit) {
+        canvas.style.pointerEvents = 'none';
+        return;
+      }
+      canvas.style.pointerEvents = 'auto';
       sim.grab = {
         local: hit.point.clone().sub(sim.body.position).applyQuaternion(sim.body.quaternion.clone().invert()),
         rotation: sim.body.quaternion.clone(),
@@ -1215,25 +1231,36 @@ const Lanyard = ({
       }
       if (event.pointerType === 'touch') return;
       hovering = !!pickCard();
+      canvas.style.pointerEvents = hovering ? 'auto' : 'none';
       setCursor(hovering ? 'grab' : '');
     };
 
     const onPointerUp = event => {
-      if (!sim.grab) return;
+      if (!sim.grab) {
+        updateHitState(event);
+        return;
+      }
       sim.grab = null;
       if (press && event.type === 'pointerup' && performance.now() - press.time < 450) flip(press.point);
       press = null;
       canvas.releasePointerCapture?.(event.pointerId);
-      setCursor(hovering && event.pointerType !== 'touch' ? 'grab' : '');
+      updateHitState(event);
       start();
     };
 
     const onTouchStart = event => {
       if (!settingsRef.current.interactive || event.touches.length !== 1) return;
       toPointer(event.touches[0]);
-      if (pickCard()) event.preventDefault();
+      if (pickCard()) {
+        canvas.style.pointerEvents = 'auto';
+        event.preventDefault();
+      } else {
+        canvas.style.pointerEvents = 'none';
+      }
     };
 
+    window.addEventListener('pointermove', updateHitState);
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
     canvas.addEventListener('pointerdown', onPointerDown);
     canvas.addEventListener('pointermove', onPointerMove);
     canvas.addEventListener('pointerup', onPointerUp);
@@ -1272,6 +1299,8 @@ const Lanyard = ({
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pointermove', updateHitState);
+      window.removeEventListener('touchstart', onTouchStart);
       canvas.removeEventListener('pointerdown', onPointerDown);
       canvas.removeEventListener('pointermove', onPointerMove);
       canvas.removeEventListener('pointerup', onPointerUp);
