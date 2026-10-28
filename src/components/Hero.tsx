@@ -27,6 +27,17 @@ export default function Hero({
   onDownloadPdf,
 }: HeroProps) {
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(() => {
+    return typeof window !== 'undefined' ? window.innerWidth >= 1024 : true;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const scrollToLiveSites = () => {
     const el = document.getElementById('live-sites');
@@ -52,17 +63,19 @@ export default function Hero({
     : 'Spesialis Infrastruktur IT • Administrator Server • DevOps & Otomasi';
 
   return (
-    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-6 sm:pt-10 pb-8 sm:pb-12 scroll-mt-20 overflow-visible">
+    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-6 sm:pt-10 pb-8 sm:pb-12 scroll-mt-20 overflow-x-clip">
       
       {/* ── Top Hero Section: Full-Width 3D Lanyard Layer + Content Grid ── */}
       <div className="relative min-h-[580px] lg:min-h-[680px]">
 
-        {/* 3D Interactive Lanyard Full-Bleed Canvas (z-20 in front of text, spans 100% width & height) */}
-        <div className="absolute inset-0 z-20 pointer-events-none overflow-visible">
-          <InteractiveLanyard currentLang={currentLang} className="w-full h-full" />
-        </div>
+        {/* Desktop Only: 3D Interactive Lanyard Full-Bleed Canvas (z-20 in front of text, spans 100% width & height) */}
+        {isDesktop && (
+          <div className="absolute inset-0 z-20 pointer-events-none overflow-visible">
+            <InteractiveLanyard currentLang={currentLang} anchor="right" className="w-full h-full" />
+          </div>
+        )}
 
-        {/* ── Content Grid (Left: Typography & Buttons, Right: Doodles & Glow) ── */}
+        {/* ── Content Grid (Left: Typography & Buttons, Right: Mobile Lanyard & Glow) ── */}
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center min-h-[580px] lg:min-h-[680px] relative z-10">
           
           {/* Left Column: Hand-drawn Typography & Actions */}
@@ -82,12 +95,12 @@ export default function Hero({
               </div>
             </div>
 
-            {/* Huge Signature Marker Name: SANDI RIADY */}
+            {/* Huge Signature Marker Name: SANDI RIADY (Responsive Font) */}
             <div className="pt-2">
-              <h1 className="font-marker text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white tracking-wider leading-[0.9] select-none uppercase drop-shadow-2xl">
+              <h1 className="font-marker text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-white tracking-wider leading-[0.9] select-none uppercase drop-shadow-2xl">
                 SANDI
               </h1>
-              <h1 className="font-marker text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#ccff00] tracking-wider leading-[0.9] select-none uppercase drop-shadow-[0_0_25px_rgba(204,255,0,0.35)] -mt-1 sm:-mt-2">
+              <h1 className="font-marker text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#ccff00] tracking-wider leading-[0.9] select-none uppercase drop-shadow-[0_0_25px_rgba(204,255,0,0.35)] -mt-1 sm:-mt-2">
                 RIADY
               </h1>
             </div>
@@ -107,13 +120,13 @@ export default function Hero({
             </p>
 
             {/* Action Buttons: Dikshant Pill Style */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
               {/* Primary Button: Neon Lime Pill with Play Icon */}
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={scrollToLiveSites}
-                className="inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 rounded-full bg-[#ccff00] hover:bg-[#d9ff33] text-black font-marker text-sm sm:text-base tracking-wide uppercase shadow-[0_0_25px_rgba(204,255,0,0.4)] transition-all cursor-pointer"
+                className="inline-flex items-center gap-2.5 px-5 sm:px-7 py-3 rounded-full bg-[#ccff00] hover:bg-[#d9ff33] text-black font-marker text-sm sm:text-base tracking-wide uppercase shadow-[0_0_25px_rgba(204,255,0,0.4)] transition-all cursor-pointer"
               >
                 <span className="h-5 w-5 rounded-full bg-black text-[#ccff00] flex items-center justify-center">
                   <Play className="h-3 w-3 fill-[#ccff00] ml-0.5" />
@@ -126,7 +139,7 @@ export default function Hero({
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={onDownloadPdf}
-                className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-[#12131a] hover:bg-white text-white hover:text-black border-2 border-white/20 text-xs sm:text-sm font-mono font-bold tracking-wider uppercase transition-all cursor-pointer shadow-lg"
+                className="inline-flex items-center gap-2 px-5 sm:px-7 py-3 rounded-full bg-[#12131a] hover:bg-white text-white hover:text-black border-2 border-white/20 text-xs sm:text-sm font-mono font-bold tracking-wider uppercase transition-all cursor-pointer shadow-lg"
               >
                 <span>{translations.downloadButton}</span>
                 <ArrowUpRight className="h-4 w-4" />
@@ -142,42 +155,49 @@ export default function Hero({
             </div>
           </motion.div>
 
-          {/* Right Column: Visual Glow & Floating Doodles */}
+          {/* Right Column: Mobile 3D Lanyard Card & Visual Glow */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.3, 0, 0.1, 1] }}
-            className="relative flex items-center justify-center pt-2 lg:pt-0 w-full min-h-[540px] sm:min-h-[600px] lg:min-h-[680px] pointer-events-none"
+            className="relative flex items-center justify-center pt-2 lg:pt-0 w-full min-h-[460px] sm:min-h-[520px] lg:min-h-[680px]"
           >
             {/* Subtle Ambient Liquid Glow behind Lanyard */}
-            <div className="absolute w-[360px] h-[360px] sm:w-[460px] sm:h-[460px] text-[#8b5cf6] opacity-30 blur-3xl -z-10 pointer-events-none">
+            <div className="absolute w-[300px] h-[300px] sm:w-[420px] sm:h-[420px] text-[#8b5cf6] opacity-30 blur-3xl -z-10 pointer-events-none">
               <LiquidSplash className="w-full h-full text-[#8b5cf6]" />
             </div>
 
             {/* Comic Speech Bubble */}
-            <div className="absolute -top-3 sm:-top-5 right-2 sm:right-6 z-10 animate-bounce pointer-events-none">
+            <div className="absolute -top-3 sm:-top-5 right-2 sm:right-6 z-20 animate-bounce pointer-events-none">
               <SpeechBubble text={speechText} />
             </div>
 
             {/* Floating Lightning Doodle */}
-            <div className="absolute bottom-14 left-0 sm:left-4 z-10 animate-float pointer-events-none">
+            <div className="absolute bottom-14 left-2 sm:left-4 z-20 animate-float pointer-events-none">
               <DoodleLightning className="w-10 h-10 sm:w-12 sm:h-12 text-[#ccff00]" />
             </div>
 
             {/* Floating Star Doodle */}
-            <div className="absolute top-16 right-0 z-10 animate-float pointer-events-none">
+            <div className="absolute top-16 right-2 sm:right-4 z-20 animate-float pointer-events-none">
               <DoodleStar className="w-8 h-8 text-yellow-400" />
             </div>
 
             {/* Floating Smiley Doodle */}
-            <div className="absolute bottom-8 right-6 z-10 animate-float-reverse pointer-events-none">
+            <div className="absolute bottom-8 right-6 z-20 animate-float-reverse pointer-events-none">
               <DoodleSmiley className="w-10 h-10 sm:w-12 sm:h-12 text-[#ccff00]" />
             </div>
 
             {/* Floating Terminal Prompt Doodle `>_` */}
-            <div className="absolute top-28 -left-3 sm:-left-5 z-10 animate-float pointer-events-none">
+            <div className="absolute top-28 left-2 sm:left-4 z-20 animate-float pointer-events-none">
               <DoodleTerminal className="w-10 h-10 text-[#38bdf8]" />
             </div>
+
+            {/* Mobile-Only Interactive Lanyard (Cleanly placed below buttons, centered & touchable) */}
+            {!isDesktop && (
+              <div className="w-full h-[460px] sm:h-[520px] relative z-20">
+                <InteractiveLanyard currentLang={currentLang} anchor="center" className="w-full h-full" />
+              </div>
+            )}
           </motion.div>
         </div>
       </div>
