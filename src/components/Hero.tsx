@@ -11,6 +11,7 @@ import {
   DoodleCrown, DoodleCurvedArrow, DoodleLightning, DoodleStar,
   DoodleSmiley, DoodleTerminal, SpeechBubble, LiquidSplash
 } from './Doodles';
+import InteractiveLanyard from './InteractiveLanyard';
 
 interface HeroProps {
   currentLang: Language;
@@ -133,30 +134,25 @@ export default function Hero({
           </div>
         </motion.div>
 
-        {/* Right Column: Comic Avatar Composition with Doodles */}
+        {/* Right Column: 3D Interactive Lanyard ID Badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.3, 0, 0.1, 1] }}
-          className="relative flex items-center justify-center pt-6 lg:pt-0"
+          className="relative flex items-center justify-center pt-2 lg:pt-0 w-full min-h-[540px] sm:min-h-[600px] lg:min-h-[650px]"
         >
-          {/* Huge Fluid Liquid Splash in Purple */}
-          <div className="absolute w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] text-[#8b5cf6] opacity-85 -z-10 animate-float-reverse pointer-events-none">
+          {/* Subtle Ambient Liquid Glow behind Lanyard */}
+          <div className="absolute w-[360px] h-[360px] sm:w-[460px] sm:h-[460px] text-[#8b5cf6] opacity-30 blur-3xl -z-10 pointer-events-none">
             <LiquidSplash className="w-full h-full text-[#8b5cf6]" />
           </div>
 
-          {/* Crown Doodle on Head */}
-          <div className="absolute -top-6 sm:-top-8 left-1/2 -translate-x-12 z-20 animate-float pointer-events-none">
-            <DoodleCrown className="w-12 h-12 sm:w-16 sm:h-16 text-yellow-300" />
-          </div>
-
           {/* Comic Speech Bubble */}
-          <div className="absolute -top-4 sm:-top-6 right-2 sm:right-6 z-20 animate-bounce">
+          <div className="absolute -top-3 sm:-top-5 right-2 sm:right-6 z-20 animate-bounce pointer-events-none">
             <SpeechBubble text={speechText} />
           </div>
 
           {/* Floating Lightning Doodle */}
-          <div className="absolute bottom-10 left-2 sm:left-4 z-20 animate-float pointer-events-none">
+          <div className="absolute bottom-14 left-0 sm:left-4 z-20 animate-float pointer-events-none">
             <DoodleLightning className="w-10 h-10 sm:w-12 sm:h-12 text-[#ccff00]" />
           </div>
 
@@ -166,45 +162,18 @@ export default function Hero({
           </div>
 
           {/* Floating Smiley Doodle */}
-          <div className="absolute bottom-4 right-10 z-20 animate-float-reverse pointer-events-none">
+          <div className="absolute bottom-8 right-6 z-20 animate-float-reverse pointer-events-none">
             <DoodleSmiley className="w-10 h-10 sm:w-12 sm:h-12 text-[#ccff00]" />
           </div>
 
           {/* Floating Terminal Prompt Doodle `>_` */}
-          <div className="absolute top-36 -left-4 z-20 animate-float pointer-events-none">
+          <div className="absolute top-28 -left-3 sm:-left-5 z-20 animate-float pointer-events-none">
             <DoodleTerminal className="w-10 h-10 text-[#38bdf8]" />
           </div>
 
-          {/* Sandi's Photo with White Sticker Cutout Frame */}
-          <div
-            onClick={() => setIsPhotoModalOpen(true)}
-            className="relative cursor-pointer group"
-          >
-            {/* White Sticker Border Outline Effect */}
-            <div className="relative rounded-3xl p-2 bg-white/95 shadow-[0_20px_50px_rgba(0,0,0,0.8)] transform -rotate-1 group-hover:rotate-0 transition-all duration-300">
-              <div className="relative w-64 h-80 sm:w-80 sm:h-96 rounded-2xl overflow-hidden bg-black border-2 border-black">
-                <img
-                  src={PERSONAL_INFO.profileImage}
-                  alt={PERSONAL_INFO.name}
-                  className="w-full h-full object-cover object-center filter contrast-105 group-hover:scale-105 transition-transform duration-500 ease-out"
-                />
-
-                {/* Bottom Sticker Tag on Photo */}
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] font-mono font-bold text-[#ccff00] uppercase tracking-wider block">
-                      VERIFIED ENGINEER
-                    </span>
-                    <span className="text-sm font-display font-black text-white uppercase tracking-tight">
-                      Sandi Riady
-                    </span>
-                  </div>
-                  <span className="px-2 py-1 rounded bg-[#ccff00] text-black text-[9px] font-mono font-black uppercase tracking-wider">
-                    ONLINE
-                  </span>
-                </div>
-              </div>
-            </div>
+          {/* The 3D Interactive Physics Lanyard */}
+          <div className="w-full h-full relative z-10">
+            <InteractiveLanyard currentLang={currentLang} />
           </div>
         </motion.div>
       </div>
