@@ -52,7 +52,7 @@ export default function Hero({
     : 'Spesialis Infrastruktur IT • Administrator Server • DevOps & Otomasi';
 
   return (
-    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-6 sm:pt-10 pb-8 sm:pb-12 scroll-mt-20 overflow-hidden">
+    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-6 sm:pt-10 pb-8 sm:pb-12 scroll-mt-20 overflow-visible">
       
       {/* ── Top Hero Row: Dikshant Layout ── */}
       <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center min-h-[580px]">
@@ -139,7 +139,7 @@ export default function Hero({
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.3, 0, 0.1, 1] }}
-          className="relative flex items-center justify-center pt-2 lg:pt-0 w-full min-h-[540px] sm:min-h-[600px] lg:min-h-[650px]"
+          className="relative flex items-center justify-center pt-2 lg:pt-0 w-full min-h-[620px] sm:min-h-[700px] lg:min-h-[780px] lg:-my-8"
         >
           {/* Subtle Ambient Liquid Glow behind Lanyard */}
           <div className="absolute w-[360px] h-[360px] sm:w-[460px] sm:h-[460px] text-[#8b5cf6] opacity-30 blur-3xl -z-10 pointer-events-none">

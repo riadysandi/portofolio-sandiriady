@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Lanyard from './Lanyard';
 import { getBadgeTextures, BadgeTextures } from './badgeTextures';
-import { Sparkles, Move, RefreshCw } from 'lucide-react';
 import { Language } from '../types';
 
 interface InteractiveLanyardProps {
@@ -31,14 +30,9 @@ export default function InteractiveLanyard({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const hintText = currentLang === 'en'
-    ? '👆 Drag to swing badge • Click to flip card'
-    : '👆 Sentuh & tarik untuk mengayun • Klik untuk membalik kartu';
-
   return (
-    <div className={`relative w-full h-[540px] sm:h-[600px] lg:h-[650px] flex flex-col items-center justify-center select-none ${className}`}>
-      
-      {/* 3D Lanyard Canvas Container */}
+    <div className={`relative w-full h-[620px] sm:h-[700px] lg:h-[780px] flex items-center justify-center select-none ${className}`}>
+      {/* 3D Lanyard Canvas Container - Full Height & Width for Wide Drag Freedom */}
       <div className="relative w-full h-full">
         {textures ? (
           <Lanyard
@@ -50,15 +44,15 @@ export default function InteractiveLanyard({
             orientation="portrait"
             finish="glossy"
             cornerRadius={0.25}
-            size={isMobile ? 0.65 : 0.72}
+            size={isMobile ? 0.62 : 0.65}
             anchor="center"
-            strapLength={isMobile ? 0.42 : 0.48}
-            strapWidth={0.65}
+            strapLength={isMobile ? 0.52 : 0.58}
+            strapWidth={0.62}
             metal="silver"
-            gravity={0.9}
-            damping={0.5}
-            elasticity={0.45}
-            breeze={0.3}
+            gravity={1.2}
+            damping={0.32}
+            elasticity={0.75}
+            breeze={0.2}
             interactive={true}
             intro={true}
             className="w-full h-full"
@@ -69,17 +63,6 @@ export default function InteractiveLanyard({
             <span className="font-mono text-xs text-slate-400">Loading 3D Lanyard...</span>
           </div>
         )}
-      </div>
-
-      {/* Floating Interactive Hint Tag */}
-      <div className="absolute -bottom-2 sm:bottom-2 z-10 pointer-events-none">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12131a]/90 backdrop-blur-md border border-white/10 shadow-[0_8px_20px_rgba(0,0,0,0.5)]">
-          <Move className="w-3.5 h-3.5 text-[#ccff00] animate-pulse" />
-          <span className="font-mono text-[11px] font-bold text-slate-300 tracking-wide">
-            {hintText}
-          </span>
-          <RefreshCw className="w-3 h-3 text-[#8b5cf6]" />
-        </div>
       </div>
     </div>
   );

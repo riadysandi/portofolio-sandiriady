@@ -1288,7 +1288,7 @@ const Lanyard = ({
   }, []);
 
   return (
-    <div ref={containerRef} className={`relative w-full h-full overflow-hidden ${className}`.trim()} style={style} />
+    <div ref={containerRef} className={`relative w-full h-full overflow-visible ${className}`.trim()} style={style} />
   );
 };
 
