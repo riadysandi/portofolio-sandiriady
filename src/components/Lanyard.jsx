@@ -721,7 +721,7 @@ const Lanyard = ({
   interactive = true,
   intro = true,
   className = '',
-  style
+  style = {}
 }) => {
   const containerRef = useRef(null);
   const settingsRef = useRef(null);
@@ -1155,22 +1155,42 @@ const Lanyard = ({
     const pointer = new THREE.Vector2();
 
     const toPointer = event => {
+      if (!event || !canvas) return;
+      let clientX = event.clientX;
+      let clientY = event.clientY;
+      if (clientX === undefined && event.touches && event.touches.length > 0) {
+        clientX = event.touches[0].clientX;
+        clientY = event.touches[0].clientY;
+      }
+      if (clientX === undefined || clientY === undefined) return;
       const rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
       pointer.set(
-        ((event.clientX - rect.left) / rect.width) * 2 - 1,
-        -((event.clientY - rect.top) / rect.height) * 2 + 1
+        ((clientX - rect.left) / rect.width) * 2 - 1,
+        -((clientY - rect.top) / rect.height) * 2 + 1
       );
-      raycaster.setFromCamera(pointer, camera);
+      try {
+        raycaster.setFromCamera(pointer, camera);
+      } catch (e) {
+        // Safe guard against camera or pointer math issues
+      }
     };
 
     const pickCard = () => {
-      cardGroup.updateMatrixWorld();
-      const hits = raycaster.intersectObjects([bodyMesh, frontMesh, backMesh], false);
-      return hits[0] || null;
+      if (!cardGroup || !bodyMesh || !bodyMesh.geometry) return null;
+      try {
+        cardGroup.updateMatrixWorld();
+        const targets = [bodyMesh, frontMesh, backMesh].filter(m => m && m.geometry);
+        if (targets.length === 0) return null;
+        const hits = raycaster.intersectObjects(targets, false);
+        return hits[0] || null;
+      } catch (e) {
+        return null;
+      }
     };
 
     const setCursor = value => {
-      if (canvas.style.cursor !== value) canvas.style.cursor = value;
+      if (canvas && canvas.style.cursor !== value) canvas.style.cursor = value;
     };
 
     const flip = point => {
@@ -1186,7 +1206,7 @@ const Lanyard = ({
     };
 
     const updateHitState = event => {
-      if (!settingsRef.current.interactive) return;
+      if (!settingsRef.current?.interactive) return;
       if (sim.grab) {
         canvas.style.pointerEvents = 'auto';
         return;
@@ -1198,7 +1218,7 @@ const Lanyard = ({
     };
 
     const onPointerDown = event => {
-      if (!settingsRef.current.interactive || event.button > 0) return;
+      if (!settingsRef.current?.interactive || event.button > 0) return;
       toPointer(event);
       const hit = pickCard();
       if (!hit) {
@@ -1216,12 +1236,12 @@ const Lanyard = ({
       press = { x: event.clientX, y: event.clientY, time: performance.now(), point: hit.point.clone() };
       canvas.setPointerCapture?.(event.pointerId);
       setCursor('grabbing');
-      event.preventDefault();
+      if (event.cancelable) event.preventDefault();
       start();
     };
 
     const onPointerMove = event => {
-      if (!settingsRef.current.interactive) return;
+      if (!settingsRef.current?.interactive) return;
       toPointer(event);
       if (sim.grab) {
         if (press && Math.hypot(event.clientX - press.x, event.clientY - press.y) > 6) press = null;
@@ -1248,25 +1268,35 @@ const Lanyard = ({
       start();
     };
 
-    const onTouchStart = event => {
-      if (!settingsRef.current.interactive || event.touches.length !== 1) return;
+    const onCanvasTouchStart = event => {
+      if (!settingsRef.current?.interactive || !event.touches || event.touches.length !== 1) return;
       toPointer(event.touches[0]);
       if (pickCard()) {
         canvas.style.pointerEvents = 'auto';
-        event.preventDefault();
+        if (event.cancelable) event.preventDefault();
+      } else {
+        canvas.style.pointerEvents = 'none';
+      }
+    };
+
+    const onWindowTouchStart = event => {
+      if (!settingsRef.current?.interactive || !event.touches || event.touches.length !== 1) return;
+      toPointer(event.touches[0]);
+      if (pickCard()) {
+        canvas.style.pointerEvents = 'auto';
       } else {
         canvas.style.pointerEvents = 'none';
       }
     };
 
     window.addEventListener('pointermove', updateHitState);
-    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchstart', onWindowTouchStart, { passive: true });
     canvas.addEventListener('pointerdown', onPointerDown);
     canvas.addEventListener('pointermove', onPointerMove);
     canvas.addEventListener('pointerup', onPointerUp);
     canvas.addEventListener('pointercancel', onPointerUp);
     canvas.addEventListener('lostpointercapture', onPointerUp);
-    canvas.addEventListener('touchstart', onTouchStart, { passive: false });
+    canvas.addEventListener('touchstart', onCanvasTouchStart, { passive: false });
 
     const resize = () => {
       view.width = Math.max(1, container.clientWidth);
@@ -1300,13 +1330,13 @@ const Lanyard = ({
       intersectionObserver.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('pointermove', updateHitState);
-      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchstart', onWindowTouchStart);
       canvas.removeEventListener('pointerdown', onPointerDown);
       canvas.removeEventListener('pointermove', onPointerMove);
       canvas.removeEventListener('pointerup', onPointerUp);
       canvas.removeEventListener('pointercancel', onPointerUp);
       canvas.removeEventListener('lostpointercapture', onPointerUp);
-      canvas.removeEventListener('touchstart', onTouchStart);
+      canvas.removeEventListener('touchstart', onCanvasTouchStart);
       [bodyMesh, frontMesh, backMesh, ring, clampMesh, eyelet, band].forEach(mesh => mesh.geometry?.dispose());
       [frontMaterial, backMaterial, edgeMaterial, metalMaterial, bandMaterial].forEach(material => material.dispose());
       [frontTexture, backTexture, strapTexture, grain, weave].forEach(texture => texture.dispose());
