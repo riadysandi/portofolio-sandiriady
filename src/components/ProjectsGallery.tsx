@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Cpu, Database, Mail, LayoutDashboard, Network,
   ExternalLink, X, Settings, ArrowUpRight, CheckCircle2,
-  Sparkles
+  Sparkles, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { Language, Translation, Project } from '../types';
 import { PROJECTS } from '../data';
@@ -17,6 +17,18 @@ interface ProjectsGalleryProps {
 
 export default function ProjectsGallery({ currentLang, translations, searchQuery }: ProjectsGalleryProps) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isMobile, setIsMobile] = useState(() => {
+    return typeof window !== 'undefined' ? window.innerWidth < 640 : false;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const getProjectTheme = (iconName: string, id: string) => {
     switch (iconName) {
@@ -78,8 +90,19 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
     return titleMatch || descMatch || tagsMatch;
   });
 
+  // Reset page when search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
+
+  // Mobile: 4 per page (2 rows x 2 cols), Desktop: 4 or 8 per page
+  const itemsPerPage = isMobile ? 4 : 8;
+  const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedProjects = filteredProjects.slice(startIndex, startIndex + itemsPerPage);
+
   return (
-    <section id="projects" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20 relative">
+    <section id="projects" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-24 relative">
       
       {/* Header matching Dikshant "FEATURED PROJECTS" */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
@@ -107,67 +130,67 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
         </a>
       </div>
 
-      {/* Projects Grid: Dikshant 4-Card / Responsive Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {/* Projects Grid: 2 columns on Mobile, 2 on SM, 4 on LG */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5">
         <AnimatePresence mode="popLayout">
-          {filteredProjects.map((proj, idx) => {
+          {paginatedProjects.map((proj, idx) => {
             const theme = getProjectTheme(proj.icon, proj.id);
             return (
               <motion.div
                 layout
                 key={proj.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                whileHover={{ y: -6 }}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, delay: idx * 0.05 }}
+                whileHover={{ y: -5 }}
                 onClick={() => setSelectedProject(proj)}
-                className={`group rounded-2xl bg-[#12131a] border-2 border-[#232533] ${theme.borderColor} shadow-xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer transition-all duration-300 relative overflow-hidden`}
+                className={`group rounded-2xl bg-[#12131a] border-2 border-[#232533] ${theme.borderColor} shadow-xl p-3 sm:p-5 flex flex-col justify-between cursor-pointer transition-all duration-300 relative overflow-hidden`}
               >
                 {/* Visual Banner Thumbnail inside Card */}
-                <div className={`relative w-full h-32 rounded-xl bg-gradient-to-br ${theme.bannerBg} border border-white/10 p-3 flex flex-col justify-between mb-4 overflow-hidden`}>
+                <div className={`relative w-full h-20 sm:h-32 rounded-xl bg-gradient-to-br ${theme.bannerBg} border border-white/10 p-2 sm:p-3 flex flex-col justify-between mb-2.5 sm:mb-4 overflow-hidden`}>
                   <div className="flex items-center justify-between">
-                    <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-black uppercase tracking-wider border ${theme.badgeBg}`}>
+                    <span className={`px-1.5 sm:px-2 py-0.5 rounded text-[8px] sm:text-[9px] font-mono font-black uppercase tracking-wider border truncate max-w-[120px] ${theme.badgeBg}`}>
                       {theme.badge}
                     </span>
-                    <span className="h-7 w-7 rounded-full bg-black/70 text-white flex items-center justify-center group-hover:bg-[#ccff00] group-hover:text-black transition-colors">
-                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    <span className="h-5 w-5 sm:h-7 sm:w-7 rounded-full bg-black/70 text-white flex items-center justify-center group-hover:bg-[#ccff00] group-hover:text-black transition-colors shrink-0">
+                      <ArrowUpRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                     </span>
                   </div>
 
                   {/* Icon illustration watermark */}
-                  <div className="absolute right-2 -bottom-2 text-white/10 group-hover:text-white/20 group-hover:scale-110 transition-all duration-300 pointer-events-none">
-                    <Cpu className="h-20 w-20" />
+                  <div className="absolute right-1 -bottom-2 text-white/10 group-hover:text-white/20 group-hover:scale-110 transition-all duration-300 pointer-events-none">
+                    <Cpu className="h-12 w-12 sm:h-20 sm:w-20" />
                   </div>
 
-                  <span className="text-[10px] font-mono font-bold text-white/80 z-10">
+                  <span className="text-[8px] sm:text-[10px] font-mono font-bold text-white/80 z-10">
                     #{proj.id.toUpperCase()}
                   </span>
                 </div>
 
                 {/* Card Title & Desc */}
                 <div className="flex-1 flex flex-col">
-                  <h3 className="font-display font-black text-base text-white group-hover:text-[#ccff00] transition-colors leading-snug mb-2 line-clamp-2">
+                  <h3 className="font-display font-black text-xs sm:text-base text-white group-hover:text-[#ccff00] transition-colors leading-snug mb-1 sm:mb-2 line-clamp-2">
                     {proj.title[currentLang]}
                   </h3>
-                  <p className="text-xs text-slate-300 font-sans leading-relaxed line-clamp-3 mb-4">
+                  <p className="hidden sm:block text-xs text-slate-300 font-sans leading-relaxed line-clamp-2 mb-3">
                     {proj.description[currentLang]}
                   </p>
                 </div>
 
                 {/* Tag Pills */}
-                <div className="pt-3 border-t border-white/10 mt-auto flex flex-wrap gap-1">
-                  {proj.tags.slice(0, 3).map((tag) => (
+                <div className="pt-2 sm:pt-3 border-t border-white/10 mt-auto flex flex-wrap gap-1">
+                  {proj.tags.slice(0, isMobile ? 2 : 3).map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 rounded bg-black/60 border border-white/10 text-[9px] font-mono text-slate-300"
+                      className="px-1.5 py-0.5 rounded bg-black/60 border border-white/10 text-[8px] sm:text-[9px] font-mono text-slate-300"
                     >
                       {tag}
                     </span>
                   ))}
-                  {proj.tags.length > 3 && (
-                    <span className="px-1.5 py-0.5 rounded bg-black/60 text-[9px] font-mono text-slate-500">
-                      +{proj.tags.length - 3}
+                  {proj.tags.length > (isMobile ? 2 : 3) && (
+                    <span className="px-1 py-0.5 rounded bg-black/60 text-[8px] sm:text-[9px] font-mono text-slate-500">
+                      +{proj.tags.length - (isMobile ? 2 : 3)}
                     </span>
                   )}
                 </div>
@@ -176,6 +199,45 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
           })}
         </AnimatePresence>
       </div>
+
+      {/* Pagination Controls for Projects Gallery */}
+      {totalPages > 1 && (
+        <div className="mt-8 flex items-center justify-center gap-3">
+          <button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className="p-2 rounded-xl bg-[#12131a] border border-[#232533] text-slate-300 hover:text-white hover:border-[#ccff00] disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer"
+            aria-label="Previous Page"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+
+          <div className="flex items-center gap-1.5">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`h-8 w-8 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
+                  currentPage === page
+                    ? 'bg-[#ccff00] text-black shadow-[0_0_15px_rgba(204,255,0,0.4)]'
+                    : 'bg-[#12131a] text-slate-400 border border-[#232533] hover:text-white'
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            className="p-2 rounded-xl bg-[#12131a] border border-[#232533] text-slate-300 hover:text-white hover:border-[#ccff00] disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer"
+            aria-label="Next Page"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      )}
 
       {/* Project Detail Modal */}
       <AnimatePresence>
@@ -218,28 +280,19 @@ export default function ProjectsGallery({ currentLang, translations, searchQuery
 
               <div className="space-y-4 pt-4 border-t border-white/10">
                 <h4 className="text-xs font-mono font-bold text-[#ccff00] uppercase tracking-wider">
-                  TECHNOLOGIES & TOOLS:
+                  Key Technologies & Tooling
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedProject.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1.5 rounded-full bg-black border border-white/20 text-xs font-mono text-slate-200"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/15 text-xs font-mono text-slate-200"
                     >
-                      {tag}
+                      <CheckCircle2 className="h-3 w-3 text-[#ccff00]" />
+                      <span>{tag}</span>
                     </span>
                   ))}
                 </div>
-              </div>
-
-              <div className="mt-8 pt-4 border-t border-white/10 flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setSelectedProject(null)}
-                  className="px-6 py-2.5 rounded-full bg-white hover:bg-[#ccff00] text-black font-marker text-xs uppercase tracking-wider transition-colors cursor-pointer"
-                >
-                  Tutup
-                </button>
               </div>
             </motion.div>
           </motion.div>

@@ -940,9 +940,9 @@ const Lanyard = ({
       if (layoutKey !== applied.layoutKey) {
         layout = cardLayout(s.orientation, s.cornerRadius);
         const geometry = buildCardGeometry(layout);
-        bodyMesh.geometry.dispose();
-        frontMesh.geometry.dispose();
-        backMesh.geometry.dispose();
+        bodyMesh.geometry?.dispose();
+        frontMesh.geometry?.dispose();
+        backMesh.geometry?.dispose();
         bodyMesh.geometry = geometry.body;
         frontMesh.geometry = geometry.face;
         backMesh.geometry = geometry.face.clone();
@@ -1004,7 +1004,7 @@ const Lanyard = ({
       metalMaterial.roughness = metalLook.roughness;
       strapScale = STRAP_WIDTH * clamp(s.strapWidth, 0.4, 2);
       if (strapScale !== applied.strapScale) {
-        clampMesh.geometry.dispose();
+        clampMesh.geometry?.dispose();
         clampMesh.geometry = buildClampGeometry(strapScale);
       }
       canvas.style.touchAction = s.interactive ? 'pan-y' : 'auto';

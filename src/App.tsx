@@ -118,7 +118,7 @@ export default function App() {
       />
 
       {/* Main Content Sections */}
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         
         {/* 1. Hero with Dikshant Hand-Drawn Markers, Cutout Avatar & Doodles */}
         <Hero
