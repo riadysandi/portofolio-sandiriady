@@ -24,9 +24,9 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       })
     ]);
 
-    // Fast, smooth minimalist progress (approx 0.9s)
+    // Smooth name-fill progress (approx 1.1s total)
     const startTime = performance.now();
-    const duration = 900;
+    const duration = 1050;
 
     const timer = setInterval(() => {
       const elapsed = performance.now() - startTime;
@@ -41,10 +41,10 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         preloadPromise.then(() => {
           setTimeout(() => {
             if (isMounted) onComplete();
-          }, 150);
+          }, 200);
         });
       }
-    }, 20);
+    }, 16);
 
     return () => {
       isMounted = false;
@@ -56,30 +56,42 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+      transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
       className="fixed inset-0 z-[9999] bg-[#0b0c10] flex flex-col items-center justify-center p-6 text-white select-none"
     >
-      <div className="flex flex-col items-center space-y-4 max-w-xs w-full">
-        {/* Minimal Signature Logo */}
-        <div className="text-center">
-          <span className="font-marker text-2xl sm:text-3xl text-white tracking-wider">
-            SANDI<span className="text-[#ccff00]">.</span>
+      <div className="flex flex-col items-center justify-center max-w-lg w-full">
+        {/* Name Progress Bar: The full name itself fills from 0% to 100% */}
+        <div className="relative inline-block select-none py-2">
+          {/* Base Unfilled Layer: Dark silhouette outline */}
+          <div
+            className="font-marker text-3xl sm:text-5xl md:text-6xl text-white/10 tracking-wider sm:tracking-widest uppercase select-none whitespace-nowrap"
+            style={{
+              WebkitTextStroke: '1px rgba(255, 255, 255, 0.18)',
+            }}
+          >
+            SANDI RIADY
+          </div>
+
+          {/* Active Filling Layer: Neon-lime solid text clipped by progress */}
+          <div
+            className="absolute inset-0 font-marker text-3xl sm:text-5xl md:text-6xl text-[#ccff00] tracking-wider sm:tracking-widest uppercase select-none whitespace-nowrap overflow-hidden drop-shadow-[0_0_25px_rgba(204,255,0,0.55)]"
+            style={{
+              clipPath: `inset(0 ${100 - progress}% 0 0)`,
+              WebkitClipPath: `inset(0 ${100 - progress}% 0 0)`,
+              transition: 'clip-path 0.05s linear',
+            }}
+          >
+            SANDI RIADY
+          </div>
+        </div>
+
+        {/* Minimal Counter Below */}
+        <div className="flex items-center gap-2 mt-4">
+          <div className="w-1.5 h-1.5 rounded-full bg-[#ccff00] animate-pulse" />
+          <span className="font-mono text-xs text-slate-400 tracking-widest">
+            {progress}%
           </span>
         </div>
-
-        {/* Ultra-Slim Minimal Progress Bar */}
-        <div className="w-36 sm:w-44 h-[2px] bg-white/10 rounded-full overflow-hidden">
-          <motion.div
-            className="h-full bg-[#ccff00] rounded-full"
-            style={{ width: `${progress}%` }}
-            transition={{ ease: 'easeOut', duration: 0.1 }}
-          />
-        </div>
-
-        {/* Subtle Minimal Counter */}
-        <span className="font-mono text-[11px] text-slate-500 tracking-widest">
-          {progress}%
-        </span>
       </div>
     </motion.div>
   );
