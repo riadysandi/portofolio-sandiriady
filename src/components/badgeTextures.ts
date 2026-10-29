@@ -11,6 +11,10 @@ export interface BadgeTextures {
 let cachedTextures: BadgeTextures | null = null;
 let generatingPromise: Promise<BadgeTextures> | null = null;
 
+export function getCachedBadgeTextures(): BadgeTextures | null {
+  return cachedTextures;
+}
+
 export async function getBadgeTextures(): Promise<BadgeTextures> {
   if (cachedTextures) return cachedTextures;
   if (generatingPromise) return generatingPromise;

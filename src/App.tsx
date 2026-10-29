@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS, LIVE_SITES } from './data';
 import { Language, LiveSite } from './types';
+import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ShowreelSpotlight from './components/ShowreelSpotlight';
@@ -21,6 +22,7 @@ import { trackPageView } from './lib/analytics';
 import { fetchSiteData } from './lib/dataService';
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [currentLang, setCurrentLang] = useState<Language>('id');
   const [searchQuery, setSearchQuery] = useState('');
   const [isDownloading, setIsDownloading] = useState(false);
@@ -106,6 +108,11 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#0b0c10] text-slate-100 flex flex-col font-sans overflow-x-hidden selection:bg-[#ccff00] selection:text-black relative">
       
+      {/* High-Tech Bootup Preloader */}
+      <AnimatePresence mode="wait">
+        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+      </AnimatePresence>
+
       {/* Sticky Navigation Hub */}
       <Navbar
         currentLang={currentLang}

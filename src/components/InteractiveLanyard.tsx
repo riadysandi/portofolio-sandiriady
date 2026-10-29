@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Lanyard from './Lanyard';
-import { getBadgeTextures, BadgeTextures } from './badgeTextures';
+import { getBadgeTextures, getCachedBadgeTextures, BadgeTextures } from './badgeTextures';
 import { Language } from '../types';
 import LanyardErrorBoundary from './LanyardErrorBoundary';
 import heroFigure from '../assets/hero-figure.png';
@@ -16,7 +16,7 @@ export default function InteractiveLanyard({
   className = '',
   anchor: customAnchor
 }: InteractiveLanyardProps) {
-  const [textures, setTextures] = useState<BadgeTextures | null>(null);
+  const [textures, setTextures] = useState<BadgeTextures | null>(() => getCachedBadgeTextures());
   const [hasFailed, setHasFailed] = useState(false);
   const [isMobile, setIsMobile] = useState(() => {
     return typeof window !== 'undefined' ? window.innerWidth < 768 : false;
@@ -28,17 +28,19 @@ export default function InteractiveLanyard({
     };
     window.addEventListener('resize', handleResize);
 
-    getBadgeTextures()
-      .then((res) => {
-        setTextures(res);
-      })
-      .catch((err) => {
-        console.warn('Failed to load canvas textures:', err);
-        setHasFailed(true);
-      });
+    if (!textures) {
+      getBadgeTextures()
+        .then((res) => {
+          setTextures(res);
+        })
+        .catch((err) => {
+          console.warn('Failed to load canvas textures:', err);
+          setHasFailed(true);
+        });
+    }
 
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [textures]);
 
   const activeAnchor = customAnchor || (isMobile ? 'center' : 'right');
 
