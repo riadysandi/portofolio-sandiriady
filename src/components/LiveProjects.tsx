@@ -27,6 +27,20 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
   // Fullscreen Lightbox Modal state
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isMobile, setIsMobile] = useState(() => {
+    return typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Keyboard navigation for Lightbox (Esc, Left, Right)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -51,6 +65,12 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
   }, [lightbox]);
 
   if (!liveProjects || liveProjects.length === 0) return null;
+
+  // Pagination calculation: 4 items per page on mobile (2 rows x 2 cols), 6 on desktop
+  const itemsPerPage = isMobile ? 4 : 6;
+  const totalPages = Math.ceil(liveProjects.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedProjects = liveProjects.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePrevSlide = (e: React.MouseEvent, siteId: string, total: number) => {
     e.stopPropagation();
@@ -79,7 +99,7 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
   };
 
   return (
-    <section id="live-sites" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-20 relative">
+    <section id="live-sites" className="py-8 md:py-12 px-4 max-w-7xl mx-auto scroll-mt-24 relative">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mb-8">
@@ -99,9 +119,9 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
           </p>
         </div>
 
-        {/* Live Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {liveProjects.map((site, index) => {
+        {/* Live Projects Grid: 2 columns on Mobile, 2 on MD, 3 on LG */}
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+          {paginatedProjects.map((site, index) => {
             const screenshots = site.screenshots && site.screenshots.length > 0
               ? site.screenshots
               : (site.image ? [site.image] : []);
@@ -115,23 +135,22 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
             return (
               <motion.div
                 key={site.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.45, ease: [0.3, 0, 0.1, 1] }}
-                whileHover={{ y: -6 }}
-                className="group bg-[#12131a] border-2 border-[#232533] hover:border-[#ccff00]/60 rounded-3xl shadow-2xl transition-all duration-300 relative flex flex-col overflow-hidden h-full"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.08, duration: 0.35, ease: [0.3, 0, 0.1, 1] }}
+                whileHover={{ y: -5 }}
+                className="group bg-[#12131a] border-2 border-[#232533] hover:border-[#ccff00]/60 rounded-2xl sm:rounded-3xl shadow-xl transition-all duration-300 relative flex flex-col overflow-hidden h-full"
               >
                 {/* ── Browser Window Header Mockup ── */}
-                <div className="bg-[#0e0f17] px-4 py-3 border-b border-white/10 flex items-center justify-between gap-3 select-none">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-2.5 w-2.5 rounded-full bg-red-500/60 group-hover:bg-red-500 transition-colors" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/60 group-hover:bg-yellow-500 transition-colors" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#ccff00]/60 group-hover:bg-[#ccff00] transition-colors" />
+                <div className="bg-[#0e0f17] px-2.5 sm:px-4 py-2 sm:py-3 border-b border-white/10 flex items-center justify-between gap-1.5 sm:gap-3 select-none">
+                  <div className="flex items-center gap-1 sm:gap-1.5">
+                    <span className="h-1.5 w-1.5 sm:h-2.5 sm:w-2.5 rounded-full bg-red-500/70" />
+                    <span className="h-1.5 w-1.5 sm:h-2.5 sm:w-2.5 rounded-full bg-yellow-500/70" />
+                    <span className="h-1.5 w-1.5 sm:h-2.5 sm:w-2.5 rounded-full bg-[#ccff00]/70" />
                   </div>
 
-                  {/* Address pill */}
-                  <div className="flex-1 max-w-[180px] sm:max-w-[210px] bg-black border border-white/10 px-2.5 py-1 rounded-full flex items-center gap-1.5 truncate">
+                  {/* Address pill - Hidden on mobile for space */}
+                  <div className="hidden sm:flex flex-1 max-w-[210px] bg-black border border-white/10 px-2.5 py-1 rounded-full items-center gap-1.5 truncate">
                     <Lock className="h-2.5 w-2.5 text-[#ccff00] shrink-0" />
                     <span className="text-[10px] font-mono text-slate-400 truncate">{cleanDisplayUrl}</span>
                   </div>
@@ -139,18 +158,18 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                   {/* Status Indicator */}
                   <div>
                     {site.status === 'active' && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#ccff00]/15 border border-[#ccff00]/30 text-[#ccff00] text-[9px] font-mono font-black uppercase tracking-wider">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#ccff00] animate-pulse" /> LIVE
+                      <span className="inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2.5 py-0.5 rounded-full bg-[#ccff00]/15 border border-[#ccff00]/30 text-[#ccff00] text-[8px] sm:text-[9px] font-mono font-black uppercase tracking-wider">
+                        <span className="h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-[#ccff00] animate-pulse" /> LIVE
                       </span>
                     )}
                     {site.status === 'maintenance' && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-[9px] font-mono font-bold uppercase tracking-wider">
-                        <Wrench className="h-2.5 w-2.5" /> MAINT
+                      <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-wider">
+                        <Wrench className="h-2 w-2 sm:h-2.5 sm:w-2.5" /> MAINT
                       </span>
                     )}
                     {site.status === 'development' && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[9px] font-mono font-bold uppercase tracking-wider">
-                        <Code2 className="h-2.5 w-2.5" /> DEV
+                      <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-wider">
+                        <Code2 className="h-2 w-2 sm:h-2.5 sm:w-2.5" /> DEV
                       </span>
                     )}
                   </div>
@@ -169,43 +188,39 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                           key={activeImage}
                           src={activeImage}
                           alt={`${site.name} screenshot`}
-                          initial={{ opacity: 0.3, scale: 1.02 }}
-                          animate={{ opacity: 1, scale: 1 }}
+                          initial={{ opacity: 0.3 }}
+                          animate={{ opacity: 1 }}
                           exit={{ opacity: 0.3 }}
-                          transition={{ duration: 0.35, ease: 'easeOut' }}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                          transition={{ duration: 0.25 }}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </AnimatePresence>
 
-                      {/* Vignette / Overlay on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-40 group-hover:opacity-75 transition-opacity duration-300" />
+                      {/* Vignette Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-30 group-hover:opacity-60 transition-opacity duration-300" />
 
-                      {/* Zoom / Fullscreen Gallery button on hover */}
-                      <div className="absolute bottom-3 right-3 bg-black/90 hover:bg-emerald-400 hover:text-black border border-white/20 text-white px-2.5 py-1.5 rounded-lg opacity-0 group-hover/img:opacity-100 transition-all duration-200 shadow-xl flex items-center gap-1.5 text-[10px] font-mono font-bold backdrop-blur-sm">
-                        <Maximize2 className="h-3 w-3 text-emerald-400 group-hover:text-black transition-colors" />
-                        <span>Buka Galeri Foto ({screenshots.length})</span>
+                      {/* Desktop Zoom button on hover */}
+                      <div className="hidden sm:flex absolute bottom-3 right-3 bg-black/90 hover:bg-[#ccff00] hover:text-black border border-white/20 text-white px-2 py-1 rounded-lg opacity-0 group-hover/img:opacity-100 transition-all duration-200 shadow-xl items-center gap-1.5 text-[9px] font-mono font-bold backdrop-blur-sm">
+                        <Maximize2 className="h-2.5 w-2.5" />
+                        <span>Galeri ({screenshots.length})</span>
                       </div>
 
                       {/* Multiple Screenshots Indicator Badge */}
                       {screenshots.length > 1 && (
-                        <div className="absolute top-3 left-3 bg-black/85 backdrop-blur-sm border border-white/15 text-slate-200 px-2.5 py-1 rounded-md text-[10px] font-mono font-bold flex items-center gap-1.5 shadow-lg">
-                          <Layers className="h-3 w-3 text-emerald-400" />
-                          <span>{currentSlide + 1} / {screenshots.length}</span>
+                        <div className="absolute top-2 left-2 bg-black/85 backdrop-blur-sm border border-white/15 text-slate-200 px-1.5 sm:px-2 py-0.5 rounded text-[8px] sm:text-[10px] font-mono font-bold flex items-center gap-1 shadow-md">
+                          <Layers className="h-2.5 w-2.5 text-[#ccff00]" />
+                          <span>{currentSlide + 1}/{screenshots.length}</span>
                         </div>
                       )}
                     </div>
                   ) : (
                     /* Fallback Cybernetic Terminal Grid Preview */
-                    <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-br from-[#080808] to-black border-b border-white/5 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px] opacity-10" />
-                      <div className="h-12 w-12 rounded-xl bg-black border border-white/10 flex items-center justify-center mb-3 group-hover:border-emerald-400/50 group-hover:scale-110 transition-all duration-300 relative z-10">
-                        <Globe className="h-6 w-6 text-emerald-400 animate-pulse" />
+                    <div className="w-full h-full flex flex-col items-center justify-center p-3 bg-gradient-to-br from-[#080808] to-black border-b border-white/5 relative overflow-hidden">
+                      <div className="h-8 w-8 sm:h-12 sm:w-12 rounded-xl bg-black border border-white/10 flex items-center justify-center mb-1 group-hover:scale-110 transition-all duration-300">
+                        <Globe className="h-4 w-4 sm:h-6 sm:w-6 text-[#ccff00]" />
                       </div>
-                      <span className="text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-slate-400 relative z-10">
-                        Live System Specification
-                      </span>
-                      <span className="text-[9px] font-mono text-slate-600 mt-1 relative z-10">
-                        PORTAL ONLINE // ACTIVE ENDPOINT
+                      <span className="text-[9px] font-mono font-bold uppercase text-slate-400">
+                        Portal Online
                       </span>
                     </div>
                   )}
@@ -216,46 +231,46 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                       <button
                         type="button"
                         onClick={(e) => handlePrevSlide(e, site.id, screenshots.length)}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white hover:text-emerald-400 border border-white/15 p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer shadow-xl z-20"
+                        className="absolute left-1.5 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-black text-white hover:text-[#ccff00] border border-white/15 p-1 rounded-full opacity-70 sm:opacity-0 group-hover:opacity-100 transition-all cursor-pointer shadow-md z-20"
                         title="Foto Sebelumnya"
                       >
-                        <ChevronLeft className="h-3.5 w-3.5" />
+                        <ChevronLeft className="h-3 w-3" />
                       </button>
                       <button
                         type="button"
                         onClick={(e) => handleNextSlide(e, site.id, screenshots.length)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white hover:text-emerald-400 border border-white/15 p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer shadow-xl z-20"
+                        className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-black text-white hover:text-[#ccff00] border border-white/15 p-1 rounded-full opacity-70 sm:opacity-0 group-hover:opacity-100 transition-all cursor-pointer shadow-md z-20"
                         title="Foto Selanjutnya"
                       >
-                        <ChevronRight className="h-3.5 w-3.5" />
+                        <ChevronRight className="h-3 w-3" />
                       </button>
                     </>
                   )}
                 </div>
 
                 {/* ── Card Content ── */}
-                <div className="p-5 flex-1 flex flex-col justify-between">
+                <div className="p-2.5 sm:p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="font-display font-black text-lg text-white group-hover:text-emerald-300 transition-colors uppercase tracking-wide mb-2 line-clamp-1">
+                    <h3 className="font-display font-black text-xs sm:text-base text-white group-hover:text-[#ccff00] transition-colors uppercase tracking-wide mb-1 sm:mb-2 line-clamp-1">
                       {site.name}
                     </h3>
-                    <p className="text-slate-300 text-xs leading-relaxed font-sans line-clamp-3 mb-4">
+                    <p className="hidden sm:block text-slate-300 text-xs leading-relaxed font-sans line-clamp-2 mb-3">
                       {site.description[currentLang]}
                     </p>
                   </div>
 
-                  {/* Mini Screenshot Thumbnails Strip (if > 1) */}
+                  {/* Mini Screenshot Thumbnails Strip (Desktop only to keep mobile ultra-neat) */}
                   {screenshots.length > 1 && (
-                    <div className="mb-4 pt-3 border-t border-white/5">
+                    <div className="hidden sm:block mb-4 pt-3 border-t border-white/5">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                          <Layers className="h-3 w-3 text-emerald-400" />
+                          <Layers className="h-3 w-3 text-[#ccff00]" />
                           <span>Screenshots ({screenshots.length})</span>
                         </span>
                         <button
                           type="button"
                           onClick={() => openLightbox(site.name, site.url, screenshots, currentSlide)}
-                          className="text-[10px] font-mono font-bold text-emerald-400 hover:text-emerald-300 hover:underline flex items-center gap-1 cursor-pointer transition-colors"
+                          className="text-[10px] font-mono font-bold text-[#ccff00] hover:underline flex items-center gap-1 cursor-pointer transition-colors"
                         >
                           <span>Buka Galeri</span>
                           <Maximize2 className="h-2.5 w-2.5" />
@@ -269,7 +284,7 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                             onClick={() => setActiveSlides(prev => ({ ...prev, [site.id]: tIdx }))}
                             className={`relative h-10 w-16 rounded overflow-hidden border transition-all shrink-0 cursor-pointer ${
                               tIdx === currentSlide
-                                ? 'border-emerald-400 ring-1 ring-emerald-400/50 scale-105'
+                                ? 'border-[#ccff00] ring-1 ring-[#ccff00]/50 scale-105'
                                 : 'border-white/10 opacity-50 hover:opacity-100'
                             }`}
                             title={`Lihat Foto ${tIdx + 1}`}
@@ -281,22 +296,22 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                     </div>
                   )}
 
-                  {/* ── Action Footer ── */}
-                  <div className="pt-3 border-t border-white/10 mt-auto">
+                  {/* ── Action Footer Button ── */}
+                  <div className="pt-2 sm:pt-3 border-t border-white/10 mt-auto">
                     {site.status === 'active' ? (
                       <a
                         href={site.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-full bg-[#1b1c28] border border-white/20 hover:border-[#ccff00] hover:text-[#ccff00] hover:bg-black text-white text-xs font-marker tracking-wider uppercase transition-all duration-300 group/btn shadow-md"
+                        className="flex items-center justify-center gap-1.5 w-full py-2 sm:py-3 px-2 sm:px-4 rounded-full bg-[#1b1c28] border border-white/20 hover:border-[#ccff00] hover:text-black hover:bg-[#ccff00] text-white text-[10px] sm:text-xs font-marker tracking-wider uppercase transition-all duration-300 shadow-md group/btn"
                       >
-                        <span>LAUNCH PORTAL</span>
-                        <ExternalLink className="h-3.5 w-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                        <span>{isMobile ? 'BUKA WEB' : 'LAUNCH PORTAL'}</span>
+                        <ExternalLink className="h-3 w-3 sm:h-3.5 sm:w-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                       </a>
                     ) : (
-                      <div className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-full bg-black/40 border border-white/5 text-slate-500 text-xs font-mono font-bold uppercase tracking-wider cursor-not-allowed">
-                        <AlertTriangle className="h-3.5 w-3.5" />
-                        <span>OFFLINE // IN MAINTENANCE</span>
+                      <div className="flex items-center justify-center gap-1 w-full py-2 sm:py-3 px-2 rounded-full bg-black/40 border border-white/5 text-slate-500 text-[9px] sm:text-xs font-mono font-bold uppercase tracking-wider cursor-not-allowed">
+                        <AlertTriangle className="h-3 w-3" />
+                        <span>MAINTENANCE</span>
                       </div>
                     )}
                   </div>
@@ -305,6 +320,45 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
             );
           })}
         </div>
+
+        {/* Pagination Controls for Live Projects */}
+        {totalPages > 1 && (
+          <div className="mt-8 flex items-center justify-center gap-3">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="p-2 rounded-xl bg-[#12131a] border border-[#232533] text-slate-300 hover:text-white hover:border-[#ccff00] disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer"
+              aria-label="Previous Page"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+
+            <div className="flex items-center gap-1.5">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`h-8 w-8 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
+                    currentPage === page
+                      ? 'bg-[#ccff00] text-black shadow-[0_0_15px_rgba(204,255,0,0.4)]'
+                      : 'bg-[#12131a] text-slate-400 border border-[#232533] hover:text-white'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="p-2 rounded-xl bg-[#12131a] border border-[#232533] text-slate-300 hover:text-white hover:border-[#ccff00] disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer"
+              aria-label="Next Page"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* ── Interactive High-Resolution Lightbox Modal ── */}
@@ -327,7 +381,7 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                 <h4 className="text-white font-mono font-bold text-sm uppercase tracking-wider">
                   {lightbox.siteName}
                 </h4>
-                <p className="text-[11px] font-mono text-emerald-400 truncate mt-0.5">
+                <p className="text-[11px] font-mono text-[#ccff00] truncate mt-0.5">
                   Foto {lightbox.currentIndex + 1} dari {lightbox.images.length}
                 </p>
               </div>
@@ -338,7 +392,7 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                     href={lightbox.siteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-emerald-400 text-black text-xs font-mono font-bold uppercase transition-colors"
+                    className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-[#ccff00] text-black text-xs font-mono font-bold uppercase transition-colors"
                   >
                     <span>Kunjungi Web</span>
                     <ExternalLink className="h-3 w-3" />
@@ -368,7 +422,7 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                     ...prev,
                     currentIndex: (prev.currentIndex - 1 + prev.images.length) % prev.images.length
                   } : null)}
-                  className="absolute left-2 md:left-6 bg-black/80 hover:bg-emerald-500 hover:text-black border border-white/20 text-white p-3 rounded-full transition-all cursor-pointer z-20 shadow-2xl"
+                  className="absolute left-2 md:left-6 bg-black/80 hover:bg-[#ccff00] hover:text-black border border-white/20 text-white p-3 rounded-full transition-all cursor-pointer z-20 shadow-2xl"
                   title="Foto Sebelumnya (Panah Kiri)"
                 >
                   <ChevronLeft className="h-6 w-6" />
@@ -397,7 +451,7 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                     ...prev,
                     currentIndex: (prev.currentIndex + 1) % prev.images.length
                   } : null)}
-                  className="absolute right-2 md:right-6 bg-black/80 hover:bg-emerald-500 hover:text-black border border-white/20 text-white p-3 rounded-full transition-all cursor-pointer z-20 shadow-2xl"
+                  className="absolute right-2 md:right-6 bg-black/80 hover:bg-[#ccff00] hover:text-black border border-white/20 text-white p-3 rounded-full transition-all cursor-pointer z-20 shadow-2xl"
                   title="Foto Selanjutnya (Panah Kanan)"
                 >
                   <ChevronRight className="h-6 w-6" />
@@ -418,7 +472,7 @@ export default function LiveProjects({ currentLang, translations, liveProjects =
                     onClick={() => setLightbox(prev => prev ? { ...prev, currentIndex: idx } : null)}
                     className={`relative h-12 w-20 rounded-lg overflow-hidden border transition-all cursor-pointer shrink-0 ${
                       idx === lightbox.currentIndex
-                        ? 'border-emerald-400 ring-2 ring-emerald-400/50 scale-105'
+                        ? 'border-[#ccff00] ring-2 ring-[#ccff00]/50 scale-105'
                         : 'border-white/15 opacity-40 hover:opacity-100'
                     }`}
                     title={`Foto ${idx + 1}`}

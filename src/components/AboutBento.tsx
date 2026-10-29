@@ -22,7 +22,7 @@ export default function AboutBento({ currentLang, translations, onScrollToContac
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+    <section id="about" className="max-w-7xl mx-auto px-4 py-8 md:py-12 scroll-mt-24 relative">
       <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-6 items-stretch">
         
         {/* ── Left Sticker Card: Neon Lime "FOCUS • DISCIPLINE • CONSISTENCY" ── */}

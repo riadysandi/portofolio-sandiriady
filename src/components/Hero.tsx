@@ -63,7 +63,7 @@ export default function Hero({
     : 'Spesialis Infrastruktur IT • Administrator Server • DevOps & Otomasi';
 
   return (
-    <section id="about" className="relative w-full max-w-7xl mx-auto px-4 pt-6 sm:pt-10 pb-8 sm:pb-12 scroll-mt-20 overflow-x-clip">
+    <section id="home" className="relative w-full max-w-7xl mx-auto px-4 pt-6 sm:pt-10 pb-8 sm:pb-12 scroll-mt-24 overflow-x-clip">
       
       {/* ── Top Hero Section: Full-Width 3D Lanyard Layer + Content Grid ── */}
       <div className="relative min-h-[580px] lg:min-h-[680px]">

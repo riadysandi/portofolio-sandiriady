@@ -193,9 +193,12 @@ export default function App() {
             <span>&copy; {new Date().getFullYear()} Sandi Riady. All rights reserved.</span>
           </div>
           <div className="flex items-center gap-4 text-[11px] uppercase tracking-wider text-slate-500">
-            <a href="#about" className="hover:text-[#ccff00] transition-colors">Back to Top ↑</a>
-            <span>&bull;</span>
-            <a href="#/admin" className="hover:text-white transition-colors">Admin Portal</a>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="hover:text-[#ccff00] transition-colors cursor-pointer"
+            >
+              Back to Top ↑
+            </button>
           </div>
         </div>
       </footer>
