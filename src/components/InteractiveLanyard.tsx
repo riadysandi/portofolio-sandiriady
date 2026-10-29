@@ -63,9 +63,9 @@ export default function InteractiveLanyard({
 
   return (
     <LanyardErrorBoundary fallbackClassName={className}>
-      <div className={`relative w-full h-full flex items-center justify-center select-none ${className}`}>
+      <div className={`relative w-full h-full flex items-center justify-center select-none overflow-visible ${className}`}>
         {/* 3D Lanyard Canvas Container */}
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full overflow-visible">
           {textures ? (
             <Lanyard
               frontImage={textures.front}

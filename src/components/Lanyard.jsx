@@ -202,11 +202,16 @@ const loadImage = (cache, url) => {
   if (cached) return cached;
   const promise = new Promise(resolve => {
     const image = new Image();
-    image.crossOrigin = 'anonymous';
+    if (!url.startsWith('data:')) {
+      image.crossOrigin = 'anonymous';
+    }
     image.decoding = 'async';
     image.onload = () => resolve(image);
     image.onerror = () => resolve(null);
     image.src = url;
+    if (image.complete && image.naturalWidth !== 0) {
+      resolve(image);
+    }
   });
   cache.set(url, promise);
   return promise;
@@ -770,6 +775,7 @@ const Lanyard = ({
     renderer.toneMappingExposure = 1;
     const canvas = renderer.domElement;
     canvas.className = 'block w-full h-full';
+    canvas.style.pointerEvents = 'none';
     canvas.setAttribute('aria-hidden', 'true');
     container.appendChild(canvas);
 
@@ -1299,16 +1305,33 @@ const Lanyard = ({
     canvas.addEventListener('touchstart', onCanvasTouchStart, { passive: false });
 
     const resize = () => {
-      view.width = Math.max(1, container.clientWidth);
-      view.height = Math.max(1, container.clientHeight);
+      if (!container || !renderer) return;
+      const w = container.clientWidth || container.parentElement?.clientWidth || window.innerWidth;
+      const h = container.clientHeight || container.parentElement?.clientHeight || window.innerHeight;
+      view.width = Math.max(1, w);
+      view.height = Math.max(1, h);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       renderer.setSize(view.width, view.height, false);
       apply();
       render();
     };
 
+    const onContextLost = event => {
+      event.preventDefault();
+      cancelAnimationFrame(raf);
+    };
+
+    const onContextRestored = () => {
+      apply();
+      start();
+    };
+
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(container);
+    window.addEventListener('resize', resize);
+    canvas.addEventListener('webglcontextlost', onContextLost);
+    canvas.addEventListener('webglcontextrestored', onContextRestored);
+
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       if (visible) start();
@@ -1327,6 +1350,9 @@ const Lanyard = ({
       cancelAnimationFrame(raf);
       applyRef.current = null;
       resizeObserver.disconnect();
+      window.removeEventListener('resize', resize);
+      canvas.removeEventListener('webglcontextlost', onContextLost);
+      canvas.removeEventListener('webglcontextrestored', onContextRestored);
       intersectionObserver.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('pointermove', updateHitState);

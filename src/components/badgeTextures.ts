@@ -20,14 +20,20 @@ export async function getBadgeTextures(): Promise<BadgeTextures> {
   if (generatingPromise) return generatingPromise;
 
   generatingPromise = (async () => {
-    const [front, back, strap] = await Promise.all([
-      createFrontBadge(heroFigure),
-      createBackBadge(),
-      createStrapTexture()
-    ]);
+    try {
+      const [front, back, strap] = await Promise.all([
+        createFrontBadge(heroFigure),
+        createBackBadge(),
+        createStrapTexture()
+      ]);
 
-    cachedTextures = { front, back, strap };
-    return cachedTextures;
+      cachedTextures = { front, back, strap };
+      return cachedTextures;
+    } catch (err) {
+      console.warn('Error generating badge textures, using fallback:', err);
+      cachedTextures = { front: '', back: '', strap: '' };
+      return cachedTextures;
+    }
   })();
 
   return generatingPromise;
@@ -45,7 +51,27 @@ function createFrontBadge(photoSrc: string): Promise<string> {
     if (!ctx) return resolve('');
 
     const img = new Image();
-    img.crossOrigin = 'anonymous';
+    if (!photoSrc.startsWith('data:') && !photoSrc.startsWith('/')) {
+      img.crossOrigin = 'anonymous';
+    }
+
+    let isDone = false;
+    const finishWith = (imgEl?: HTMLImageElement) => {
+      if (isDone) return;
+      isDone = true;
+      try {
+        drawCard(imgEl);
+        resolve(canvas.toDataURL('image/png'));
+      } catch (e) {
+        console.warn('createFrontBadge toDataURL error:', e);
+        try {
+          drawCard();
+          resolve(canvas.toDataURL('image/png'));
+        } catch {
+          resolve('');
+        }
+      }
+    };
 
     const drawCard = (photoImg?: HTMLImageElement) => {
       const W = canvas.width;
@@ -320,12 +346,21 @@ function createFrontBadge(photoSrc: string): Promise<string> {
       ctx.fillText('PORTFOLIO BADGE // SANDIRIADY.MY.ID // TOUCH TO SWING', W / 2, H - 36);
       ctx.textAlign = 'left';
 
-      resolve(canvas.toDataURL('image/png'));
+      try {
+        resolve(canvas.toDataURL('image/png'));
+      } catch (err) {
+        console.warn('Canvas toDataURL failed:', err);
+        resolve('');
+      }
     };
 
-    img.onload = () => drawCard(img);
-    img.onerror = () => drawCard();
+    img.onload = () => finishWith(img);
+    img.onerror = () => finishWith();
     img.src = photoSrc;
+
+    if (img.complete && img.naturalWidth !== 0) {
+      finishWith(img);
+    }
   });
 }
 
@@ -509,7 +544,11 @@ function createBackBadge(): Promise<string> {
     ctx.fillText('If found, return to systems owner: riadysandi@gmail.com', W / 2, sealY + 75);
     ctx.textAlign = 'left';
 
-    resolve(canvas.toDataURL('image/png'));
+    try {
+      resolve(canvas.toDataURL('image/png'));
+    } catch {
+      resolve('');
+    }
   });
 }
 
@@ -554,7 +593,11 @@ function createStrapTexture(): Promise<string> {
     const text = '★  SANDI RIADY  •  IT INFRASTRUCTURE SUPPORT  •  SYSTEMS ADMINISTRATOR  ';
     ctx.fillText(text, 20, H / 2);
 
-    resolve(canvas.toDataURL('image/png'));
+    try {
+      resolve(canvas.toDataURL('image/png'));
+    } catch {
+      resolve('');
+    }
   });
 }
 

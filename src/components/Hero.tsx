@@ -46,14 +46,14 @@ export default function Hero({
     <section id="home" className="relative w-full max-w-7xl mx-auto px-4 pt-6 sm:pt-10 pb-8 sm:pb-12 scroll-mt-24 overflow-visible">
       
       {/* ── Top Hero Row: Dikshant Layout ── */}
-      <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center min-h-[580px] lg:min-h-[680px] relative z-10">
+      <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center min-h-[580px] lg:min-h-[680px] relative z-10 overflow-visible">
         
         {/* Left Column: Hand-drawn Typography & Actions */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: [0.3, 0, 0.1, 1] }}
-          className="space-y-6 relative z-10"
+          className="space-y-6 relative z-10 pointer-events-auto"
         >
           {/* "Hey, I'm" with curved arrow pointing to Name */}
           <div className="relative inline-block">
@@ -130,7 +130,7 @@ export default function Hero({
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.3, 0, 0.1, 1] }}
-          className="relative flex items-center justify-center pt-2 lg:pt-0 w-full min-h-[500px] sm:min-h-[580px] lg:min-h-[680px]"
+          className="relative lg:static flex items-center justify-center pt-2 lg:pt-0 w-full min-h-[500px] sm:min-h-[580px] lg:min-h-[680px] overflow-visible"
         >
           {/* Subtle Ambient Liquid Glow behind Lanyard */}
           <div className="absolute w-[300px] h-[300px] sm:w-[420px] sm:h-[420px] text-[#8b5cf6] opacity-30 blur-3xl -z-10 pointer-events-none">
@@ -162,9 +162,9 @@ export default function Hero({
             <DoodleTerminal className="w-10 h-10 text-[#38bdf8]" />
           </div>
 
-          {/* 3D Interactive Physics Lanyard (Available & visible on both desktop & mobile) */}
-          <div className="w-full h-[500px] sm:h-[580px] lg:h-[680px] relative z-20">
-            <InteractiveLanyard currentLang={currentLang} anchor="center" className="w-full h-full" />
+          {/* 3D Interactive Physics Lanyard (Spans hero grid on desktop with z-30 for full-range swinging) */}
+          <div className="w-full h-[500px] sm:h-[580px] lg:h-full lg:absolute lg:inset-0 lg:z-30 pointer-events-none overflow-visible">
+            <InteractiveLanyard currentLang={currentLang} className="w-full h-full" />
           </div>
         </motion.div>
       </div>

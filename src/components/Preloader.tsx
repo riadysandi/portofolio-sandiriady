@@ -40,7 +40,12 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         clearInterval(timer);
         preloadPromise.then(() => {
           setTimeout(() => {
-            if (isMounted) onComplete();
+            if (isMounted) {
+              onComplete();
+              setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+              }, 50);
+            }
           }, 200);
         });
       }
