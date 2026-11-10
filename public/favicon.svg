@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&amp;family=JetBrains+Mono:wght@700&amp;display=swap');
+      .sandi-text {
+        font-family: 'Permanent Marker', cursive, sans-serif;
+        font-size: 118px;
+        fill: #ffffff;
+      }
+      .infra-text {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        fill: #ccff00;
+      }
+    </style>
+  </defs>
+
+  <!-- Background Dark Squircle -->
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="#0b0c10" stroke="#242636" stroke-width="6"/>
+
+  <!-- Purple Liquid Splash (matching image 5) -->
+  <circle cx="180" cy="220" r="160" fill="#8b5cf6" opacity="0.92" />
+
+  <!-- Shadow for "SANDI." -->
+  <text x="84" y="274" class="sandi-text" fill="#000000" opacity="0.55">SANDI.</text>
+  <!-- Foreground "SANDI." -->
+  <text x="80" y="270" class="sandi-text">SANDI.</text>
+
+  <!-- Shadow for "IT INFRASTRUCTURE" -->
+  <text x="86" y="322" class="infra-text" fill="#000000" opacity="0.6">IT INFRASTRUCTURE</text>
+  <!-- Foreground "IT INFRASTRUCTURE" -->
+  <text x="84" y="320" class="infra-text">IT INFRASTRUCTURE</text>
+</svg>
