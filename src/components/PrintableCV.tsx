@@ -1,7 +1,7 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Globe, Star } from 'lucide-react';
 import { Language } from '../types';
-import { PERSONAL_INFO, SKILLS, EXPERIENCES, EDUCATION, ORGANIZATIONS, PERSONALITY, HOBBIES, LANGUAGES } from '../data';
+import { PERSONAL_INFO, SKILLS, EXPERIENCES, EDUCATION, ORGANIZATIONS, PERSONALITY, HOBBIES, LANGUAGES, CERTIFICATES } from '../data';
 
 interface PrintableCVProps {
   currentLang: Language;
@@ -219,23 +219,47 @@ export default function PrintableCV({ currentLang }: PrintableCVProps) {
             </div>
 
             {/* Organizations */}
-            <div>
-              <h3 style={{ fontSize: '12px', fontWeight: '800', color: '#0f172a', letterSpacing: '1px', borderBottom: '2px solid #1e293b', paddingBottom: '4px', marginBottom: '10px', textTransform: 'uppercase' }}>
+            <div style={{ marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '12px', fontWeight: '800', color: '#0f172a', letterSpacing: '1px', borderBottom: '2px solid #1e293b', paddingBottom: '4px', marginBottom: '8px', textTransform: 'uppercase' }}>
                 {currentLang === 'en' ? 'ORGANIZATION & LEADERSHIP' : 'AKTIVITAS ORGANISASI'}
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {ORGANIZATIONS.map((org) => (
                   <div key={org.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div>
                       <h4 style={{ fontSize: '10px', fontWeight: 'bold', color: '#0f172a', margin: '0' }}>
                         {org.role[currentLang]}
                       </h4>
-                      <p style={{ fontSize: '9px', fontFamily: 'monospace', fontWeight: 'bold', color: '#64748b', margin: '2px 0 0 0', textTransform: 'uppercase' }}>
+                      <p style={{ fontSize: '8.5px', fontFamily: 'monospace', fontWeight: 'bold', color: '#64748b', margin: '1px 0 0 0', textTransform: 'uppercase' }}>
                         {org.organization}
                       </p>
                     </div>
-                    <span style={{ fontSize: '9px', fontFamily: 'monospace', fontWeight: 'bold', color: '#475569' }}>
+                    <span style={{ fontSize: '8.5px', fontFamily: 'monospace', fontWeight: 'bold', color: '#475569' }}>
                       {org.period}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Key Certifications & Publications */}
+            <div>
+              <h3 style={{ fontSize: '12px', fontWeight: '800', color: '#0f172a', letterSpacing: '1px', borderBottom: '2px solid #1e293b', paddingBottom: '4px', marginBottom: '8px', textTransform: 'uppercase' }}>
+                {currentLang === 'en' ? 'PUBLICATIONS & CERTIFICATIONS' : 'PUBLIKASI & SERTIFIKASI'}
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {CERTIFICATES.slice(0, 3).map((cert) => (
+                  <div key={cert.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div style={{ maxWidth: '80%' }}>
+                      <h4 style={{ fontSize: '9.5px', fontWeight: 'bold', color: '#0f172a', margin: '0', lineHeight: '1.2' }}>
+                        {cert.title[currentLang]}
+                      </h4>
+                      <p style={{ fontSize: '8.5px', fontFamily: 'monospace', color: '#64748b', margin: '1px 0 0 0', textTransform: 'uppercase' }}>
+                        {cert.role[currentLang]} &bull; {cert.issuer}
+                      </p>
+                    </div>
+                    <span style={{ fontSize: '8.5px', fontFamily: 'monospace', fontWeight: 'bold', color: '#475569', whiteSpace: 'nowrap' }}>
+                      {cert.date}
                     </span>
                   </div>
                 ))}

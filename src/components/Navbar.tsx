@@ -35,6 +35,7 @@ export default function Navbar({
     { id: 'about', label: translations.navAbout },
     { id: 'live-sites', label: translations.navLiveSites },
     { id: 'experience', label: translations.navExperience },
+    { id: 'certificates', label: translations.navCertificates },
     { id: 'contact', label: translations.navContact },
   ];
 
@@ -49,7 +50,7 @@ export default function Navbar({
         return;
       }
 
-      const sections = ['contact', 'experience', 'live-sites', 'about', 'skills', 'projects', 'home'];
+      const sections = ['contact', 'certificates', 'experience', 'live-sites', 'about', 'skills', 'projects', 'home'];
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
         if (el) {

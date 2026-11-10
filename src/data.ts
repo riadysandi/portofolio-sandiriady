@@ -1,4 +1,4 @@
-import { Project, Skill, Experience, Education, Organization, Translation, LiveSite } from './types';
+import { Project, Skill, Experience, Education, Organization, Translation, LiveSite, Certificate } from './types';
 
 export const PERSONAL_INFO = {
   name: 'Sandi Riady',
@@ -24,12 +24,15 @@ export const TRANSLATIONS: Record<'en' | 'id', Translation> = {
     navExperience: 'Experience',
     navProjects: 'Projects',
     navLiveSites: 'Live Sites',
+    navCertificates: 'Certificates',
     navContact: 'Contact',
     aboutTitle: 'About Me',
     skillsTitle: 'Technical Skills',
     experienceTitle: 'Work Experience',
     projectsTitle: 'Featured Implementations',
     liveSitesTitle: 'Live Systems & Demos',
+    certificatesTitle: 'Licenses & Certifications',
+    certificatesSubtitle: 'Formal credentials, international publications, technical workshops, and keynote speaking engagements.',
     contactTitle: 'Get in Touch',
     downloadButton: 'Download CV (PDF)',
     downloading: 'Generating PDF...',
@@ -60,12 +63,15 @@ export const TRANSLATIONS: Record<'en' | 'id', Translation> = {
     navExperience: 'Pengalaman',
     navProjects: 'Proyek',
     navLiveSites: 'Web Aktif',
+    navCertificates: 'Sertifikasi',
     navContact: 'Kontak',
     aboutTitle: 'Tentang Saya',
     skillsTitle: 'Keahlian & Teknologi',
     experienceTitle: 'Pengalaman Kerja',
     projectsTitle: 'Implementasi Sistem & Proyek',
     liveSitesTitle: 'Layanan & Web Aktif',
+    certificatesTitle: 'Lisensi & Sertifikasi',
+    certificatesSubtitle: 'Kredensial resmi, publikasi ilmiah internasional, workshop teknis, dan sertifikat pemateri kepemimpinan.',
     contactTitle: 'Hubungi Saya',
     downloadButton: 'Unduh CV (PDF)',
     downloading: 'Membuat PDF...',
@@ -452,3 +458,271 @@ export const LIVE_SITES: LiveSite[] = [
     ]
   }
 ];
+
+export const CERTIFICATES: Certificate[] = [
+  {
+    id: 'cert-01',
+    title: {
+      en: 'Comparison Of Replication Strategies On Distributed Database Systems',
+      id: 'Perbandingan Strategi Replikasi Pada Sistem Basis Data Terdistribusi'
+    },
+    issuer: 'IIAST / IJCITSM (International Journal of Cyber and IT Service Management)',
+    category: 'publication',
+    role: {
+      en: 'Author (Scientific Paper Publication)',
+      id: 'Penulis (Publikasi Jurnal Ilmiah)'
+    },
+    date: 'April 2022',
+    credentialId: 'Vol. 2 No. 1 April 2022',
+    documentUrl: '/certificates/cert-01-call-for-paper-2022.pdf',
+    thumbnailUrl: '/certificates/cert-01-call-for-paper-2022.webp',
+    skills: ['Distributed Database', 'Database Replication', 'Research Paper', 'Database Architecture'],
+    description: {
+      en: 'Certificate of Appreciation as Author for scientific contribution in Tri Dharma on comparing replication strategies in distributed database systems, published in IJCITSM.',
+      id: 'Sertifikat penghargaan sebagai Penulis artikel ilmiah atas kontribusi Tri Dharma mengenai perbandingan strategi replikasi sistem basis data terdistribusi pada jurnal IJCITSM.'
+    }
+  },
+  {
+    id: 'cert-07',
+    title: {
+      en: 'Keynote Speaker: Assembly & Formal Session Procedures (Tata Cara Bersidang)',
+      id: 'Pemateri: Tata Cara Bersidang (Pelatihan Manajerial Komasi Raharja)'
+    },
+    issuer: 'Universitas Raharja (KOMASI)',
+    category: 'speaker',
+    role: {
+      en: 'Keynote Speaker / Trainer',
+      id: 'Pemateri / Trainer Persidangan'
+    },
+    date: '4 - 5 September 2021',
+    credentialId: '035/PMKR/HMJ-KOMASI/KBM-RHJ/IX/2021',
+    documentUrl: '/certificates/cert-07-pemateri-tata-cara-bersidang-2021.jpg',
+    thumbnailUrl: '/certificates/cert-07-pemateri-tata-cara-bersidang-2021.webp',
+    skills: ['Public Speaking', 'Leadership', 'Parliamentary Procedure', 'Governance'],
+    description: {
+      en: 'Awarded as Keynote Speaker delivering training on parliamentary procedures and formal assembly governance for university student leadership cadres.',
+      id: 'Sertifikat penghargaan sebagai Pemateri dalam Pelatihan Manajerial yang membawakan materi tata tertib persidangan formal dan kepemimpinan organisasi.'
+    }
+  },
+  {
+    id: 'cert-05',
+    title: {
+      en: 'Workshop Sistem Informasi 1.0 (Beyond Compare) - Administrator Track',
+      id: 'Workshop Sistem Informasi 1.0 (Beyond Compare) - Jalur Administrator'
+    },
+    issuer: 'KOMASI Perguruan Tinggi Raharja & WMS',
+    category: 'technical',
+    role: {
+      en: 'Participant as Administrator',
+      id: 'Peserta sebagai Administrator'
+    },
+    date: '10 - 11 April 2019',
+    credentialId: '167/worksmation/komasi-rhj/IV.2019',
+    documentUrl: '/certificates/cert-05-workshop-db-administrator-2019.pdf',
+    thumbnailUrl: '/certificates/cert-05-workshop-db-administrator-2019.webp',
+    skills: ['Database Administration', 'SQL', 'Server Maintenance', 'Security Controls'],
+    description: {
+      en: 'Technical workshop hands-on training: "Build Your Own Database With Communication of Pair Educate", focused on database server administration and operational maintenance.',
+      id: 'Pelatihan teknis intensif perancangan, pengelolaan izin akses, pemeliharaan, dan administrasi server basis data relasional.'
+    }
+  },
+  {
+    id: 'cert-06',
+    title: {
+      en: 'Workshop Sistem Informasi 1.0 (Beyond Compare) - Analysis Track',
+      id: 'Workshop Sistem Informasi 1.0 (Beyond Compare) - Jalur Analysis'
+    },
+    issuer: 'KOMASI Perguruan Tinggi Raharja & WMS',
+    category: 'technical',
+    role: {
+      en: 'Participant as Analysis',
+      id: 'Peserta sebagai Analysis'
+    },
+    date: '10 - 11 April 2019',
+    credentialId: '167/worksmation/komasi-rhj/IV.2019',
+    documentUrl: '/certificates/cert-06-workshop-db-analysis-2019.pdf',
+    thumbnailUrl: '/certificates/cert-06-workshop-db-analysis-2019.webp',
+    skills: ['Systems Analysis', 'Data Modeling', 'ERD Design', 'Query Optimization'],
+    description: {
+      en: 'Hands-on technical workshop focused on data modeling, relational schema architecture, and query optimization analysis.',
+      id: 'Pelatihan teknis perancangan skema data, normalisasi tabel, dan analisis arsitektur query basis data.'
+    }
+  },
+  {
+    id: 'cert-08',
+    title: {
+      en: 'Education Applications of Blockchain Technology: An Agenda for Research',
+      id: 'Aplikasi Edukasi Teknologi Blockchain: Agenda Riset Masa Depan'
+    },
+    issuer: 'Program Studi Magister Teknik Informatika Universitas Raharja',
+    category: 'seminar',
+    role: {
+      en: 'Participant (National Seminar)',
+      id: 'Peserta Seminar Nasional'
+    },
+    date: '19 Agustus 2021',
+    credentialId: '1707/MTI-UR/VIII/2021',
+    documentUrl: '/certificates/cert-08-seminar-blockchain-2021.jpg',
+    thumbnailUrl: '/certificates/cert-08-seminar-blockchain-2021.webp',
+    skills: ['Blockchain', 'Decentralized Ledger', 'Cryptography', 'Smart Contracts'],
+    description: {
+      en: 'National academic seminar exploring decentralized cryptography, credential verification, and blockchain integration in educational technology.',
+      id: 'Seminar nasional yang membedah penerapan teknologi ledger terdistribusi (blockchain) dan verifikasi data kredensial terdesentralisasi.'
+    }
+  },
+  {
+    id: 'cert-02',
+    title: {
+      en: 'Programming Language For AI, Machine Learning, and Deep Learning',
+      id: 'Pemrograman AI, Machine Learning, dan Deep Learning'
+    },
+    issuer: 'CV. ILMUTI International Indonesia',
+    category: 'seminar',
+    role: {
+      en: 'Participant (International Seminar)',
+      id: 'Peserta Seminar Internasional'
+    },
+    date: '4 November 2018',
+    credentialId: '21420/ITI-SDWDC/MDL/MLC/20181104',
+    documentUrl: '/certificates/cert-02-international-seminar-ml-2018.pdf',
+    thumbnailUrl: '/certificates/cert-02-international-seminar-ml-2018.webp',
+    skills: ['Artificial Intelligence', 'Machine Learning', 'Deep Learning', 'Python'],
+    description: {
+      en: 'International seminar on modern programming languages and core concepts powering Machine Learning and Deep Learning pipelines.',
+      id: 'Seminar internasional mengenai konsep dasar pemrograman dan arsitektur machine learning serta deep learning modern.'
+    }
+  },
+  {
+    id: 'cert-03',
+    title: {
+      en: 'The Concept of Artificial Intelligence Programming',
+      id: 'Konsep Pemrograman Artificial Intelligence (AI)'
+    },
+    issuer: 'CV. ILMUTI International Indonesia',
+    category: 'seminar',
+    role: {
+      en: 'Participant (National Seminar)',
+      id: 'Peserta Seminar Nasional'
+    },
+    date: '28 Oktober 2018',
+    credentialId: '11420/ITI-SDWDC/MDL/AIC/20181028',
+    documentUrl: '/certificates/cert-03-national-seminar-ai-2018.pdf',
+    thumbnailUrl: '/certificates/cert-03-national-seminar-ai-2018.webp',
+    skills: ['Artificial Intelligence', 'Algorithm Design', 'Computational Logic'],
+    description: {
+      en: 'National seminar exploring fundamental logic, reasoning algorithms, and algorithmic implementation of Artificial Intelligence.',
+      id: 'Seminar nasional yang membahas dasar logika algoritma dan implementasi rekayasa pemrograman kecerdasan buatan.'
+    }
+  },
+  {
+    id: 'cert-04',
+    title: {
+      en: 'Pandemic in the Eyes of Technology (Pandemi di Mata Teknologi)',
+      id: 'Pandemi di Mata Teknologi'
+    },
+    issuer: 'HIMTIF Universitas Raharja (APTIKOM & Ruangguru)',
+    category: 'seminar',
+    role: {
+      en: 'Participant (National Webinar)',
+      id: 'Peserta Webinar Nasional'
+    },
+    date: '16 Maret 2021',
+    credentialId: 'QR-Verified (HIMTIF-2021)',
+    documentUrl: '/certificates/cert-04-webinar-pandemi-teknologi-2021.pdf',
+    thumbnailUrl: '/certificates/cert-04-webinar-pandemi-teknologi-2021.webp',
+    skills: ['IT Infrastructure', 'Remote Solutions', 'Digital Transformation'],
+    description: {
+      en: 'National webinar on adapting IT infrastructure, cybersecurity, and cloud scalability during pandemic-driven remote work shifts.',
+      id: 'Webinar nasional mengenai adaptasi infrastruktur IT, ketahanan jaringan, dan transformasi digital di era krisis global.'
+    }
+  },
+  {
+    id: 'cert-10',
+    title: {
+      en: 'Information Systems in E-Commerce Industry Towards Society 5.0',
+      id: 'Pemanfaatan Sistem Informasi Dalam Industri E-Commerce Menuju Society 5.0'
+    },
+    issuer: 'KOMASI Universitas Raharja (#Abiphraya Angglang)',
+    category: 'seminar',
+    role: {
+      en: 'Participant (National Webinar)',
+      id: 'Peserta Webinar Nasional'
+    },
+    date: '21 April 2022',
+    credentialId: 'KOMASI-WEBINAR-2022',
+    documentUrl: '/certificates/cert-10-webinar-ecommerce-society50-2022.png',
+    thumbnailUrl: '/certificates/cert-10-webinar-ecommerce-society50-2022.webp',
+    skills: ['Information Systems', 'E-Commerce', 'Digital Ecosystem', 'Society 5.0'],
+    description: {
+      en: 'National webinar examining modern e-commerce infrastructure, transactional scalability, and automated payment gateways in Society 5.0.',
+      id: 'Webinar nasional mengenai integrasi sistem informasi e-commerce, skalabilitas infrastruktur transaksi, dan ekosistem digital Society 5.0.'
+    }
+  },
+  {
+    id: 'cert-09',
+    title: {
+      en: 'Basic Organizational Leadership Training (PDKR)',
+      id: 'Pelatihan Dasar Komasi Raharja (PDKR)'
+    },
+    issuer: 'Universitas Raharja (KOMASI)',
+    category: 'leadership',
+    role: {
+      en: 'Participant (Leadership Training)',
+      id: 'Peserta Pelatihan Kepemimpinan'
+    },
+    date: '15 - 18 Juli 2021',
+    credentialId: '028/PDKR/KOMASI-KBMRAHARJA/VII/2021',
+    documentUrl: '/certificates/cert-09-pelatihan-dasar-komasi-2021.pdf',
+    thumbnailUrl: '/certificates/cert-09-pelatihan-dasar-komasi-2021.webp',
+    skills: ['Team Leadership', 'Project Management', 'Ethics & Integrity', 'Operations'],
+    description: {
+      en: 'Intensive 4-day leadership training focused on loyalty, excellence, discipline, and strategic organizational management.',
+      id: 'Pelatihan kepemimpinan organisasi intensif selama 4 hari dengan fokus kedisiplinan, sinergi tim, dan manajemen organisasi.'
+    }
+  },
+  {
+    id: 'cert-11',
+    title: {
+      en: 'Creating Business Opportunities in a Pandemic via Digital IT',
+      id: 'Menciptakan Peluang Usaha Ditengah Pandemi dengan Memanfaatkan TI Digital'
+    },
+    issuer: 'KOMASI Universitas Raharja',
+    category: 'seminar',
+    role: {
+      en: 'Participant (National Webinar)',
+      id: 'Peserta Webinar Nasional'
+    },
+    date: '20 Maret 2021',
+    credentialId: 'KOMASI-WEBINAR-2021',
+    documentUrl: '/certificates/cert-11-webinar-peluang-usaha-ti-2021.jpg',
+    thumbnailUrl: '/certificates/cert-11-webinar-peluang-usaha-ti-2021.webp',
+    skills: ['Digital Business', 'IT Infrastructure', 'Cloud Adoption'],
+    description: {
+      en: 'National webinar analyzing digital marketing channels, cloud tools, and tech-driven business adaptation during lockdowns.',
+      id: 'Webinar nasional strategi pemanfaatan platform digital, layanan cloud, dan otomatisasi alur kerja dalam membangun kemandirian bisnis.'
+    }
+  },
+  {
+    id: 'cert-12',
+    title: {
+      en: 'The Golden Ring: Russia\'s Nation Building',
+      id: 'The Golden Ring: Russia\'s Nation Building (Hubungan Internasional)'
+    },
+    issuer: 'Universitas Indonesia (Russkij Festival UI 2020)',
+    category: 'seminar',
+    role: {
+      en: 'Participant (International Relations Webinar)',
+      id: 'Peserta Webinar Budaya & Hubungan Internasional'
+    },
+    date: '13 November 2020',
+    credentialId: 'UI-FESTIVAL-RUSIA-2020',
+    documentUrl: '/certificates/cert-12-webinar-russia-ui-2020.png',
+    thumbnailUrl: '/certificates/cert-12-webinar-russia-ui-2020.webp',
+    skills: ['International Relations', 'Governance', 'Global Perspective'],
+    description: {
+      en: 'Webinar hosted by Universitas Indonesia examining historical infrastructure, diplomacy, and nation-building governance.',
+      id: 'Webinar internasional Universitas Indonesia mengenai sejarah arsitektur peradaban, diplomasi, dan tata kelola pembangunan bangsa.'
+    }
+  }
+];
+

@@ -48,6 +48,20 @@ export interface Organization {
   organization: string;
 }
 
+export interface Certificate {
+  id: string;
+  title: { en: string; id: string };
+  issuer: string;
+  category: 'publication' | 'technical' | 'speaker' | 'leadership' | 'seminar';
+  role: { en: string; id: string };
+  date: string;
+  credentialId?: string;
+  documentUrl: string;
+  thumbnailUrl: string;
+  skills: string[];
+  description: { en: string; id: string };
+}
+
 export interface ContactMessage {
   id: string;
   name: string;
@@ -62,12 +76,15 @@ export interface Translation {
   navExperience: string;
   navProjects: string;
   navLiveSites: string;
+  navCertificates: string;
   navContact: string;
   aboutTitle: string;
   skillsTitle: string;
   experienceTitle: string;
   projectsTitle: string;
   liveSitesTitle: string;
+  certificatesTitle: string;
+  certificatesSubtitle: string;
   contactTitle: string;
   downloadButton: string;
   downloading: string;

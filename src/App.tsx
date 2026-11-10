@@ -12,6 +12,7 @@ import SkillsGrid from './components/SkillsGrid';
 import AboutBento from './components/AboutBento';
 import LiveProjects from './components/LiveProjects';
 import EducationExperience from './components/EducationExperience';
+import CertificatesSection from './components/CertificatesSection';
 import ContactForm from './components/ContactForm';
 import PrintableCV from './components/PrintableCV';
 import Login from './components/Login';
@@ -184,7 +185,14 @@ export default function App() {
           searchQuery={searchQuery}
         />
 
-        {/* 9. Contact Form & Footer Banner (LET'S MAKE SOMETHING ROBUST!) */}
+        {/* 9. Licenses & Formal Certifications Showcase */}
+        <CertificatesSection
+          currentLang={currentLang}
+          translations={translations}
+          searchQuery={searchQuery}
+        />
+
+        {/* 10. Contact Form & Footer Banner (LET'S MAKE SOMETHING ROBUST!) */}
         <ContactForm
           currentLang={currentLang}
           translations={translations}

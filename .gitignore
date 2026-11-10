@@ -12,3 +12,5 @@ supabase/
 
 .vercel
 .env*
+*.zip
+Sertifikat/
